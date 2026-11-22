@@ -119,6 +119,7 @@ def plan_a2(total=TOTAL):
 
 
 CANAL = "https://www.youtube.com/@priscillaubillasoriano"
+GUIA_PDF = "https://github.com/ubillapriscilla-maker/pb-x7k2m/raw/main/gratis/20_ritmos_bateria_tablatura.pdf"
 GANCHOS = [
     "Este ritmo de {e} suena pro y es {adj}: {v} a {b} BPM",
     "¿Te sale este ritmo de {e}? {v} a {b} BPM (nivel {adj})",
@@ -151,6 +152,7 @@ def meta_gancho(c):
         "Es parte de un curso de batería para principiantes. Sigue la serie para ir subiendo de nivel.\n"
         "Practica más tiempo con los videos largos (play along y canciones para tocar encima): " + CANAL + "/videos\n"
         "Listas por nivel: " + CANAL + "/playlists")
+    m['descripcion'] = 'Descarga GRATIS la guía en PDF con 20 ritmos y su tablatura: ' + GUIA_PDF + '\n\n' + m['descripcion']
     tags = m['tags'] if isinstance(m['tags'], list) else m['tags'].split(',')
     m['tags'] = [x for x in tags if '+' not in x] + [e.lower(), f"ritmo de {e.lower()}", var]
     return m
