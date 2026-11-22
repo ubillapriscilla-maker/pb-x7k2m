@@ -118,12 +118,50 @@ def plan_a2(total=TOTAL):
     return out
 
 
+CANAL = "https://www.youtube.com/@priscillaubillasoriano"
+GANCHOS = [
+    "Este ritmo de {e} suena pro y es {adj}: {v} a {b} BPM",
+    "¿Te sale este ritmo de {e}? {v} a {b} BPM (nivel {adj})",
+    "El cambio que hace sonar mejor tu {e}: {v} | nivel {adj}, {b} BPM",
+    "Ritmo de {e} con {v} a {b} BPM: tócalo conmigo (nivel {adj})",
+    "Prueba este ritmo de {e} a {b} BPM: {v} (nivel {adj})",
+    "Así suena el {e} con {v} | Batería nivel {adj}, {b} BPM",
+]
+
+
+def meta_gancho(c):
+    m = D.meta(c)
+    v = VARS.get(c['estilo'])
+    adj = {1: "fácil", 2: "básico", 3: "intermedio", 4: "avanzado", 5: "experto"}[c['nivel']]
+    if not v:
+        return m
+    e = D.ESTILOS[v['base']]['nombre']
+    e = e[0].lower() + e[1:] if not e.split()[0].isupper() else e
+    var = v['corto'].replace('en el ride', 'ride')
+    t = None
+    for k in range(len(GANCHOS)):
+        cand = GANCHOS[(c['dia'] + k) % len(GANCHOS)].format(e=e, v=var, b=c['bpm'], adj=adj)
+        if len(cand) <= 91: t = cand + " #shorts"; break
+        if len(cand) <= 100: t = cand; break
+    if t is None:
+        t = f"Ritmo de {e} a {c['bpm']} BPM (nivel {adj})"
+    m['titulo'] = t
+    m['descripcion'] = m['descripcion'].replace(
+        "Es parte de un curso de batería para principiantes. Sigue la serie para ir subiendo de nivel.",
+        "Es parte de un curso de batería para principiantes. Sigue la serie para ir subiendo de nivel.\n"
+        "Practica más tiempo con los videos largos (play along y canciones para tocar encima): " + CANAL + "/videos\n"
+        "Listas por nivel: " + CANAL + "/playlists")
+    tags = m['tags'] if isinstance(m['tags'], list) else m['tags'].split(',')
+    m['tags'] = [x for x in tags if '+' not in x] + [e.lower(), f"ritmo de {e.lower()}", var]
+    return m
+
+
 def archivo(c):
     return f"dia{c['dia']:03d}_{c['estilo'].replace('__', '_v_')}_{c['bpm']}bpm.mp4"
 
 
 def fila(c):
-    m = D.meta(c)
+    m = meta_gancho(c)
     t = m['titulo']
     for a, b in ((' | Cómo tocar batería #shorts', ' #shorts'), ('Ritmo de batería ', 'Ritmo ')):
         if len(t) > 100: t = t.replace(a, b)
