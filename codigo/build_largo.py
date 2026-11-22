@@ -5,9 +5,9 @@ from multiprocessing import Pool
 from PIL import Image, ImageDraw, ImageFont
 
 def job(a):
-    est, bpm, rel, tema, niv, i, mus, tono = a
+    est, bpm, rel, tema, niv, i, mus, tono, dg, pd, sub, bars = a
     f = f'/home/claude/shorts/tmp_largo/s{i}.mp4'
-    tot, wav = L.seg(est, bpm, rel, tema, niv, 8, f, musica=mus, tono=tono)
+    tot, wav = L.seg(est, bpm, rel, tema, niv, bars, f, musica=mus, tono=tono, drums_gain=dg, pd=pd, sub=sub)
     return i, f, wav, tot
 
 def concat_wavs(paths, out):
@@ -17,8 +17,8 @@ def concat_wavs(paths, out):
         w = wave.open(p); o.writeframes(w.readframes(w.getnframes())); w.close()
     o.close()
 
-def construir(nombre, estilo, bpms, relleno, tema, nivel, seg_seg=120, musica=True, tono=0):
-    args = [(estilo, b, relleno, tema, nivel, i, musica, tono) for i, b in enumerate(bpms)]
+def construir(nombre, estilo, bpms, relleno, tema, nivel, seg_seg=120, musica=True, tono=0, drums_gain=0.85, pd=None, sub='Toca junto con el video', bars=8):
+    args = [(estilo, b, relleno, tema, nivel, i, musica, tono, drums_gain, pd, sub, bars) for i, b in enumerate(bpms)]
     with Pool(2) as p: res = sorted(p.map(job, args))
     lista, wavs, caps, t = [], [], [], 0.0
     for (i, f, wav, tot), b in zip(res, bpms):

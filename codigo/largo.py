@@ -6,7 +6,7 @@ import numpy as np
 W, H, FPS = 1920, 1080, 30
 BOLD = D.BOLD
 
-def seg(estilo, bpm, relleno, tema_n, nivel, bars, salida, fotograma=None, musica=False, tono=0):
+def seg(estilo, bpm, relleno, tema_n, nivel, bars, salida, fotograma=None, musica=False, tono=0, drums_gain=0.85, pd=None, sub='Toca junto con el video'):
     tema = D.TEMAS[tema_n]
     bar_dur = 4 * 60.0 / bpm
     ev, step = D.build_events(estilo, bpm, relleno, bars)
@@ -14,12 +14,12 @@ def seg(estilo, bpm, relleno, tema_n, nivel, bars, salida, fotograma=None, music
     wav = salida + '.wav'; D.audio(ev, total, wav)
     if musica:
         import cancion
-        cancion.agregar_musica(wav, ev, bpm, bars, D.RELLENOS[relleno]['inicio'] if relleno != 'ninguno' else None, tono)
+        cancion.agregar_musica(wav, ev, bpm, bars, D.RELLENOS[relleno]['inicio'] if relleno != 'ninguno' else None, tono, drums_gain=drums_gain, pd=pd)
     usadas = [v for v in D.ORDER if any(e[1] == v for e in ev)]
     col = {v: tema['cols'][D.ORDER.index(v)] for v in D.ORDER}
     f_xs = ImageFont.truetype(BOLD, 30); f_sm = ImageFont.truetype(BOLD, 38)
     f_t = ImageFont.truetype(BOLD, 76); f_b = ImageFont.truetype(BOLD, 120)
-    titulo = D.ESTILOS[estilo]['nombre']
+    titulo = D.ESTILOS_TODOS[estilo]['nombre']
     bg = D.fondo(tema).resize((W, H))
     labels16 = ["1","e","y","e","2","e","y","e","3","e","y","e","4","e","y","e"]
     nrows = len(usadas); evs = sorted(ev)
@@ -38,7 +38,7 @@ def seg(estilo, bpm, relleno, tema_n, nivel, bars, salida, fotograma=None, music
         d.text((60, 85), titulo, font=f_t, fill=tema['txt'])
         bw = d.textlength(f"{bpm} BPM", font=f_b)
         d.text((W - 60 - bw, 40), f"{bpm} BPM", font=f_b, fill=tema['acc'])
-        d.text((60, 175), "Toca junto con el video", font=f_sm, fill=tema['mut'])
+        d.text((60, 175), sub, font=f_sm, fill=tema['mut'])
         par = (b // 2) * 2
         for k2 in range(2):
             bb = par + k2

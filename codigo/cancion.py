@@ -3,6 +3,7 @@ import numpy as np
 SR = 44100
 PROG = [("C", [261.63, 329.63, 392.00], 130.81), ("G", [196.00, 246.94, 293.66], 98.00),
         ("Am", [220.00, 261.63, 329.63], 110.00), ("F", [174.61, 220.00, 261.63], 87.31)]
+ACORDES = {"C": PROG[0], "G": PROG[1], "Am": PROG[2], "F": PROG[3]}
 PENTA = [523.25, 587.33, 659.25, 783.99, 880.00]
 
 def _add(mix, s, t0):
@@ -24,15 +25,25 @@ def _pluck(f, dur):
     n = int(dur * SR); t = np.arange(n) / SR
     return (np.sin(2*np.pi*f*t) + 0.4*np.sin(2*np.pi*2*f*t) + 0.2*np.sin(2*np.pi*3*f*t)) * np.exp(-t * 6) * np.minimum(1, t / 0.004)
 
-def agregar_musica(path, ev, bpm, bars, relleno_inicio=None, tono=0, semilla=7):
+def agregar_musica(path, ev, bpm, bars, relleno_inicio=None, tono=0, semilla=7, drums_gain=0.85, pd=None):
     """Suma acordes, bajo (sigue al bombo) y melodia simple sobre el audio de bateria. Loop continuo."""
     w = wave.open(path); n = w.getnframes(); drums = np.frombuffer(w.readframes(n), dtype=np.int16).astype(float) / 32767; w.close()
     k = 2 ** (tono / 12.0); step = 60.0 / bpm / 4; bar = 16 * step
     pad = np.zeros(n); bass = np.zeros(n); mel = np.zeros(n)
     rng = np.random.default_rng(semilla)
     motivos = [[int(x) for x in rng.integers(0, 5, 4)] for _ in range(4)]
+    raices = {}
     for b in range(bars):
+        if pd:
+            nombre, acorde, raiz = ACORDES[pd["acordes"][b % len(pd["acordes"])]]
+            raices[b] = raiz
+            _add(pad, _pad([f * k for f in acorde], bar + 0.2), b * bar)
+            for (bb, st, dur, hz) in pd["notas"]:
+                if bb == b % pd["compases"]:
+                    _add(mel, _pluck(hz * k, step * max(2, dur) * 0.95), (b * 16 + st) * step)
+            continue
         nombre, acorde, raiz = PROG[b % 4]
+        raices[b] = raiz
         _add(pad, _pad([f * k for f in acorde], bar + 0.2), b * bar)
         mot = motivos[(b // 4 * 2 + b % 4) % 4] if (b // 4) % 2 else motivos[b % 4]
         for j, st in enumerate((0, 4, 8, 12)):
@@ -43,9 +54,14 @@ def agregar_musica(path, ev, bpm, bars, relleno_inicio=None, tono=0, semilla=7):
     for (t, voz, g, *_r) in ev:
         if voz == "kick":
             b = int(t // bar) % bars
-            _add(bass, _bass(PROG[b % 4][2] * k, step * 3), t)
+            _add(bass, _bass(raices.get(b, PROG[b % 4][2]) * k, step * 3), t)
+    if drums_gain == 0:  # play-along: clic suave en cada negra para que el baterista mantenga el pulso
+        t_c = np.arange(int(0.03 * SR)) / SR
+        clic = np.sin(2 * np.pi * 1600 * t_c) * np.exp(-t_c * 140)
+        for q in range(bars * 4):
+            _add(bass, clic * (1.3 if q % 4 == 0 else 0.8), q * 4 * step)
     music = pad * 0.16 + bass * 0.55 + mel * 0.14
-    mix = drums * 0.85 + music
+    mix = drums * drums_gain + music
     mix = np.tanh(mix * 1.1); mix = mix / max(1e-9, np.abs(mix).max()) * 0.9
     with wave.open(path, "wb") as o:
         o.setnchannels(1); o.setsampwidth(2); o.setframerate(SR)

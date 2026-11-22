@@ -62,6 +62,31 @@ ESTILOS = {
         ride="x-x-x-x-x-x-x-x-", snare="-x-x-x-x-x-x-x-x", kick="x-x-x-x-x-x-x-x-")),
 }
 
+# ---------------------------------------------------------------- serie B: generos nuevos y rudimentos (manos en la caja)
+GENEROS_B = {
+    "ska": dict(nombre="Ska", nivel=2, bpm=(80, 120), hits=pat(
+        hat="--x---x---x---x-", snare="----x-------x---", kick="x-------x-------")),
+    "motown": dict(nombre="Motown", nivel=2, bpm=(80, 120), hits=pat(
+        hat="x-x-x-x-x-x-x-x-", snare="x---x---x---x---", kick="x--x--x-x--x--x-")),
+    "reggaeton": dict(nombre="Reggaetón (dembow)", nivel=3, bpm=(80, 100), hits=pat(
+        hat="x-x-x-x-x-x-x-x-", snare="---x--x----x--x-", kick="x---x---x---x---")),
+    "bossa_nova": dict(nombre="Bossa nova", nivel=4, bpm=(70, 110), hits=pat(
+        hat="x-x-x-x-x-x-x-x-", snare="x--x--x---x--x--", kick="x-----x-x-----x-")),
+}
+RUDIMENTOS_B = {
+    "rud_simple": dict(nombre="Golpe simple (RLRL)", nivel=2, bpm=(60, 120), manos="RLRLRLRLRLRLRLRL", hits=pat(snare="xxxxxxxxxxxxxxxx")),
+    "rud_doble": dict(nombre="Golpe doble (RRLL)", nivel=3, bpm=(60, 110), manos="RRLLRRLLRRLLRRLL", hits=pat(snare="xxxxxxxxxxxxxxxx")),
+    "rud_paradiddle": dict(nombre="Paradiddle (RLRR LRLL)", nivel=3, bpm=(60, 110), manos="RLRRLRLLRLRRLRLL", hits=pat(snare="xxxxxxxxxxxxxxxx")),
+    "rud_paradiddle_inv": dict(nombre="Paradiddle invertido (RLLR LRRL)", nivel=4, bpm=(60, 110), manos="RLLRLRRLRLLRLRRL", hits=pat(snare="xxxxxxxxxxxxxxxx")),
+    "rud_simple_bombo": dict(nombre="Golpe simple con bombo", nivel=3, bpm=(60, 110), manos="RLRLRLRLRLRLRLRL", hits=pat(
+        snare="xxxxxxxxxxxxxxxx", kick="x---x---x---x---")),
+    "rud_paradiddle_bombo": dict(nombre="Paradiddle con bombo", nivel=4, bpm=(60, 105), manos="RLRRLRLLRLRRLRLL", hits=pat(
+        snare="xxxxxxxxxxxxxxxx", kick="x-------x-------")),
+    "rud_doble_bombo": dict(nombre="Golpe doble con bombo", nivel=4, bpm=(60, 100), manos="RRLLRRLLRRLLRRLL", hits=pat(
+        snare="xxxxxxxxxxxxxxxx", kick="x---x---x---x---")),
+}
+ESTILOS_TODOS = {**ESTILOS, **GENEROS_B, **RUDIMENTOS_B}  # ESTILOS queda intacto: el plan de 180 y la tabla de largos no cambian
+
 # ---------------------------------------------------------------- rellenos (pasos finales del compas)
 RELLENOS = {
     "ninguno": dict(nombre="", inicio=16, hits=pat(), stick=""),
@@ -73,6 +98,11 @@ RELLENOS = {
                             stick="RLRR"),
     "redoble_toms": dict(nombre="Redoble que baja por los toms", inicio=8, hits=pat(snare="xxxx----", t1="----xx--", t2="------x-", t3="-------x"),
                          stick="RLRL"),
+    "redoble_tom1": dict(nombre="Redoble en el tom 1", inicio=12, hits=pat(t1="xxxx"), stick="RLRL", manos_todas=True),
+    "redoble_dos_toms": dict(nombre="Redoble del tom 1 al tom 2", inicio=8, hits=pat(t1="xxxx----", t2="----xxxx"),
+                             stick="RLRLRLRL", manos_todas=True),
+    "redoble_caja_tom": dict(nombre="Redoble de la caja al tom piso", inicio=8, hits=pat(snare="xxxx----", t3="----xxxx"),
+                             stick="RLRLRLRL", manos_todas=True),
 }
 
 # ---------------------------------------------------------------- temas visuales
@@ -143,7 +173,7 @@ VOICES = {"kick": (s_kick, .35, .55), "snare": (s_snare, .3, .5), "hat": (s_hat,
 
 # ---------------------------------------------------------------- construccion del video (eventos)
 def build_events(estilo, bpm, relleno, bars):
-    st = ESTILOS[estilo]; rl = RELLENOS[relleno]
+    st = ESTILOS_TODOS[estilo]; rl = RELLENOS[relleno]
     step = 60.0 / bpm / 4
     ev = []  # (tiempo, voz, ganancia, paso, compas, mano)
     for b in range(bars):
@@ -156,12 +186,13 @@ def build_events(estilo, bpm, relleno, bars):
                 if es_relleno and i >= rl["inicio"] and voz != "crash":
                     continue
                 g = 1.0 if i % 4 == 0 else (0.8 if i % 2 == 0 else 0.6) if voz in ("hat", "ride") else 1.0
-                ev.append((((b * 16) + i) * step, voz, g, i, b, ""))
+                mano0 = st["manos"][i] if voz == "snare" and st.get("manos") else ""
+                ev.append((((b * 16) + i) * step, voz, g, i, b, mano0))
         if es_relleno:
             for voz, s in rl["hits"].items():
                 for j, ch in enumerate(s):
                     if ch != "-":
-                        mano = rl["stick"][j] if voz == "snare" and j < len(rl["stick"]) else ""
+                        mano = rl["stick"][j] if (voz == "snare" or rl.get("manos_todas")) and j < len(rl["stick"]) else ""
                         if relleno in ("paradiddle_toms", "redoble_toms") and voz != "snare":
                             mano = ""
                         ev.append((((b * 16) + rl["inicio"] + j) * step, voz, 1.0, rl["inicio"] + j, b, mano))
@@ -197,7 +228,7 @@ HOOKS = {1: ("TU PRIMER RITMO", "Fácil: toca conmigo"), 2: ("SUENA A CANCIÓN",
 
 def _hook(d, fr, cfg, tema, titulo, bpm, t, f_big, f_sm, f_xs):
     """Portada animada de los primeros segundos: promesa clara. No toca audio ni duracion."""
-    a, b = HOOKS[cfg["nivel"]]
+    a, b = cfg.get("hook") or HOOKS[cfg["nivel"]]
     off = int(max(0, 1 - t / 0.25) ** 2 * 120)  # entra desde arriba en 0.25 s
     f_h = ImageFont.truetype(BOLD, 96 if len(a) < 16 else 84)
     d.rectangle([0, 0, W, 470], fill=tema["bg"] if "bg" in tema else tema["top"])
@@ -227,7 +258,7 @@ def render(cfg, salida):
     usadas = [v for v in ORDER if any(e[1] == v for e in ev)]
     col = {v: tema["cols"][ORDER.index(v)] for v in ORDER}
     f_xs = ImageFont.truetype(BOLD, 34); f_sm = ImageFont.truetype(BOLD, 42); f_md = ImageFont.truetype(BOLD, 54)
-    titulo = ESTILOS[estilo]["nombre"]
+    titulo = ESTILOS_TODOS[estilo]["nombre"]
     f_big = ImageFont.truetype(BOLD, 78 if len(titulo) < 18 else 62 if len(titulo) < 26 else 52)
     bg = fondo(tema)
     nfr = int(round(total * FPS))
