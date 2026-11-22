@@ -4,6 +4,8 @@ import sys, os
 from PIL import Image, ImageDraw, ImageFont
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import drumlib as D
+from partitura import partitura
+import tempfile
 
 W, H = 1240, 1754           # A4 a 150 dpi
 M = 90
@@ -71,6 +73,17 @@ def tab(d, x0, y0, w, hits):
     return ty + rh * len(voces) + 10
 
 
+def score(d, im, x0, y0, hits, alto=None, ancho=W - 2 * M - 210, maxalto=250):
+    from PIL import ImageChops
+    f = tempfile.mktemp(suffix='.png'); partitura(hits, f)
+    s = Image.open(f).convert('RGB'); k = min(ancho / s.width, maxalto / s.height)
+    s = s.resize((int(s.width * k), int(s.height * k)), Image.LANCZOS)
+    s = ImageChops.multiply(s, Image.new('RGB', s.size, T['top']))
+    im.paste(s, (x0 + 210, y0))
+    d.text((x0, y0 + s.height // 2 - 16), 'Partitura', font=F(28), fill=MUT)
+    return y0 + s.height
+
+
 def portada(n):
     im, d = fondo()
     d.text((M, 260), 'BATERÍA DESDE CERO', font=F(44), fill=ACC)
@@ -99,14 +112,22 @@ def como_leer(n):
               '"1 e y e  2 e y e  3 e y e  4 e y e" (16 espacios en un compás).',
               'Un círculo significa: golpea esa parte en ese momento.',
               'Si hay dos círculos en la misma columna, se tocan juntos.']:
-        d.text((M, y), t, font=F(30, False), fill=TXT); y += 56
-    d.text((M, y + 30), 'Ejemplo: rock básico', font=F(36), fill=ACC)
-    yb = tab(d, M, y + 100, W - 2 * M, D.ESTILOS['rock_basico']['hits'])
-    y = yb + 50
+        d.text((M, y), t, font=F(29, False), fill=TXT); y += 48
+    d.text((M, y + 20), 'Ejemplo: rock básico', font=F(36), fill=ACC)
+    ys = score(d, im, M, y + 70, D.ESTILOS['rock_basico']['hits'], maxalto=200)
+    yb = tab(d, M, ys + 20, W - 2 * M, D.ESTILOS['rock_basico']['hits'])
+    y = yb + 40
     for t in ['Hi-hat en todos los "1, y, 2, y...": ocho golpes por compás (corcheas).',
               'Caja en el 2 y en el 4.', 'Bombo en el 1 y en el 3.',
               'Empieza a 60 BPM. Cuando te salga 4 veces seguidas sin error, sube a 65.']:
-        d.text((M, y), '- ' + t, font=F(30, False), fill=TXT); y += 54
+        d.text((M, y), '- ' + t, font=F(28, False), fill=TXT); y += 46
+    d.text((M, y + 15), 'Cómo leer la partitura', font=F(36), fill=ACC); y += 75
+    for t in ['La cruz arriba es el hi-hat (con una "o" encima: hi-hat abierto).',
+              'La nota en el centro del pentagrama es la caja; la de abajo, el bombo.',
+              'Plicas hacia arriba: manos. Plicas hacia abajo: pie.',
+              'Negra = 1 tiempo. Corchea (una barra) = medio tiempo.',
+              'Semicorchea (dos barras) = un cuarto de tiempo.', 'El símbolo en zigzag es un silencio: ahí no se toca.']:
+        d.text((M, y), '- ' + t, font=F(27, False), fill=TXT); y += 44
     pie(d, n); return im
 
 
@@ -114,16 +135,17 @@ def paginas():
     est = sorted([k for k in D.ESTILOS if '__' not in k], key=lambda k: (D.ESTILOS[k]['nivel'], list(D.ESTILOS).index(k)))
     pags = [portada(1), como_leer(2)]
     for i in range(0, len(est), 2):
-        im, d = fondo(); y = 120
+        im, d = fondo(); y = 90
         for k in est[i:i + 2]:
             st = D.ESTILOS[k]; num = est.index(k) + 1
             d.text((M, y), f'{num:02d}', font=F(64), fill=ACC)
             d.text((M + 110, y + 4), st['nombre'], font=F(46), fill=TXT)
             lo = max(60, st['bpm'][0])
             d.text((M + 110, y + 66), f"Nivel {NIVEL[st['nivel']].lower()}  ·  empieza a {lo} BPM", font=F(28, False), fill=MUT)
-            yb = tab(d, M, y + 140, W - 2 * M, st['hits'])
-            d.text((M, yb + 20), CONSEJO.get(k, ''), font=F(28, False), fill=TXT)
-            y = yb + 150
+            ys = score(d, im, M, y + 115, st['hits'])
+            yb = tab(d, M, ys + 10, W - 2 * M, st['hits'])
+            d.text((M, yb + 15), CONSEJO.get(k, ''), font=F(28, False), fill=TXT)
+            y = yb + 110
         pie(d, len(pags) + 1); pags.append(im)
     return pags
 
