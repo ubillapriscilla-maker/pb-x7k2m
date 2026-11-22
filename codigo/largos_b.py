@@ -40,7 +40,7 @@ def generar(n):
         nombre = f"lb{n:02d}_playalong_{est}_{bpms[0]}_a_{bpms[-1]}bpm"
         out, caps, t = B.construir(nombre, est, bpms, 'ninguno', d['tema'], niv, tono=d['tono'], drums_gain=0.0, sub='Sin batería: la tocas tú, con clic', bars=8)
         B.miniatura(nombre, 'TOCA TU BATERÍA\nSIN BATERÍA', f"{nm}  ·  {bpms[0]} a {bpms[-1]} BPM", d['tema'])
-        titulo = f"Play along de batería sin batería: ritmo de {nm.lower()} de {bpms[0]} a {bpms[-1]} BPM | Toca tú encima"
+        titulo = f"Play along de batería sin batería: ritmo de {nm.lower()} de {bpms[0]} a {bpms[-1]} BPM | Toca encima"
         intro = (f"Play along para bateristas: una canción hecha para estudiar SIN la batería, para que la toques tú encima. Suena un clic suave en cada tiempo.\n"
                  f"Sigue en pantalla la tablatura del ritmo de {nm.lower()} (nivel {ADJ[niv]}) y tócalo junto con el video.\n")
         tags = ["play along batería", "play along para bateristas", "toca batería sin batería", "backing track batería", "práctica de batería",
