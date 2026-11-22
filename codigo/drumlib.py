@@ -453,7 +453,7 @@ def meta(c):
             + (f"Incluye un relleno cada 4 compases: {rl['nombre'].lower()}.\n" if c["relleno"] != "ninguno" else "Ritmo constante, ideal para ganar control y tiempo.\n")
             + "Mira la tablatura de izquierda a derecha, deja el video en repetición y toca junto con él. "
               "Cuando te salga limpio, sube 5 BPM.\n"
-              "Es parte de un curso de batería para principiantes, de fácil a difícil. Sigue la serie para ir subiendo de nivel.\n"
+              "Es parte de un curso de batería para principiantes. Sigue la serie para ir subiendo de nivel.\n"
               "El sonido de la batería es sintético, hecho para estudiar.\n\n"
               "#shorts #batería #bateria #comotocarbateria #aprenderbatería #ritmosdebatería")
     tags = ["cómo tocar batería", "como tocar bateria", "batería para principiantes", "ritmos de batería para principiantes",

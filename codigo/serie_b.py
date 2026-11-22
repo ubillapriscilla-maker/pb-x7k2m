@@ -45,7 +45,7 @@ def meta_b(c):
     st = D.ESTILOS_TODOS[c["estilo"]]; rl = D.RELLENOS[c["relleno"]]; bpm = c["bpm"]
     pie = ("#shorts #batería #bateria #comotocarbateria #aprenderbatería")
     cierre = ("Mira la tablatura de izquierda a derecha, deja el video en repetición y toca junto con él. Cuando te salga limpio, sube 5 BPM.\n"
-              "Es parte de un curso de batería para principiantes, de fácil a difícil. El sonido de la batería es sintético, hecho para estudiar.\n\n")
+              "Es parte de un curso de batería para principiantes. El sonido de la batería es sintético, hecho para estudiar.\n\n")
     if c["tipo"] == "rud":
         titulo = f"Rudimento de batería: {st['nombre']} a {bpm} BPM | Cómo tocar batería #shorts"
         desc = (f"Rudimento de batería a {bpm} BPM: {st['nombre']}. Las letras R y L indican qué mano toca cada golpe (R derecha, L izquierda).\n"

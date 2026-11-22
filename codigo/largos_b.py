@@ -61,7 +61,7 @@ def generar(n):
         tag_h = "#batería #bateria #canciones #comotocarbateria #practicabatería"
     cap = '\n'.join(f"{mmss(c0[0])} {c0[1]} BPM" for c0 in caps)
     desc = (intro + f"Empieza a {bpms[0]} BPM y sube de 5 en 5 hasta {bpms[-1]} BPM. Cuando te salga limpio, pasa a la siguiente velocidad.\n\n"
-            f"Capítulos:\n{cap}\n\nEs parte de un curso de batería de fácil a difícil.\n\n" + tag_h)
+            f"Capítulos:\n{cap}\n\nEs parte de un curso de batería para principiantes.\n\n" + tag_h)
     assert len(titulo) <= 100, (len(titulo), titulo)
     info = dict(n=n, archivo=os.path.basename(out), miniatura=nombre + '.png', titulo=titulo, descripcion=desc, duracion=round(t, 1), tags=tags)
     json.dump(info, open(f'{OUT}/info_{n:02d}.json', 'w'), ensure_ascii=False, indent=1)

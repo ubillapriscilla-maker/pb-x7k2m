@@ -16,7 +16,7 @@ def generar(n):
     desc = (f"Práctica de batería: ritmo {ADJ[niv]} de {nm.lower()}, con una canción hecha para estudiar.\n"
             f"Mira la tablatura de izquierda a derecha y toca junto con el video. Cada 4 compases hay un relleno: {rl}.\n"
             f"Empieza a {bpms[0]} BPM y sube de 5 en 5 hasta {bpms[-1]} BPM. Cuando te salga limpio, pasa a la siguiente velocidad.\n\n"
-            f"Capítulos:\n{cap}\n\nEs parte de un curso de batería de fácil a difícil. El sonido de la batería y la música son sintéticos, hechos para estudiar.\n\n"
+            f"Capítulos:\n{cap}\n\nEs parte de un curso de batería para principiantes. El sonido de la batería y la música son sintéticos, hechos para estudiar.\n\n"
             "#batería #comotocarbateria #aprenderbatería #ritmosdebatería #practicabatería")
     info = dict(n=n, archivo=os.path.basename(out), miniatura=nombre + '.png', titulo=titulo, descripcion=desc, duracion=round(t, 1),
                 tags=["cómo tocar batería", "ritmos de batería para principiantes", "batería para principiantes", "práctica de batería", "aprender batería", nm.lower(), f"{bpms[0]} bpm"])
