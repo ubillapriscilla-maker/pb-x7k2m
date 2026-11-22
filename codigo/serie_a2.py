@@ -1,0 +1,155 @@
+"""Serie A v2: Shorts con VARIACIONES de bombo, caja y hi-hat dentro de cada estilo, segun nivel.
+Cada variacion sale una vez; un mismo estilo no vuelve hasta varios Shorts despues y, cuando vuelve,
+su BPM difiere al menos 20 del anterior.
+Uso:
+  python3 serie_a2.py plan          -> reescribe filas n>=5 de plan/titulos_shorts.csv (no toca n<=4)
+  python3 serie_a2.py N1 N2 ...     -> renderiza esos n en $OUT_A2 (por defecto /home/claude/shorts/serie_a2)"""
+import sys, os, csv, copy
+AQUI = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, AQUI)
+import drumlib as D
+
+OUT = os.environ.get('OUT_A2', '/home/claude/shorts/serie_a2')
+ULT = 4      # n <= 4 ya publicados o fijos
+TOTAL = 180
+SEP = 4      # un estilo no se repite dentro de los ultimos SEP Shorts
+
+
+def _set(p, pasos, c='x'):
+    p = list(p)
+    for i in pasos: p[i] = c
+    return ''.join(p)
+
+
+def _quita(p, pasos):
+    return _set(p, pasos, '-')
+
+
+# (clave, etiqueta corta, voz, sube nivel, nivel minimo, funcion sobre hits)
+MODS = [
+    ('h4', 'hi-hat en negras', 'H', 0, 1, lambda h: {**h, 'hat': 'x---x---x---x---'}),
+    ('hab', 'hi-hat abierto en el y del 4', 'H', 0, 2,
+     lambda h: {**h, 'hat': _quita(h['hat'], [14]), 'ohat': _set(h.get('ohat', '-' * 16), [14])}),
+    ('ride', 'en el ride', 'H', 0, 2, lambda h: {**{k: v for k, v in h.items() if k != 'hat'}, 'ride': h['hat']}),
+    ('h16', 'hi-hat en semicorcheas', 'H', 1, 2, lambda h: {**h, 'hat': 'x' * 16}),
+    ('ky2', 'bombo en el y del 2', 'K', 0, 1, lambda h: {**h, 'kick': _set(h['kick'], [6])}),
+    ('ky3', 'bombo en el y del 3', 'K', 0, 1, lambda h: {**h, 'kick': _set(h['kick'], [10])}),
+    ('ky4', 'bombo en el y del 4', 'K', 0, 1, lambda h: {**h, 'kick': _set(h['kick'], [14])}),
+    ('ke3', 'bombo en la e del 3', 'K', 1, 2, lambda h: {**h, 'kick': _set(h['kick'], [9])}),
+    ('ka4', 'bombo en el a del 4', 'K', 1, 3, lambda h: {**h, 'kick': _set(h['kick'], [15])}),
+    ('sy4', 'caja extra en el y del 4', 'S', 0, 2, lambda h: {**h, 'snare': _set(h['snare'], [14])}),
+    ('sa4', 'caja extra en el a del 4', 'S', 1, 3, lambda h: {**h, 'snare': _set(h['snare'], [15])}),
+]
+# Voces que NO se tocan en cada estilo (son su identidad)
+FIJAS = {
+    'bombo_y_caja': 'H', 'hat_negras': 'H', 'rock_16avos': 'H', 'funk_16avos': 'H', 'disco': 'HK',
+    'pop_4_al_piso': 'K', 'reggae_one_drop': 'SK', 'blast_beat': 'HKS', 'metal_doble_bombo': 'K',
+    'doble_bombo_corto': 'K', 'metal_galope': 'K', 'funk_abierto': 'H', 'ride_rock': 'H',
+}
+
+
+def variantes(est):
+    base = D.ESTILOS[est]; fij = FIJAS.get(est, ''); h0 = base['hits']
+    ok = [m for m in MODS if m[2] not in fij and (m[2] != 'H' or 'hat' in h0)]
+    out, vistos = [], {repr(sorted(h0.items()))}
+    for a in range(len(ok)):
+        for b in [None] + list(range(a + 1, len(ok))):
+            ms = [ok[a]] + ([ok[b]] if b is not None else [])
+            if len({m[2] for m in ms}) < len(ms): continue          # una sola variacion por voz
+            h = copy.deepcopy(h0)
+            try:
+                for m in ms: h = m[5](h)
+            except KeyError:
+                continue
+            key = repr(sorted(h.items()))
+            if key in vistos: continue
+            vistos.add(key)
+            niv = min(5, max([base['nivel']] + [m[4] for m in ms]) + sum(m[3] for m in ms))
+            etiqueta = ' y '.join(m[1] for m in ms)
+            out.append(dict(clave=f"{est}__{'_'.join(m[0] for m in ms)}", base=est, nivel=niv, hits=h,
+                            nombre=f"{base['nombre']} + {' + '.join(m[1] for m in ms)}" if not etiqueta.startswith('en ') else f"{base['nombre']} {etiqueta}",
+                            corto=etiqueta, bpm=base['bpm']))
+    out.sort(key=lambda v: (v['nivel'], v['clave'].count('_')))
+    return out
+
+
+def registrar():
+    todas = {}
+    for est in list(D.ESTILOS):
+        if '__' in est: continue
+        for v in variantes(est):
+            e = dict(nombre=v['nombre'], nivel=v['nivel'], bpm=v['bpm'], hits=v['hits'])
+            D.ESTILOS[v['clave']] = e; D.ESTILOS_TODOS[v['clave']] = e; todas[v['clave']] = v
+    return todas
+
+
+VARS = registrar()
+
+
+def plan_a2(total=TOTAL):
+    porest = {}
+    for v in VARS.values(): porest.setdefault(v['base'], []).append(v)
+    for l in porest.values(): l.sort(key=lambda v: (v['nivel'], v['clave'].count('_'), v['clave']))
+    usadas, ult, ult_bpm, nvis, out = set(), {}, {}, {}, []
+    temas = list(D.TEMAS)
+    for n in range(ULT + 1, total + 1):
+        tope = min(5, 2 + (n - 1) // 40)      # el nivel maximo sube cada ~10 dias
+        recientes = [c['base'] for c in out[-SEP:]]
+        cands = []
+        for t in range(tope, 6):
+            for sep in (recientes, recientes[-1:]):
+                for est, l in porest.items():
+                    libres = [v for v in l if v['clave'] not in usadas and v['nivel'] <= t]
+                    if libres and est not in sep: cands.append((ult.get(est, -99), nvis.get(est, 0), est, libres[0]))
+                if cands: break
+            if cands: break
+        cands.sort(key=lambda t: (t[0], t[1], t[2]))
+        _, _, est, v = cands[0]
+        lo, hi = v['bpm']
+        pasos = list(range(max(60, lo), hi + 1, 5)) or [lo]
+        ant = ult_bpm.get(est)
+        lejos = [b for b in pasos if ant is None or abs(b - ant) >= 20] or [max(pasos, key=lambda b: abs(b - ant))]
+        bpm = lejos[0] if nvis.get(est, 0) % 2 == 0 else lejos[-1]
+        rels = D.ORDEN_REL[v['nivel']]
+        rel = rels[nvis.get(est, 0) % len(rels)]
+        usadas.add(v['clave']); ult[est] = n; ult_bpm[est] = bpm; nvis[est] = nvis.get(est, 0) + 1
+        out.append(dict(dia=n, nivel=v['nivel'], estilo=v['clave'], base=est, bpm=bpm, relleno=rel,
+                        tema=temas[n % len(temas)], diseno=D.DISENOS[0]))
+    return out
+
+
+def archivo(c):
+    return f"dia{c['dia']:03d}_{c['estilo'].replace('__', '_v_')}_{c['bpm']}bpm.mp4"
+
+
+def fila(c):
+    m = D.meta(c)
+    t = m['titulo']
+    for a, b in ((' | Cómo tocar batería #shorts', ' #shorts'), ('Ritmo de batería ', 'Ritmo ')):
+        if len(t) > 100: t = t.replace(a, b)
+    if len(t) > 100: t = t.replace(' #shorts', '')
+    m['titulo'] = t if len(t) <= 100 else t[:100].rsplit(' ', 1)[0]
+    tags = ','.join(m['tags']) if isinstance(m['tags'], list) else m['tags']
+    return [c['dia'], archivo(c), m['titulo'], m['descripcion'], tags]
+
+
+if __name__ == '__main__':
+    pl = {c['dia']: c for c in plan_a2()}
+    if sys.argv[1] == 'plan':
+        p = os.path.join(AQUI, '..', 'plan', 'titulos_shorts.csv')
+        rows = list(csv.reader(open(p, encoding='utf-8')))
+        body = [r for r in rows[1:] if int(r[0]) <= ULT] + [fila(pl[n]) for n in sorted(pl)]
+        with open(p, 'w', encoding='utf-8', newline='') as fh:
+            w = csv.writer(fh, quoting=csv.QUOTE_ALL); w.writerow(rows[0]); w.writerows(body)
+        print(len(body), 'filas')
+    else:
+        os.makedirs(OUT, exist_ok=True)
+        from multiprocessing import Pool
+        cs = [pl[int(a)] for a in sys.argv[1:] if int(a) in pl]
+
+        def work(c):
+            f = f"{OUT}/{archivo(c)}"
+            if not os.path.exists(f): D.render(c, f)
+            return f
+        with Pool(int(os.environ.get('NP', '4'))) as P:
+            for f in P.imap_unordered(work, cs): print(f, flush=True)

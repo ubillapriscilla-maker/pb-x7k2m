@@ -259,7 +259,16 @@ def render(cfg, salida):
     col = {v: tema["cols"][ORDER.index(v)] for v in ORDER}
     f_xs = ImageFont.truetype(BOLD, 34); f_sm = ImageFont.truetype(BOLD, 42); f_md = ImageFont.truetype(BOLD, 54)
     titulo = ESTILOS_TODOS[estilo]["nombre"]
+    variacion = ""
+    if " + " in titulo:
+        titulo, variacion = titulo.split(" + ", 1); variacion = "+ " + variacion
     f_big = ImageFont.truetype(BOLD, 78 if len(titulo) < 18 else 62 if len(titulo) < 26 else 52)
+    f_var = None
+    if variacion:
+        _d = ImageDraw.Draw(Image.new("RGB", (10, 10)))
+        for _s in range(42, 25, -2):
+            f_var = ImageFont.truetype(BOLD, _s)
+            if _d.textlength(variacion, font=f_var) <= W - 120: break
     bg = fondo(tema)
     nfr = int(round(total * FPS))
     p = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS),
@@ -281,14 +290,16 @@ def render(cfg, salida):
         fr = bg.copy(); d = ImageDraw.Draw(fr)
         d.text((60, 90), f"BATERÍA  ·  NIVEL {cfg['nivel']}", font=f_sm, fill=tema["acc"])
         d.text((60, 160), titulo, font=f_big, fill=tema["txt"])
-        d.text((60, 280), f"{bpm} BPM   |   Compás {b + 1} de {bars}", font=f_sm, fill=tema["mut"])
+        if variacion:
+            d.text((60, 245), variacion, font=f_var, fill=tema["acc"])
+        d.text((60, 300 if variacion else 280), f"{bpm} BPM   |   Compás {b + 1} de {bars}", font=f_sm, fill=tema["mut"])
         es_rel = relleno != "ninguno" and b % 4 == 3
         if relleno != "ninguno":
             proximo = (b % 4 == 3)
             txt = ("Relleno: " + rl["nombre"]) if proximo else ("Siguiente relleno: " + rl["nombre"])
-            d.text((60, 360), txt, font=f_xs, fill=tema["acc"] if proximo else tema["mut"])
+            d.text((60, 375 if variacion else 360), txt, font=f_xs, fill=tema["acc"] if proximo else tema["mut"])
         else:
-            d.text((60, 360), "Ritmo constante: repítelo sin parar", font=f_xs, fill=tema["mut"])
+            d.text((60, 375 if variacion else 360), "Ritmo constante: repítelo sin parar", font=f_xs, fill=tema["mut"])
         if cfg["diseno"] == "grilla":
             for s in range(16):
                 cx = gx0 + cell * s + cell / 2
