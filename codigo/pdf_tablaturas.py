@@ -73,7 +73,7 @@ def tab(d, x0, y0, w, hits):
     return ty + rh * len(voces) + 10
 
 
-def score(d, im, x0, y0, hits, alto=None, ancho=W - 2 * M - 210, maxalto=250):
+def score(d, im, x0, y0, hits, alto=None, ancho=560, maxalto=150):
     from PIL import ImageChops
     f = tempfile.mktemp(suffix='.png'); partitura(hits, f)
     s = Image.open(f).convert('RGB'); k = min(ancho / s.width, maxalto / s.height)
@@ -114,7 +114,7 @@ def como_leer(n):
               'Si hay dos círculos en la misma columna, se tocan juntos.']:
         d.text((M, y), t, font=F(29, False), fill=TXT); y += 48
     d.text((M, y + 20), 'Ejemplo: rock básico', font=F(36), fill=ACC)
-    ys = score(d, im, M, y + 70, D.ESTILOS['rock_basico']['hits'], maxalto=200)
+    ys = score(d, im, M, y + 70, D.ESTILOS['rock_basico']['hits'], maxalto=140)
     yb = tab(d, M, ys + 20, W - 2 * M, D.ESTILOS['rock_basico']['hits'])
     y = yb + 40
     for t in ['Hi-hat en todos los "1, y, 2, y...": ocho golpes por compás (corcheas).',
