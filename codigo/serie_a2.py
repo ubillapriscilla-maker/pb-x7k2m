@@ -85,6 +85,9 @@ def registrar():
 
 VARS = registrar()
 
+# Identidad visual fija: fondo crema (tema 'papel'), el que mejor rindio en las primeras pruebas (22 nov 2026).
+TEMA_FIJO = "papel"
+
 
 def plan_a2(total=TOTAL):
     porest = {}
@@ -114,7 +117,7 @@ def plan_a2(total=TOTAL):
         rel = rels[nvis.get(est, 0) % len(rels)]
         usadas.add(v['clave']); ult[est] = n; ult_bpm[est] = bpm; nvis[est] = nvis.get(est, 0) + 1
         out.append(dict(dia=n, nivel=v['nivel'], estilo=v['clave'], base=est, bpm=bpm, relleno=rel,
-                        tema=temas[n % len(temas)], diseno=D.DISENOS[0]))
+                        tema=TEMA_FIJO, diseno=D.DISENOS[0]))
     return out
 
 

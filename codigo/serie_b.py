@@ -12,7 +12,8 @@ FILLS = ["redoble_tom1", "redoble_dos_toms", "redoble_caja_tom", "redoble_2", "p
 NIV_FILL = {"redoble_1": 2, "redoble_tom1": 2, "toms_bajada": 3, "redoble_2": 3, "redoble_dos_toms": 3, "redoble_caja_tom": 4, "paradiddle": 4, "redoble_toms": 4}
 HOOK = {"rud": ("MANOS EN ORDEN", "Sigue las letras R y L"), "gen": ("UN RITMO NUEVO", "Mira y toca conmigo"),
         "tec": ("NUEVO REDOBLE", "Entra al final de cada 4 compases")}
-TEMAS = list(D.TEMAS)
+# Identidad visual fija: fondo crema (tema 'papel'), igual que la serie A.
+TEMA_FIJO = "papel"
 TIPOS = ["rud", "gen", "tec"]
 
 
@@ -33,7 +34,7 @@ def plan_b(total=200):
         while (est, bpm, rel) in usados:
             bpm += 5
         usados.add((est, bpm, rel))
-        out.append(dict(n=n, tipo=tipo, nivel=niv, estilo=est, bpm=bpm, relleno=rel, tema=TEMAS[n % len(TEMAS)], diseno="tablatura",
+        out.append(dict(n=n, tipo=tipo, nivel=niv, estilo=est, bpm=bpm, relleno=rel, tema=TEMA_FIJO, diseno="tablatura",
                         hook=HOOK[tipo]))
     return out
 
