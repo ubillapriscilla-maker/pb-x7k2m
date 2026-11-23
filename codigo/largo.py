@@ -47,8 +47,6 @@ def seg(estilo, bpm, relleno, tema_n, nivel, bars, salida, fotograma=None, music
             y1 = y0 + bh * nrows
             d.rounded_rectangle([30, y0 - 70, W - 30, y1 + 16], radius=20, fill=tema['lane'])
             d.text((50, y0 - 56), f"Comp. {bb + 1}", font=f_xs, fill=tema['mut'])
-            if relleno != 'ninguno' and bb % 4 == 3:
-                d.rectangle([tx0 + tc * rl['inicio'], y0 - 6, tx1, y1], outline=tema['txt'], width=4)
             for s_ in range(17):
                 x = tx0 + tc * s_
                 d.line([x, y0 - 6, x, y1], fill=tema['mut'] if s_ % 4 == 0 else tema['bot'], width=4 if s_ % 4 == 0 else 2)
