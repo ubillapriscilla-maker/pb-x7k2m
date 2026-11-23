@@ -121,6 +121,13 @@ TEMAS = {
                   cols=[(255, 140, 40), (255, 170, 60), (255, 200, 90), (255, 120, 60), (60, 190, 170), (60, 170, 200), (120, 200, 140), (240, 220, 170), (255, 90, 70)]),
 }
 
+# Identidad del curso (pedido de Priscilla, 22 nov 2026): TODOS los videos en crema ('papel').
+# Cualquier nombre de tema que pidan los generadores se resuelve a crema.
+TEMA_CURSO = 'papel'
+for _k in list(TEMAS):
+    TEMAS[_k] = TEMAS[TEMA_CURSO]
+
+
 
 # ---------------------------------------------------------------- audio
 def _t(n):

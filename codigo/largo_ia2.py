@@ -66,7 +66,7 @@ def tarjeta(i):
     centrado(d, 650, 'Prepárate: empieza en unos segundos', F(44), T['mut']); d.text((60, 1020), D.WATERMARK, font=F(30), fill=T['mut']); return im
 tarj = [tarjeta(i) for i in range(3)]
 cmd = ['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-', '-i', f'{OUT}/audio.wav',
-       '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '24', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', f'{OUT}/largo_ia_02.mp4']
+       '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '24', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-shortest', '-movflags', '+faststart', f'{OUT}/largo_ia_03.mp4']
 pr = subprocess.Popen(cmd, stdin=subprocess.PIPE)
 for n in range(int(total*FPS)):
     t = n/FPS; k = None
