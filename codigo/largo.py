@@ -22,7 +22,7 @@ def seg(estilo, bpm, relleno, tema_n, nivel, bars, salida, fotograma=None, music
     titulo = D.ESTILOS_TODOS[estilo]['nombre']
     bg = D.fondo(tema).resize((W, H))
     labels16 = ["1","e","y","e","2","e","y","e","3","e","y","e","4","e","y","e"]
-    nrows = len(usadas); evs = sorted(ev)
+    nrows = len(usadas); evs = sorted(ev); usa_manos = any(e[5] for e in ev)
     tx0, tx1 = 260, 1860; tc = (tx1 - tx0) / 16
     nfr = int(round(total * FPS))
     p = subprocess.Popen(['ffmpeg','-y','-loglevel','error','-f','rawvideo','-pix_fmt','rgb24','-s',f'{W}x{H}','-r',str(FPS),
@@ -73,6 +73,8 @@ def seg(estilo, bpm, relleno, tema_n, nivel, bars, salida, fotograma=None, music
                 if mano:
                     mw = d.textlength(mano, font=f_xs); d.text((cx - mw / 2, y + 14), mano, font=f_xs, fill=tema['txt'])
         d.text((60, 1035), D.WATERMARK, font=f_xs, fill=tema['mut'])
+        if usa_manos:
+            D.leyenda_manos(d, W - 40, 1038, tema, ImageFont.truetype(BOLD, 26))
         if fotograma is not None:
             fr.save(salida + '.png'); p.stdin.close(); p.terminate(); return
         p.stdin.write(fr.tobytes())

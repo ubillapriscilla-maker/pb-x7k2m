@@ -245,6 +245,16 @@ def _hook(d, fr, cfg, tema, titulo, bpm, t, f_big, f_sm, f_xs):
     d.text((60, 380 - off), "Quédate 20 segundos y tócalo", font=f_xs, fill=tema["txt"])
 
 
+
+def leyenda_manos(d, x_der, y, tema, font):
+    """Recuadro pequeño que explica R y L (pedido de Priscilla, 23 nov 2026)."""
+    txt = "R = mano derecha    L = mano izquierda"
+    w = d.textlength(txt, font=font); h = font.size
+    x0 = x_der - w - 36
+    d.rounded_rectangle([x0, y - 12, x_der, y + h + 14], radius=14, fill=tema["lane"], outline=tema["acc"], width=3)
+    d.text((x0 + 18, y), txt, font=font, fill=tema["txt"])
+
+
 def fondo(tema):
     a = np.array(tema["top"], float); b = np.array(tema["bot"], float)
     g = np.linspace(0, 1, H)[:, None] * (b - a) + a
@@ -288,6 +298,7 @@ def render(cfg, salida):
     cell = (gx1 - gx0) / 16
     gy0 = 600; rh = min(150, 760 / nrows)
     evs = sorted(ev)
+    usa_manos = any(e[5] for e in ev)
     line_y = 1380; top_y = 560; horizonte = 4 * 60.0 / bpm
     lane_w = (gx1 - 60) / nrows
     for k in range(nfr):
@@ -405,6 +416,8 @@ def render(cfg, salida):
         d.text((60, 1640), "Toca junto con el video", font=f_md, fill=tema["txt"])
         d.text((60, 1720), "Míralo en loop hasta que salga limpio", font=f_sm, fill=tema["mut"])
         d.text((60, 1810), WATERMARK, font=f_xs, fill=tema["mut"])
+        if usa_manos:
+            leyenda_manos(d, W - 40, 1490, tema, f_xs)
         p.stdin.write(fr.tobytes())
     p.stdin.close(); p.wait()
     import os
