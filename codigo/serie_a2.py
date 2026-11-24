@@ -122,7 +122,7 @@ def plan_a2(total=TOTAL):
 
 
 CANAL = "https://www.youtube.com/@priscillaubillasoriano"
-GUIA_PDF = "https://github.com/ubillapriscilla-maker/pb-x7k2m/raw/main/gratis/20_ritmos_bateria_tablatura.pdf"
+GUIA_PDF = "https://drive.google.com/file/d/1t8sIDXStLzZWBQjdaUPORjTc5MmYwaYb/view"
 GANCHOS = [
     "Este ritmo de {e} suena pro y es {adj}: {v} a {b} BPM",
     "¿Te sale este ritmo de {e}? {v} a {b} BPM (nivel {adj})",
