@@ -1,5 +1,5 @@
 import sys, os, math, wave, subprocess, json
-sys.path.insert(0, '/home/claude/shorts')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import largo as L, drumlib as D
 from multiprocessing import Pool
 from PIL import Image, ImageDraw, ImageFont

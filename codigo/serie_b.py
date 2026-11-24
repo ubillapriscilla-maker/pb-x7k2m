@@ -1,7 +1,7 @@
 """Serie B de Shorts: rudimentos, generos nuevos y redobles por tecnica. Determinista: plan_b(N) siempre da lo mismo.
 Uso: python3 serie_b.py N1 N2 ...  -> renderiza los Shorts B con esos numeros en /home/claude/shorts/serie_b/"""
 import sys, os, csv
-sys.path.insert(0, '/home/claude/shorts')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import drumlib as D
 
 RUD = ["rud_simple", "rud_doble", "rud_paradiddle", "rud_simple_bombo", "rud_paradiddle_inv", "rud_doble_bombo", "rud_paradiddle_bombo"]

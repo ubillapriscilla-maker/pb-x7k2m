@@ -8,7 +8,7 @@ try:
 except Exception:
     LY = shutil.which('lilypond') or 'lilypond'
 
-MANOS = {'hat': 'hh', 'ohat': 'hho', 'ride': 'cymr', 'crash': 'cymc', 't1': 'tomh', 't2': 'tommh', 't3': 'tomfl', 'snare': 'sn'}
+MANOS = {'hat': 'hh', 'ohat': 'hho', 'ride': 'cymr', 'crash': 'cymc', 't1': 'tomh', 't2': 'tommh', 't3': 'tomfl', 'snare': 'sn', 'aro': 'ss'}
 PIES = {'kick': 'bd'}
 DUR = {1: '16', 2: '8', 3: '8.', 4: '4'}
 RES = {1: 'r16', 2: 'r8', 3: 'r8.', 4: 'r4'}

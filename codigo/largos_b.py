@@ -1,7 +1,7 @@
 """Largos serie B (determinista): impares = play-along SIN bateria (toca tu encima); pares = cancion de dominio publico con ritmo de bateria.
 Uso: python3 largos_b.py N [N ...] -> crea largos_b/lbNN_*.mp4/.png y largos_b/info_NN.json"""
 import sys, os, json
-sys.path.insert(0, '/home/claude/shorts')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import drumlib as D, build_largo as B
 from canciones_pd import CANCIONES
 OUT = '/home/claude/shorts/largos_b'

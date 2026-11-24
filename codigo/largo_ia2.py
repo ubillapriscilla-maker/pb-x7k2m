@@ -1,7 +1,7 @@
 """Largo play along IA v2: agrega tablatura de ejemplo (solo visual) con cursor sincronizado a los tiempos detectados."""
 import sys, os, json, subprocess, numpy as np, librosa
 from PIL import Image, ImageDraw, ImageFont
-sys.path.insert(0, '/home/claude/shorts'); import drumlib as D
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import drumlib as D
 W, H, FPS = 1920, 1080, 15
 OUT = '/home/claude/shorts/largos_ia'
 info = json.load(open(f'{OUT}/info.json')); inicio = info['inicio']; dur = [d for _, d in info['pistas']]; total = info['duracion']
@@ -13,7 +13,7 @@ PISTAS = [('Do mayor', 'Nivel base: bombo en 1 y 3, caja en 2 y 4, hi-hat en cor
           ('Sol mayor', 'Sube un paso: agrega un bombo extra en el "y" del 3', [('Ritmo con bombo extra (repítelo)', RX)]),
           ('Re mayor', 'Libre: cierra cada 4 compases con un relleno corto', [('Compases 1 a 3', RB), ('Compás 4: relleno de caja', FILL)])]
 LAN = [('hat', 'Hi-hat', T['cols'][2]), ('snare', 'Caja', T['cols'][7]), ('kick', 'Bombo', T['cols'][8])]
-LAB = ["1", "e", "y", "e", "2", "e", "y", "e", "3", "e", "y", "e", "4", "e", "y", "e"]
+LAB = ["1", "e", "y", "a", "2", "e", "y", "a", "3", "e", "y", "a", "4", "e", "y", "a"]
 GX0, GX1 = 330, 1830; CELL = (GX1-GX0)/16
 def grad():
     a = np.linspace(0, 1, H)[:, None, None]; return Image.fromarray((np.repeat(np.array(T['top'])*(1-a)+np.array(T['bot'])*a, W, 1)).astype(np.uint8))

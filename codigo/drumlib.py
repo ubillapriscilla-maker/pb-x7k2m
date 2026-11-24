@@ -9,9 +9,10 @@ from PIL import Image, ImageDraw, ImageFont
 W, H, FPS, SR = 1080, 1920, 30, 44100
 WATERMARK = "@priscillaubillasoriano"
 BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
-ORDER = ["crash", "ride", "hat", "ohat", "t1", "t2", "t3", "snare", "kick"]
+ORDER = ["crash", "ride", "hat", "ohat", "t1", "t2", "t3", "snare", "kick", "aro"]  # orden de colores del tema
+ORDER_VIS = ["crash", "ride", "hat", "ohat", "t1", "t2", "t3", "aro", "snare", "kick"]  # orden de filas en pantalla
 NOMBRE = {"crash": "Crash", "ride": "Ride", "hat": "Hi-hat", "ohat": "Hi-hat abierto", "t1": "Tom 1",
-          "t2": "Tom 2", "t3": "Tom piso", "snare": "Caja", "kick": "Bombo"}
+          "t2": "Tom 2", "t3": "Tom piso", "snare": "Caja", "kick": "Bombo", "aro": "Aro"}
 
 
 def pat(**kw):
@@ -71,7 +72,8 @@ GENEROS_B = {
     "reggaeton": dict(nombre="Reggaetón (dembow)", nivel=3, bpm=(80, 100), hits=pat(
         hat="x-x-x-x-x-x-x-x-", snare="---x--x----x--x-", kick="x---x---x---x---")),
     "bossa_nova": dict(nombre="Bossa nova", nivel=4, bpm=(70, 110), hits=pat(
-        hat="x-x-x-x-x-x-x-x-", snare="x--x--x---x--x--", kick="x-----x-x-----x-")),
+        # 2 compases: clave de bossa en el aro (cross-stick). Comp.1: 1, y del 2, 4 | Comp.2: 2, y del 3
+    hat="x-x-x-x-x-x-x-x-" * 2, aro="x-----x-----x-------x-----x-----", kick="x-----x-x-----x-" * 2)),
 }
 RUDIMENTOS_B = {
     "rud_simple": dict(nombre="Golpe simple (RLRL)", nivel=2, bpm=(60, 120), manos="RLRLRLRLRLRLRLRL", hits=pat(snare="xxxxxxxxxxxxxxxx")),
@@ -156,6 +158,11 @@ def s_ohat(n):
     t = _t(n); return _hp(np.random.default_rng(3).standard_normal(n)) * 0.3 * np.exp(-t * 10)
 
 
+def s_aro(n):
+    t = _t(n); r = np.random.default_rng(6)
+    return (np.sin(2 * np.pi * 1750 * t) * 0.6 + r.standard_normal(n) * 0.25) * np.exp(-t * 90)
+
+
 def s_tom(f0):
     def f(n):
         t = _t(n); fr = f0 * (1 + 0.5 * np.exp(-t * 18))
@@ -175,7 +182,7 @@ def s_ride(n):
 
 VOICES = {"kick": (s_kick, .35, .55), "snare": (s_snare, .3, .5), "hat": (s_hat, .1, .55), "ohat": (s_ohat, .4, .55),
           "t1": (s_tom(190), .45, .6), "t2": (s_tom(140), .45, .6), "t3": (s_tom(95), .5, .65),
-          "crash": (s_crash, 1.6, .55), "ride": (s_ride, .9, .6)}
+          "crash": (s_crash, 1.6, .55), "ride": (s_ride, .9, .6), "aro": (s_aro, .08, .6)}
 
 
 # ---------------------------------------------------------------- construccion del video (eventos)
@@ -187,6 +194,8 @@ def build_events(estilo, bpm, relleno, bars):
         es_relleno = relleno != "ninguno" and b % 4 == 3
         tras_relleno = relleno != "ninguno" and (b % 4 == 0)
         for voz, s in st["hits"].items():
+            if len(s) == 32:  # patron de 2 compases
+                s = s[(b % 2) * 16:(b % 2) * 16 + 16]
             for i, ch in enumerate(s):
                 if ch == "-":
                     continue
@@ -272,8 +281,8 @@ def render(cfg, salida):
     total = bars * bar_dur
     wav = salida + ".wav"
     audio(ev, total, wav)
-    usadas = [v for v in ORDER if any(e[1] == v for e in ev)]
-    col = {v: tema["cols"][ORDER.index(v)] for v in ORDER}
+    usadas = [v for v in ORDER_VIS if any(e[1] == v for e in ev)]
+    col = {v: tema["cols"][ORDER.index("snare" if v == "aro" else v)] for v in ORDER}
     f_xs = ImageFont.truetype(BOLD, 34); f_sm = ImageFont.truetype(BOLD, 42); f_md = ImageFont.truetype(BOLD, 54)
     titulo = ESTILOS_TODOS[estilo]["nombre"]
     variacion = ""
@@ -294,7 +303,7 @@ def render(cfg, salida):
     gx0, gx1 = 200, 1030
     rl = RELLENOS[relleno]
     nrows = len(usadas)
-    labels16 = ["1", "e", "y", "e", "2", "e", "y", "e", "3", "e", "y", "e", "4", "e", "y", "e"]
+    labels16 = ["1", "e", "y", "a", "2", "e", "y", "a", "3", "e", "y", "a", "4", "e", "y", "a"]
     cell = (gx1 - gx0) / 16
     gy0 = 600; rh = min(150, 760 / nrows)
     evs = sorted(ev)

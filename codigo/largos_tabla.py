@@ -1,6 +1,6 @@
 """Tabla determinista de videos largos: n -> configuracion. Cualquier sesion puede regenerar el largo n."""
-import sys
-sys.path.insert(0, '/home/claude/shorts')
+import os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import drumlib as D
 
 FIJOS = {  # los primeros 9, ya publicados o listos

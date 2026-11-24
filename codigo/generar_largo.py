@@ -1,6 +1,6 @@
 """Uso: python3 generar_largo.py N   -> crea largos/largoNN_*.mp4/.png y largos/info_NN.json (en /home/claude/shorts/largos)"""
 import sys, json, os
-sys.path.insert(0, '/home/claude/shorts')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import build_largo as B, drumlib as D, largos_tabla as T
 ADJ = {1: 'fácil', 2: 'básico', 3: 'intermedio', 4: 'avanzado', 5: 'experto'}
 def mmss(x): return f"{int(x//60)}:{int(x%60):02d}"

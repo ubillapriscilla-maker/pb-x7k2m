@@ -1,5 +1,5 @@
 import sys, os, math, subprocess, wave
-sys.path.insert(0, '/home/claude/shorts')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import drumlib as D
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
@@ -15,13 +15,13 @@ def seg(estilo, bpm, relleno, tema_n, nivel, bars, salida, fotograma=None, music
     if musica:
         import cancion
         cancion.agregar_musica(wav, ev, bpm, bars, D.RELLENOS[relleno]['inicio'] if relleno != 'ninguno' else None, tono, drums_gain=drums_gain, pd=pd)
-    usadas = [v for v in D.ORDER if any(e[1] == v for e in ev)]
-    col = {v: tema['cols'][D.ORDER.index(v)] for v in D.ORDER}
+    usadas = [v for v in D.ORDER_VIS if any(e[1] == v for e in ev)]
+    col = {v: tema['cols'][D.ORDER.index('snare' if v == 'aro' else v)] for v in D.ORDER}
     f_xs = ImageFont.truetype(BOLD, 30); f_sm = ImageFont.truetype(BOLD, 38)
     f_t = ImageFont.truetype(BOLD, 76); f_b = ImageFont.truetype(BOLD, 120)
     titulo = D.ESTILOS_TODOS[estilo]['nombre']
     bg = D.fondo(tema).resize((W, H))
-    labels16 = ["1","e","y","e","2","e","y","e","3","e","y","e","4","e","y","e"]
+    labels16 = ["1","e","y","a","2","e","y","a","3","e","y","a","4","e","y","a"]
     nrows = len(usadas); evs = sorted(ev); usa_manos = any(e[5] for e in ev)
     tx0, tx1 = 260, 1860; tc = (tx1 - tx0) / 16
     nfr = int(round(total * FPS))

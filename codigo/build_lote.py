@@ -1,5 +1,5 @@
 import sys, os, json, csv
-sys.path.insert(0, '/home/claude/shorts')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import drumlib as D
 from multiprocessing import Pool
 OUT = '/home/claude/shorts/lote'

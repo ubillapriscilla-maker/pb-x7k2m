@@ -17,7 +17,7 @@ TXT, MUT, ACC, LANE = T['txt'], T['mut'], T['acc'], T['lane']
 CANAL = 'youtube.com/@priscillaubillasoriano'
 NIVEL = {1: 'Fácil', 2: 'Básico', 3: 'Intermedio', 4: 'Avanzado', 5: 'Experto'}
 NOM = dict(D.NOMBRE)
-LAB = ["1", "e", "y", "e", "2", "e", "y", "e", "3", "e", "y", "e", "4", "e", "y", "e"]
+LAB = ["1", "e", "y", "a", "2", "e", "y", "a", "3", "e", "y", "a", "4", "e", "y", "a"]
 CONSEJO = {
     'rock_basico': 'La base de casi todo el rock y el pop. Cuenta en voz alta 1 y 2 y 3 y 4.',
     'rock_bombo_extra': 'El bombo extra va justo antes del 3. Tócalo suave al principio.',
