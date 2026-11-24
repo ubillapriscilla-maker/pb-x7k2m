@@ -15,7 +15,8 @@ Referencia interna para que lo que se enseña en el canal sea correcto. Grilla d
 ## Ritmos nuevos y cómo se tocan
 - **Trap**: medio tiempo (caja solo en el 3), hi-hat en corcheas o semicorcheas con redobles rápidos de hi-hat (fusas o tresillos) como adorno. Necesita poder escribir fusas (la grilla actual llega a semicorcheas).
 - **Balada / worship**: corcheas en hi-hat o ride, caja en 2 y 4 (o en el 3 en versiones lentas), bombo simple; en alabanza son típicos los ritmos de toms ("tribal") y los rellenos de crescendo.
-- **Cumbia**: en batería se imitan la percusión: hi-hat imita la guacharaca/güiro, los toms imitan la tambora; bombo en negras o en corcheas. Hay muchas versiones (colombiana, sonidera, villera, chilena): VERIFICAR con Priscilla, que tocó cumbias en vivo.
+- **Cumbia**: NO PUBLICAR todavía. Las pruebas del 23 nov (hi-hat "chiqui" + caja en todos los "y") fueron rechazadas por Priscilla: no suenan a cumbia. Lo que más se repite en fuentes de bateristas (foros y lecciones, no partituras oficiales): bombo en negras; hi-hat o cáscara "corchea + dos semicorcheas" imitando el güiro (o hi-hat abierto en el contratiempo, "pum-chas"); aro o cencerro en negras; golpes en el timbal o tom grave en el "y" del 2 y del 4. En la colombiana, la mano izquierda imita al llamador en el tom (aro y parche) y el bombo sigue los golpes de parche de la tambora. Falta confirmar con una grabación real (idealmente Priscilla tocando) antes de hacer videos.
+- **Corrido**: base de polka ("bum-cha"), pero también falta confirmarlo con Priscilla antes de publicar.
 - **Funk brasileño (tamborzão)**: 125-135 BPM, bombo y palmas/caja sincopados con sensación de tresillo. Adaptación a batería: bombo sincopado + caja en 2 y 4 con golpes extra.
 - **Afrobeats**: 90-115 BPM, aro/caja y bombo sincopados (agrupaciones 3-3-2), ni completamente swing ni recto.
 - **Shuffle (blues)**: corcheas en tresillo (swing). Necesita grilla de tresillos (12 pasos).
