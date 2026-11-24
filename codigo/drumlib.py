@@ -11,6 +11,21 @@ WATERMARK = "@priscillaubillasoriano"
 BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 ORDER = ["crash", "ride", "hat", "ohat", "t1", "t2", "t3", "snare", "kick", "aro"]  # orden de colores del tema
 ORDER_VIS = ["crash", "ride", "hat", "ohat", "t1", "t2", "t3", "aro", "snare", "kick"]  # orden de filas en pantalla
+ETIQ2 = {"hat": ("Hi-hat", "cerrado"), "ohat": ("Hi-hat", "abierto"), "t3": ("Tom", "de piso")}
+
+
+def etiqueta(d, x, y, v, font, fill, centro=False):
+    """Nombre del instrumento; hi-hat cerrado/abierto en dos líneas para que se entienda cuál es cuál."""
+    lineas = ETIQ2.get(v, (NOMBRE[v],))
+    if len(lineas) > 1:
+        font = ImageFont.truetype(font.path, int(font.size * 0.8))
+    h = font.size + 1
+    y0 = y - (len(lineas) - 1) * h / 2
+    for k, t in enumerate(lineas):
+        xx = x - d.textlength(t, font=font) / 2 if centro else x
+        d.text((xx, y0 + k * h), t, font=font, fill=fill)
+
+
 NOMBRE = {"crash": "Crash", "ride": "Ride", "hat": "Hi-hat", "ohat": "Hi-hat abierto", "t1": "Tom 1",
           "t2": "Tom 2", "t3": "Tom piso", "snare": "Caja", "kick": "Bombo", "aro": "Aro"}
 
@@ -339,7 +354,7 @@ def render(cfg, salida):
                                 outline=tema["txt"], width=3)
             for r, v in enumerate(usadas):
                 y = gy0 + r * rh + rh / 2
-                d.text((24, y - 20), NOMBRE[v] if len(NOMBRE[v]) < 11 else "Hi-hat ab.", font=f_xs, fill=col[v])
+                etiqueta(d, 24, y - 20, v, f_xs, col[v])
                 d.line([gx0, y, gx1, y], fill=tema["lane"], width=3)
             for (te, v, g, i, bb, mano) in evs:
                 if bb != b:
@@ -377,7 +392,7 @@ def render(cfg, salida):
                            fill=tema["txt"] if big else tema["mut"])
                 for r, v in enumerate(usadas):
                     y = y0 + r * bh + bh / 2
-                    d.text((50, y - 18), NOMBRE[v] if len(NOMBRE[v]) < 11 else "Hi-hat ab.", font=f_xs, fill=col[v])
+                    etiqueta(d, 50, y - 18, v, f_xs, col[v])
                     d.line([tx0, y, tx1, y], fill=tema["bot"], width=3)
                 for (te, v, g, i, b2, mano) in evs:
                     if b2 != bb:
@@ -403,7 +418,7 @@ def render(cfg, salida):
             for r, v in enumerate(usadas):
                 cx = 60 + lane_w * r + lane_w / 2
                 d.line([cx, top_y, cx, line_y], fill=tema["bot"], width=3)
-                d.text((cx - d.textlength(NOMBRE[v][:5], font=f_xs) / 2, line_y + 80), NOMBRE[v][:5], font=f_xs, fill=col[v])
+                etiqueta(d, cx, line_y + 80, v, f_xs, col[v], centro=True)
             d.line([60, line_y, W - 60, line_y], fill=tema["txt"], width=4)
             for rep in (-1, 0, 1):
                 for (te, v, g, i, bb, mano) in evs:
@@ -421,8 +436,12 @@ def render(cfg, salida):
                             d.text((cx - mw / 2, y - 19), mano, font=f_xs, fill=tema["bot"])
         if t < HOOK_T:
             _hook(d, fr, cfg, tema, titulo, bpm, t, f_big, f_sm, f_xs)
-        d.text((60, 1640), "Toca junto con el video", font=f_md, fill=tema["txt"])
-        d.text((60, 1720), "Míralo en loop hasta que salga limpio", font=f_sm, fill=tema["mut"])
+        if cfg.get("cta", True) and t >= total * 0.65:
+            d.text((60, 1640), "Sígueme: mañana otro ritmo", font=f_md, fill=tema["acc"])
+            d.text((60, 1720), "Guárdalo para practicar en loop", font=f_sm, fill=tema["txt"])
+        else:
+            d.text((60, 1640), "Toca junto con el video", font=f_md, fill=tema["txt"])
+            d.text((60, 1720), "Míralo en loop hasta que salga limpio", font=f_sm, fill=tema["mut"])
         d.text((60, 1810), WATERMARK, font=f_xs, fill=tema["mut"])
         if usa_manos:
             leyenda_manos(d, W - 40, 1490, tema, f_xs)

@@ -188,7 +188,11 @@ if __name__ == '__main__':
     else:
         os.makedirs(OUT, exist_ok=True)
         from multiprocessing import Pool
-        cs = [pl[int(a)] for a in sys.argv[1:] if int(a) in pl]
+        # el orden de publicación lo manda plan/titulos_shorts.csv (puede estar reordenado):
+        # la fila n dice qué archivo va; se busca en el plan la entrada que genera ese archivo
+        por_arch = {archivo(c): c for c in pl.values()}
+        filas = {int(r['dia']): r['archivo'] for r in csv.DictReader(open(os.path.join(AQUI, '..', 'plan', 'titulos_shorts.csv'), encoding='utf-8'))}
+        cs = [por_arch[filas[int(a)]] for a in sys.argv[1:] if int(a) in filas and filas[int(a)] in por_arch]
 
         def work(c):
             f = f"{OUT}/{archivo(c)}"

@@ -17,6 +17,14 @@ TEMA_FIJO = "papel"
 TIPOS = ["rud", "gen", "tec"]
 
 
+TEMPOS_GEN = {"ska": [110, 130, 100, 120, 140], "motown": [100, 120, 105, 125, 110],
+              "reggaeton": [90, 70, 100, 80, 95], "bossa_nova": [80, 100, 120, 90, 110]}
+GANCHOS_GEN = ["Este ritmo de {g} suena pro: tócalo a {b} BPM{r} #shorts",
+               "¿Sabes tocar {g} en batería? Así va a {b} BPM{r} #shorts",
+               "El ritmo de {g} que todo baterista debería saber ({b} BPM){r} #shorts",
+               "Así se toca {g} en batería a {b} BPM{r} #shorts"]
+
+
 def plan_b(total=200):
     usados = {(x["estilo"], x["bpm"], x["relleno"]) for x in D.plan(180)}
     out, k = [], {"rud": 0, "gen": 0, "tec": 0}
@@ -28,6 +36,8 @@ def plan_b(total=200):
         elif tipo == "gen":
             est = GEN[i % len(GEN)]; a = i // len(GEN); st = D.ESTILOS_TODOS[est]
             bpm = st["bpm"][0] + 5 * (a // len(GEN_REL)); rel = GEN_REL[(a + i % len(GEN)) % len(GEN_REL)]; niv = st["nivel"]
+            if n >= 5 and est in TEMPOS_GEN:  # tempos reales y variados (>= 20 BPM entre videos seguidos del mismo estilo)
+                bpm = TEMPOS_GEN[est][a % len(TEMPOS_GEN[est])]
         else:
             rel = FILLS[i % len(FILLS)]; a = i // len(FILLS)
             est = BASES[(i + a) % len(BASES)]; bpm = 60 + 5 * a; niv = NIV_FILL[rel]
@@ -55,6 +65,11 @@ def meta_b(c):
                 "manos batería", f"{bpm} bpm", "tablatura batería", "shorts"]
     elif c["tipo"] == "gen":
         titulo = f"Ritmo de {st['nombre'].lower()} en batería a {bpm} BPM | Cómo tocar batería #shorts"
+        if c["n"] >= 5:
+            r = "" if c["relleno"] == "ninguno" else " + " + rl["nombre"].lower()
+            for k in range(len(GANCHOS_GEN)):
+                titulo = GANCHOS_GEN[((c["n"] // 3) + k) % len(GANCHOS_GEN)].format(g=st["nombre"].lower(), b=bpm, r=r)
+                if len(titulo) <= 100: break
         extra = f"Cada 4 compases hay un relleno: {rl['nombre'].lower()}.\n" if c["relleno"] != "ninguno" else "Ritmo constante para practicar el groove.\n"
         desc = f"Cómo tocar el ritmo de {st['nombre'].lower()} en batería a {bpm} BPM (nivel {ADJ[c['nivel']]}).\n" + extra + cierre + pie + " #ritmosdebatería"
         tags = [f"ritmo de {st['nombre'].lower()} batería", f"cómo tocar {st['nombre'].lower()} en batería", "cómo tocar batería", "ritmos de batería",

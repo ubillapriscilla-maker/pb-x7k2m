@@ -57,7 +57,7 @@ def seg(estilo, bpm, relleno, tema_n, nivel, bars, salida, fotograma=None, music
                 d.text((cx - lw / 2, y0 - 56 + (0 if big else 5)), labels16[s_], font=fo, fill=tema['txt'] if big else tema['mut'])
             for r, v in enumerate(usadas):
                 y = y0 + r * bh + bh / 2
-                d.text((50, y - 16), D.NOMBRE[v] if len(D.NOMBRE[v]) < 11 else 'Hi-hat ab.', font=f_xs, fill=col[v])
+                D.etiqueta(d, 50, y - 16, v, f_xs, col[v])
                 d.line([tx0, y, tx1, y], fill=tema['bot'], width=3)
             for (te, v, g, i, b2, mano) in evs:
                 if b2 != bb: continue
