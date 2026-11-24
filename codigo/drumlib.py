@@ -66,7 +66,8 @@ ESTILOS = {
 # ---------------------------------------------------------------- serie B: generos nuevos y rudimentos (manos en la caja)
 GENEROS_B = {
     "ska": dict(nombre="Ska", nivel=2, bpm=(80, 120), hits=pat(
-        hat="--x---x---x---x-", snare="----x-------x---", kick="x-------x-------")),
+        # ska tradicional: bombo junto con la caja (o aro) en 2 y 4; hi-hat en los contratiempos
+        hat="--x---x---x---x-", snare="----x-------x---", kick="----x-------x---")),
     "motown": dict(nombre="Motown", nivel=2, bpm=(80, 120), hits=pat(
         hat="x-x-x-x-x-x-x-x-", snare="x---x---x---x---", kick="x--x--x-x--x--x-")),
     "reggaeton": dict(nombre="Reggaetón (dembow)", nivel=3, bpm=(80, 100), hits=pat(

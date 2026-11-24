@@ -9,8 +9,8 @@ Referencia interna para que lo que se enseña en el canal sea correcto. Grilla d
 | Reggaetón (dembow) | Correcto | Bombo en los 4 tiempos y caja en el "a" del 1 y el "y" del 2 (tresillo 3-3-2), repetido en 3 y 4. |
 | Motown | Correcto | Caja en los 4 tiempos. |
 | Reggae one drop | Correcto | Caja y bombo juntos solo en el 3. Mejor con aro (cross-stick). |
-| Ska | Correcto | Hi-hat en los contratiempos. |
-| Bossa nova | CORREGIR | Mezcla escalas: la clave de aro está comprimida de 2 compases a 1, pero el bombo y el hi-hat están en otra escala. Debe ser un patrón de 2 compases: aro en 1, "y" del 2 y 4 (compás 1) y en 2 y "y" del 3 (compás 2); bombo en 1, "y" del 2, 3 y "y" del 4 en ambos compases; hi-hat en corcheas parejas. |
+| Ska | CORREGIDO 24 nov | El ska tradicional lleva el bombo junto con la caja o el aro en 2 y 4 (no en 1 y 3), con el hi-hat en los contratiempos o abierto en corcheas. El Short B n2 ya publicado tenía el bombo en 1 y 3; desde el B n14 sale corregido. |
+| Bossa nova | CORREGIDO 24 nov (patrón de 2 compases con voz "Aro") | Mezcla escalas: la clave de aro está comprimida de 2 compases a 1, pero el bombo y el hi-hat están en otra escala. Debe ser un patrón de 2 compases: aro en 1, "y" del 2 y 4 (compás 1) y en 2 y "y" del 3 (compás 2); bombo en 1, "y" del 2, 3 y "y" del 4 en ambos compases; hi-hat en corcheas parejas. |
 
 ## Ritmos nuevos y cómo se tocan
 - **Trap**: medio tiempo (caja solo en el 3), hi-hat en corcheas o semicorcheas con redobles rápidos de hi-hat (fusas o tresillos) como adorno. Necesita poder escribir fusas (la grilla actual llega a semicorcheas).
@@ -35,3 +35,13 @@ Referencia interna para que lo que se enseña en el canal sea correcto. Grilla d
 1. Patrones de 2 compases (bossa nova, clave).
 2. Grilla de tresillos y de 6/8 (shuffle, cueca).
 3. Fusas para redobles de trap.
+
+## Verificación del 24 nov 2026
+- Conteo en pantalla: las semicorcheas se cuentan "1 e y a" (sistema estándar "1 e & a"). Los videos decían "1 e y e": corregido en todos los scripts; Shorts A 6-25 y B 3-40 re-renderizados.
+- One drop: confirmado (bombo y aro/caja juntos solo en el 3, hi-hat en corcheas). Las variaciones de hi-hat sobre el one drop son lo normal en reggae.
+- Motown: confirmado (caja en los 4 tiempos, bombo entre medio).
+- Bossa nova: confirmado. Aro comp.1: 1, y del 2, 4; comp.2: 2, y del 3. Bombo: 1, y del 2, 3, y del 4. Hi-hat en corcheas.
+- Reggaetón (dembow): confirmado (3+3+2).
+- Disco: confirmado (bombo en negras, hi-hat abierto en los contratiempos, caja 2 y 4).
+- Cumbia: en el canal existe el drumcam "Mix cumbias viejas con Orquesta Zarabanda" (aPbfaVYHGzo) tocado por Priscilla. Es la mejor fuente para transcribir la cumbia chilena.
+- Serie B: ska, motown, reggaetón y bossa se repiten 16-17 veces cada uno al mismo BPM (solo cambia el relleno). Revisar para que no se sienta repetitivo.
