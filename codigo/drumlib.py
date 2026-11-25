@@ -52,8 +52,9 @@ ESTILOS = {
         hat="x---x---x---x---", ohat="--x---x---x---x-", snare="----x-------x---", kick="x---x---x---x---")),
     "hiphop_boom_bap": dict(nombre="Hip-hop boom bap", nivel=2, bpm=(70, 95), hits=pat(
         hat="x-x-x-x-x-x-x-x-", snare="----x-------x---", kick="x-------x-x-----")),
+    # one drop escrito como en los métodos: bombo y aro juntos solo en el 3 (el 1 queda vacío)
     "reggae_one_drop": dict(nombre="Reggae one drop", nivel=2, bpm=(65, 90), hits=pat(
-        hat="x-x-x-x-x-x-x-x-", snare="--------x-------", kick="--------x-------")),
+        hat="x-x-x-x-x-x-x-x-", aro="--------x-------", kick="--------x-------")),
     "medio_tiempo": dict(nombre="Rock a medio tiempo", nivel=3, bpm=(70, 110), hits=pat(
         hat="x-x-x-x-x-x-x-x-", snare="--------x-------", kick="x-------------x-")),
     "rock_16avos": dict(nombre="Rock con hi-hat en semicorcheas", nivel=3, bpm=(60, 95), hits=pat(
@@ -157,8 +158,12 @@ def _t(n):
 
 
 def s_kick(n):
-    t = _t(n); f = 48 + 120 * np.exp(-t * 32)
-    return np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 9)
+    """Bombo: cuerpo grave con caída de tono, cola corta y golpe del mazo (click) al inicio."""
+    t = _t(n); r = np.random.default_rng(3)
+    f = 52 + 105 * np.exp(-t * 38)
+    cuerpo = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 8.5)
+    click = np.diff(r.standard_normal(n), prepend=0) * np.exp(-t * 420) * 0.18 + np.sin(2 * np.pi * 1800 * t) * np.exp(-t * 260) * 0.12
+    return np.tanh(1.7 * (cuerpo + click)) / np.tanh(1.7)
 
 
 def s_snare(n):
@@ -179,8 +184,12 @@ def s_ohat(n):
 
 
 def s_aro(n):
+    """Aro (cross-stick): golpe seco y de madera, con resonancias cortas del aro y el casco."""
     t = _t(n); r = np.random.default_rng(6)
-    return (np.sin(2 * np.pi * 1750 * t) * 0.6 + r.standard_normal(n) * 0.25) * np.exp(-t * 90)
+    tono = (np.sin(2 * np.pi * 480 * t) * np.exp(-t * 55) * 0.55 + np.sin(2 * np.pi * 1020 * t) * np.exp(-t * 85) * 0.45
+            + np.sin(2 * np.pi * 1730 * t) * np.exp(-t * 130) * 0.3)
+    ruido = np.diff(r.standard_normal(n), prepend=0) * np.exp(-t * 380) * 0.35
+    return (tono + ruido) * 0.9
 
 
 def s_tom(f0):
@@ -202,7 +211,7 @@ def s_ride(n):
 
 VOICES = {"kick": (s_kick, .35, .55), "snare": (s_snare, .3, .5), "hat": (s_hat, .1, .55), "ohat": (s_ohat, .4, .55),
           "t1": (s_tom(190), .45, .6), "t2": (s_tom(140), .45, .6), "t3": (s_tom(95), .5, .65),
-          "crash": (s_crash, 1.6, .55), "ride": (s_ride, .9, .6), "aro": (s_aro, .08, .6)}
+          "crash": (s_crash, 1.6, .55), "ride": (s_ride, .9, .6), "aro": (s_aro, .12, .75)}
 
 
 # ---------------------------------------------------------------- construccion del video (eventos)

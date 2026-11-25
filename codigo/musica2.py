@@ -118,6 +118,14 @@ def bajo(f, dur):
     return y * env(n, 0.004, 3.0, 0.35, 0.04)
 
 
+def bajo_reggae(f, dur):
+    """Bajo de reggae roots: redondo y profundo (casi todo fundamental), ataque suave y nota sostenida."""
+    n = int(dur * SR); t = np.arange(n) / SR
+    s = np.sin(2 * np.pi * f * t) + 0.25 * np.sin(2 * np.pi * 2 * f * t) + 0.08 * np.sin(2 * np.pi * 3 * f * t)
+    s = np.tanh(1.6 * s) / 1.1
+    return s * env(n, 0.012, 1.2, 0.7, 0.06)
+
+
 def reverb(x, mezcla=0.22):
     from scipy.signal import lfilter
     out = np.zeros_like(x)
@@ -179,7 +187,7 @@ def melodia(rng, prog_acordes, escala, tonica, registro, nbar, coro):
     return notas
 
 
-def componer(bpm, nbars, kicks_loop, loop_bars, tonica=60, semilla=1, clic=False):
+def componer(bpm, nbars, kicks_loop, loop_bars, tonica=60, semilla=1, clic=False, estilo='pop'):
     """Devuelve audio estéreo (n, 2) de nbars compases. kicks_loop: tiempos (s) del bombo dentro del loop."""
     rng = np.random.default_rng(semilla)
     step = 60.0 / bpm / 4; bar = 16 * step
@@ -191,6 +199,8 @@ def componer(bpm, nbars, kicks_loop, loop_bars, tonica=60, semilla=1, clic=False
         if i0 < n: buf[i0:e] += s[:e - i0]
 
     pe = PROGS_ESTROFA[rng.integers(len(PROGS_ESTROFA))]
+    if estilo == 'reggae':
+        PE_R = [1, 4]
     pc = PROGS_CORO[rng.integers(len(PROGS_CORO))]
     while pc == pe: pc = PROGS_CORO[rng.integers(len(PROGS_CORO))]
     pp = PROGS_PUENTE[rng.integers(len(PROGS_PUENTE))]
@@ -201,35 +211,40 @@ def componer(bpm, nbars, kicks_loop, loop_bars, tonica=60, semilla=1, clic=False
     b0 = 0
     for nombre, nb in plan:
         prog = {'estrofa': pe, 'coro': pc, 'puente': pp, 'intro': pe, 'final': [4, 5, 1, 1]}[nombre]
+        if estilo == 'reggae':
+            prog = [6, 6, 2, 2]  # menor: i - iv, cada acorde dura 2 compases
         acs = []
         for g in prog:
             raiz, tonos = acorde(g, tonica, color)
             if nombre == 'puente' and g == 5: tonos = [raiz, raiz + 5, raiz + 7, raiz + 10]  # V7sus
             acs.append((raiz, tonos))
         mel = []
-        if nombre in ('estrofa', 'coro', 'puente'):
+        if nombre in ('estrofa', 'coro', 'puente') and estilo != 'reggae':
             mel = melodia(rng, acs, escala, tonica, tonica + (17 if nombre == 'coro' else 12), nb, nombre == 'coro')
         for k in range(nb):
             b = b0 + k; t_b = b * bar
             raiz, tonos = acs[k % len(acs)]
             voz = voicear(tonos, voz_prev); voz_prev = voz
             # piano eléctrico: comping según sección
-            if nombre in ('intro', 'final', 'puente'):
+            if estilo == 'reggae':  # skank: acordes cortos en los contratiempos (el "y" de cada tiempo)
+                golpes = [(4, 2, .9), (12, 2, .9)]
+                if nombre == 'final' and k == nb - 1: golpes = [(0, 16, 1.0)]
+            elif nombre in ('intro', 'final', 'puente'):
                 golpes = [(0, 16, .9)]
             elif nombre == 'estrofa':
                 golpes = [(0, 6, .85), (6, 4, .6), (10, 6, .7)]
             else:
                 golpes = [(0, 4, .85), (4, 4, .55), (6, 2, .5), (8, 4, .75), (12, 2, .5), (14, 2, .55)]
-            if nombre == 'final' and k == nb - 1: golpes = [(0, 16, 1.0)]
+            if nombre == 'final' and k == nb - 1 and estilo != 'reggae': golpes = [(0, 16, 1.0)]
             for st, du, vel in golpes:
                 for m in voz:
                     add(L['ep'], epiano(midi_hz(m), du * step + 0.3, vel) / len(voz), t_b + st * step)
             # pad en coro, puente y final
-            if nombre in ('coro', 'puente', 'final', 'intro'):
+            if nombre in ('coro', 'puente', 'final', 'intro') and estilo != 'reggae':
                 for m in voz:
                     add(L['pad'], pad(midi_hz(m), bar + 0.4) / len(voz) * (0.6 if nombre == 'intro' else 1), t_b)
             # arpegio brillante en el coro
-            if nombre == 'coro':
+            if nombre == 'coro' and estilo != 'reggae':
                 arp = sorted(voz) + [voz[0] + 12]
                 for s in range(0, 16, 2):
                     m = arp[(s // 2) % len(arp)] + 12
@@ -241,10 +256,16 @@ def componer(bpm, nbars, kicks_loop, loop_bars, tonica=60, semilla=1, clic=False
             lb = (b % loop_bars) * bar
             ks = sorted(set([0.0] + [round(x - lb, 6) for x in kicks_loop if lb <= x < lb + bar - 1e-6]))
             if nombre in ('intro',): ks = [0.0]
+            if estilo == 'reggae':  # bajo roots (estilo reggae chileno tipo Gondwana): profundo, melódico, en menor
+                frase = (((0, 6, 0), (6, 2, 0), (12, 4, 3)), ((0, 6, 7), (6, 2, 7), (8, 4, 10), (12, 4, 12)),
+                         ((0, 6, 0), (6, 2, 0), (12, 4, 3)), ((0, 4, 5), (4, 4, 3), (8, 8, 0)))[k % 4]
+                for st_, du_, iv in frase:
+                    add(L['bajo'], bajo_reggae(midi_hz(r + iv), du_ * step * 0.95), t_b + st_ * step)
+                ks = []
             for j, kt in enumerate(ks):
                 fin = ks[j + 1] if j + 1 < len(ks) else bar
                 add(L['bajo'], bajo(midi_hz(r), max(step * 1.5, fin - kt - 0.02)), t_b + kt)
-            if nombre not in ('intro', 'final') and sig != r and k % 2 == 1:
+            if estilo != 'reggae' and nombre not in ('intro', 'final') and sig != r and k % 2 == 1:
                 apr = sig - 1 if sig > r else sig + 2
                 add(L['bajo'], bajo(midi_hz(apr), step * 1.6) * 0.8, t_b + 14 * step)
             if clic:

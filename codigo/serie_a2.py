@@ -191,12 +191,20 @@ if __name__ == '__main__':
         # el orden de publicación lo manda plan/titulos_shorts.csv (puede estar reordenado):
         # la fila n dice qué archivo va; se busca en el plan la entrada que genera ese archivo
         por_arch = {archivo(c): c for c in pl.values()}
+        # specs congeladas por archivo (plan/specs_a.json): el patrón de cada video no cambia aunque se edite drumlib
+        sp = os.path.join(AQUI, '..', 'plan', 'specs_a.json')
+        if os.path.exists(sp):
+            import json as _j
+            for arch, c in _j.load(open(sp, encoding='utf-8')).items():
+                base = D.ESTILOS_TODOS.get(c['base'], {})
+                D.ESTILOS_TODOS[c['estilo']] = dict(base, nombre=c['nombre'], hits=c['hits'])
+                por_arch[arch] = dict({k: v for k, v in c.items() if k not in ('nombre', 'hits', 'nivel_estilo')}, _archivo=arch)
         filas = {int(r['dia']): r['archivo'] for r in csv.DictReader(open(os.path.join(AQUI, '..', 'plan', 'titulos_shorts.csv'), encoding='utf-8'))}
         cs = [por_arch[filas[int(a)]] for a in sys.argv[1:] if int(a) in filas and filas[int(a)] in por_arch]
 
         def work(c):
-            f = f"{OUT}/{archivo(c)}"
-            if not os.path.exists(f): D.render(c, f)
+            f = f"{OUT}/{c.get('_archivo') or archivo(c)}"
+            if not os.path.exists(f): D.render({k: v for k, v in c.items() if k != '_archivo'}, f)
             return f
         with Pool(int(os.environ.get('NP', '4'))) as P:
             for f in P.imap_unordered(work, cs): print(f, flush=True)

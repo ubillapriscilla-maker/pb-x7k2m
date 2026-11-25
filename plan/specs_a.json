@@ -1,0 +1,3012 @@
+{
+"dia005_bombo_y_caja_v_ky2_60bpm.mp4": {
+"dia": 5,
+"nivel": 1,
+"estilo": "bombo_y_caja__ky2",
+"base": "bombo_y_caja",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Bombo y caja (sin hi-hat) + bombo en el y del 2",
+"hits": {
+"snare": "----x-------x---",
+"kick": "x-----x-x-------"
+},
+"nivel_estilo": 1
+},
+"dia006_disco_v_sy4_100bpm.mp4": {
+"dia": 6,
+"nivel": 2,
+"estilo": "disco__sy4",
+"base": "disco",
+"bpm": 100,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Disco + caja extra en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"ohat": "--x---x---x---x-",
+"snare": "----x-------x-x-",
+"kick": "x---x---x---x---"
+},
+"nivel_estilo": 2
+},
+"dia007_hat_negras_v_ky2_60bpm.mp4": {
+"dia": 7,
+"nivel": 1,
+"estilo": "hat_negras__ky2",
+"base": "hat_negras",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hi-hat en negras + bombo en el y del 2",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x-----x-x-------"
+},
+"nivel_estilo": 1
+},
+"dia008_hiphop_boom_bap_v_h4_70bpm.mp4": {
+"dia": 8,
+"nivel": 2,
+"estilo": "hiphop_boom_bap__h4",
+"base": "hiphop_boom_bap",
+"bpm": 70,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hip-hop boom bap + hi-hat en negras",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x-------x-x-----"
+},
+"nivel_estilo": 2
+},
+"dia018_pop_4_al_piso_v_hab_120bpm.mp4": {
+"dia": 18,
+"nivel": 2,
+"estilo": "pop_4_al_piso__hab",
+"base": "pop_4_al_piso",
+"bpm": 120,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Pop con bombo en negras + hi-hat abierto en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "----x-------x---",
+"kick": "x---x---x---x---",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 2
+},
+"dia010_reggae_one_drop_v_h4_65bpm.mp4": {
+"dia": 10,
+"nivel": 2,
+"estilo": "reggae_one_drop__h4",
+"base": "reggae_one_drop",
+"bpm": 130,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Reggae one drop + hi-hat en blancas",
+"hits": {
+"hat": "x-------x-------",
+"aro": "--------x-------",
+"kick": "--------x-------"
+},
+"nivel_estilo": 2
+},
+"dia017_hiphop_boom_bap_v_hab_95bpm.mp4": {
+"dia": 17,
+"nivel": 2,
+"estilo": "hiphop_boom_bap__hab",
+"base": "hiphop_boom_bap",
+"bpm": 95,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hip-hop boom bap + hi-hat abierto en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "----x-------x---",
+"kick": "x-------x-x-----",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 2
+},
+"dia009_pop_4_al_piso_v_h4_90bpm.mp4": {
+"dia": 9,
+"nivel": 2,
+"estilo": "pop_4_al_piso__h4",
+"base": "pop_4_al_piso",
+"bpm": 90,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Pop con bombo en negras + hi-hat en negras",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x---x---x---x---"
+},
+"nivel_estilo": 2
+},
+"dia019_reggae_one_drop_v_hab_90bpm.mp4": {
+"dia": 19,
+"nivel": 2,
+"estilo": "reggae_one_drop__hab",
+"base": "reggae_one_drop",
+"bpm": 75,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Reggae one drop + hi-hat abierto en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"ohat": "--------------x-",
+"aro": "--------x-------",
+"kick": "--------x-------"
+},
+"nivel_estilo": 2
+},
+"dia011_ride_rock_v_ky2_70bpm.mp4": {
+"dia": 11,
+"nivel": 2,
+"estilo": "ride_rock__ky2",
+"base": "ride_rock",
+"bpm": 70,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con ride + bombo en el y del 2",
+"hits": {
+"ride": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x---",
+"kick": "x-----x-x-x-----"
+},
+"nivel_estilo": 2
+},
+"dia012_rock_basico_v_h4_60bpm.mp4": {
+"dia": 12,
+"nivel": 1,
+"estilo": "rock_basico__h4",
+"base": "rock_basico",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock básico + hi-hat en negras",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x-------x-------"
+},
+"nivel_estilo": 1
+},
+"dia022_rock_bombo_extra_v_ky3_110bpm.mp4": {
+"dia": 22,
+"nivel": 1,
+"estilo": "rock_bombo_extra__ky3",
+"base": "rock_bombo_extra",
+"bpm": 110,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo extra + bombo en el y del 3",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x---",
+"kick": "x-----x-x-x-----"
+},
+"nivel_estilo": 1
+},
+"dia026_hiphop_boom_bap_v_ky2_70bpm.mp4": {
+"dia": 26,
+"nivel": 2,
+"estilo": "hiphop_boom_bap__ky2",
+"base": "hiphop_boom_bap",
+"bpm": 70,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hip-hop boom bap + bombo en el y del 2",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x---",
+"kick": "x-----x-x-x-----"
+},
+"nivel_estilo": 2
+},
+"dia027_pop_4_al_piso_v_ride_90bpm.mp4": {
+"dia": 27,
+"nivel": 2,
+"estilo": "pop_4_al_piso__ride",
+"base": "pop_4_al_piso",
+"bpm": 90,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Pop con bombo en negras en el ride",
+"hits": {
+"snare": "----x-------x---",
+"kick": "x---x---x---x---",
+"ride": "x-x-x-x-x-x-x-x-"
+},
+"nivel_estilo": 2
+},
+"dia013_rock_bombo_extra_v_h4_60bpm.mp4": {
+"dia": 13,
+"nivel": 1,
+"estilo": "rock_bombo_extra__h4",
+"base": "rock_bombo_extra",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo extra + hi-hat en negras",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x-----x-x-------"
+},
+"nivel_estilo": 1
+},
+"dia028_reggae_one_drop_v_ride_65bpm.mp4": {
+"dia": 28,
+"nivel": 2,
+"estilo": "reggae_one_drop__ride",
+"base": "reggae_one_drop",
+"bpm": 70,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Reggae one drop en el ride",
+"hits": {
+"ride": "x---x---x---x---",
+"aro": "--------x-------",
+"kick": "--------x-------"
+},
+"nivel_estilo": 2
+},
+"dia020_ride_rock_v_ky4_110bpm.mp4": {
+"dia": 20,
+"nivel": 2,
+"estilo": "ride_rock__ky4",
+"base": "ride_rock",
+"bpm": 110,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con ride + bombo en el y del 4",
+"hits": {
+"ride": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x---",
+"kick": "x-------x-x---x-"
+},
+"nivel_estilo": 2
+},
+"dia021_rock_basico_v_ky2_110bpm.mp4": {
+"dia": 21,
+"nivel": 1,
+"estilo": "rock_basico__ky2",
+"base": "rock_basico",
+"bpm": 110,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock básico + bombo en el y del 2",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x---",
+"kick": "x-----x-x-------"
+},
+"nivel_estilo": 1
+},
+"dia014_rock_sincopado_v_h4_60bpm.mp4": {
+"dia": 14,
+"nivel": 1,
+"estilo": "rock_sincopado__h4",
+"base": "rock_sincopado",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo sincopado + hi-hat en negras",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x---x-x---x-----"
+},
+"nivel_estilo": 1
+},
+"dia015_bombo_y_caja_v_ky3_100bpm.mp4": {
+"dia": 15,
+"nivel": 1,
+"estilo": "bombo_y_caja__ky3",
+"base": "bombo_y_caja",
+"bpm": 100,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Bombo y caja (sin hi-hat) + bombo en el y del 3",
+"hits": {
+"snare": "----x-------x---",
+"kick": "x-------x-x-----"
+},
+"nivel_estilo": 1
+},
+"dia029_ride_rock_v_ky2_sy4_70bpm.mp4": {
+"dia": 29,
+"nivel": 2,
+"estilo": "ride_rock__ky2_sy4",
+"base": "ride_rock",
+"bpm": 70,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con ride + bombo en el y del 2 + caja extra en el y del 4",
+"hits": {
+"ride": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x-x-",
+"kick": "x-----x-x-x-----"
+},
+"nivel_estilo": 2
+},
+"dia035_hiphop_boom_bap_v_ky4_95bpm.mp4": {
+"dia": 35,
+"nivel": 2,
+"estilo": "hiphop_boom_bap__ky4",
+"base": "hiphop_boom_bap",
+"bpm": 95,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hip-hop boom bap + bombo en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x---",
+"kick": "x-------x-x---x-"
+},
+"nivel_estilo": 2
+},
+"dia036_pop_4_al_piso_v_sy4_120bpm.mp4": {
+"dia": 36,
+"nivel": 2,
+"estilo": "pop_4_al_piso__sy4",
+"base": "pop_4_al_piso",
+"bpm": 120,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Pop con bombo en negras + caja extra en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x-x-",
+"kick": "x---x---x---x---"
+},
+"nivel_estilo": 2
+},
+"dia023_rock_sincopado_v_ky4_100bpm.mp4": {
+"dia": 23,
+"nivel": 1,
+"estilo": "rock_sincopado__ky4",
+"base": "rock_sincopado",
+"bpm": 100,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo sincopado + bombo en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x---",
+"kick": "x---x-x---x---x-"
+},
+"nivel_estilo": 1
+},
+"dia016_hat_negras_v_ky3_100bpm.mp4": {
+"dia": 16,
+"nivel": 1,
+"estilo": "hat_negras__ky3",
+"base": "hat_negras",
+"bpm": 100,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hi-hat en negras + bombo en el y del 3",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x-------x-x-----"
+},
+"nivel_estilo": 1
+},
+"dia031_rock_bombo_extra_v_ky4_60bpm.mp4": {
+"dia": 31,
+"nivel": 1,
+"estilo": "rock_bombo_extra__ky4",
+"base": "rock_bombo_extra",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo extra + bombo en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x---",
+"kick": "x-----x-x-----x-"
+},
+"nivel_estilo": 1
+},
+"dia030_rock_basico_v_ky3_60bpm.mp4": {
+"dia": 30,
+"nivel": 1,
+"estilo": "rock_basico__ky3",
+"base": "rock_basico",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock básico + bombo en el y del 3",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x---",
+"kick": "x-------x-x-----"
+},
+"nivel_estilo": 1
+},
+"dia041_funk_16avos_v_ky2_70bpm.mp4": {
+"dia": 41,
+"nivel": 3,
+"estilo": "funk_16avos__ky2",
+"base": "funk_16avos",
+"bpm": 70,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk en semicorcheas + bombo en el y del 2",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x---",
+"kick": "x--x--x-x-x-----"
+},
+"nivel_estilo": 3
+},
+"dia037_ride_rock_v_ky3_sy4_110bpm.mp4": {
+"dia": 37,
+"nivel": 2,
+"estilo": "ride_rock__ky3_sy4",
+"base": "ride_rock",
+"bpm": 110,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con ride + bombo en el y del 3 + caja extra en el y del 4",
+"hits": {
+"ride": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x-x-",
+"kick": "x-------x-x-----"
+},
+"nivel_estilo": 2
+},
+"dia043_punk_v_h4_130bpm.mp4": {
+"dia": 43,
+"nivel": 3,
+"estilo": "punk__h4",
+"base": "punk",
+"bpm": 130,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Punk rock rápido + hi-hat en negras",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x-------x-------"
+},
+"nivel_estilo": 3
+},
+"dia038_rock_basico_v_ky4_110bpm.mp4": {
+"dia": 38,
+"nivel": 1,
+"estilo": "rock_basico__ky4",
+"base": "rock_basico",
+"bpm": 110,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock básico + bombo en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x---",
+"kick": "x-------x-----x-"
+},
+"nivel_estilo": 1
+},
+"dia045_reggae_one_drop_v_h16_90bpm.mp4": {
+"dia": 45,
+"nivel": 3,
+"estilo": "reggae_one_drop__h16",
+"base": "reggae_one_drop",
+"bpm": 80,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Reggae one drop + hi-hat en corcheas",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"aro": "--------x-------",
+"kick": "--------x-------"
+},
+"nivel_estilo": 3
+},
+"dia032_rock_sincopado_v_h4_ky4_60bpm.mp4": {
+"dia": 32,
+"nivel": 1,
+"estilo": "rock_sincopado__h4_ky4",
+"base": "rock_sincopado",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo sincopado + hi-hat en negras + bombo en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x---x-x---x---x-"
+},
+"nivel_estilo": 1
+},
+"dia039_rock_bombo_extra_v_h4_ky3_110bpm.mp4": {
+"dia": 39,
+"nivel": 1,
+"estilo": "rock_bombo_extra__h4_ky3",
+"base": "rock_bombo_extra",
+"bpm": 110,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo extra + hi-hat en negras + bombo en el y del 3",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x-----x-x-x-----"
+},
+"nivel_estilo": 1
+},
+"dia048_hiphop_boom_bap_v_ride_70bpm.mp4": {
+"dia": 48,
+"nivel": 2,
+"estilo": "hiphop_boom_bap__ride",
+"base": "hiphop_boom_bap",
+"bpm": 70,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hip-hop boom bap en el ride",
+"hits": {
+"snare": "----x-------x---",
+"kick": "x-------x-x-----",
+"ride": "x-x-x-x-x-x-x-x-"
+},
+"nivel_estilo": 2
+},
+"dia049_pop_4_al_piso_v_h4_sy4_90bpm.mp4": {
+"dia": 49,
+"nivel": 2,
+"estilo": "pop_4_al_piso__h4_sy4",
+"base": "pop_4_al_piso",
+"bpm": 90,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Pop con bombo en negras + hi-hat en negras + caja extra en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x-x-",
+"kick": "x---x---x---x---"
+},
+"nivel_estilo": 2
+},
+"dia042_medio_tiempo_v_h4_70bpm.mp4": {
+"dia": 42,
+"nivel": 3,
+"estilo": "medio_tiempo__h4",
+"base": "medio_tiempo",
+"bpm": 70,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock a medio tiempo + hi-hat en negras",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "--------x-------",
+"kick": "x-------------x-"
+},
+"nivel_estilo": 3
+},
+"dia044_rock_16avos_v_ky2_60bpm.mp4": {
+"dia": 44,
+"nivel": 3,
+"estilo": "rock_16avos__ky2",
+"base": "rock_16avos",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con hi-hat en semicorcheas + bombo en el y del 2",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x---",
+"kick": "x-----x-x-x-----"
+},
+"nivel_estilo": 3
+},
+"dia040_rock_sincopado_v_hab_100bpm.mp4": {
+"dia": 40,
+"nivel": 2,
+"estilo": "rock_sincopado__hab",
+"base": "rock_sincopado",
+"bpm": 100,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo sincopado + hi-hat abierto en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "----x-------x---",
+"kick": "x---x-x---x-----",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 2
+},
+"dia024_bombo_y_caja_v_ky4_60bpm.mp4": {
+"dia": 24,
+"nivel": 1,
+"estilo": "bombo_y_caja__ky4",
+"base": "bombo_y_caja",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Bombo y caja (sin hi-hat) + bombo en el y del 4",
+"hits": {
+"snare": "----x-------x---",
+"kick": "x-------x-----x-"
+},
+"nivel_estilo": 1
+},
+"dia054_funk_16avos_v_ky4_100bpm.mp4": {
+"dia": 54,
+"nivel": 3,
+"estilo": "funk_16avos__ky4",
+"base": "funk_16avos",
+"bpm": 100,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk en semicorcheas + bombo en el y del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x---",
+"kick": "x--x----x-x---x-"
+},
+"nivel_estilo": 3
+},
+"dia050_ride_rock_v_ky4_sy4_70bpm.mp4": {
+"dia": 50,
+"nivel": 2,
+"estilo": "ride_rock__ky4_sy4",
+"base": "ride_rock",
+"bpm": 70,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con ride + bombo en el y del 4 + caja extra en el y del 4",
+"hits": {
+"ride": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x-x-",
+"kick": "x-------x-x---x-"
+},
+"nivel_estilo": 2
+},
+"dia056_punk_v_hab_175bpm.mp4": {
+"dia": 56,
+"nivel": 3,
+"estilo": "punk__hab",
+"base": "punk",
+"bpm": 175,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Punk rock rápido + hi-hat abierto en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "----x-------x---",
+"kick": "x-------x-------",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 3
+},
+"dia033_bombo_y_caja_v_sy4_100bpm.mp4": {
+"dia": 33,
+"nivel": 2,
+"estilo": "bombo_y_caja__sy4",
+"base": "bombo_y_caja",
+"bpm": 100,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Bombo y caja (sin hi-hat) + caja extra en el y del 4",
+"hits": {
+"snare": "----x-------x-x-",
+"kick": "x-------x-------"
+},
+"nivel_estilo": 2
+},
+"dia055_medio_tiempo_v_hab_110bpm.mp4": {
+"dia": 55,
+"nivel": 3,
+"estilo": "medio_tiempo__hab",
+"base": "medio_tiempo",
+"bpm": 110,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock a medio tiempo + hi-hat abierto en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "--------x-------",
+"kick": "x-------------x-",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 3
+},
+"dia057_rock_16avos_v_ky4_95bpm.mp4": {
+"dia": 57,
+"nivel": 3,
+"estilo": "rock_16avos__ky4",
+"base": "rock_16avos",
+"bpm": 95,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con hi-hat en semicorcheas + bombo en el y del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x---",
+"kick": "x-------x-x---x-"
+},
+"nivel_estilo": 3
+},
+"dia060_hiphop_boom_bap_v_h4_ky2_95bpm.mp4": {
+"dia": 60,
+"nivel": 2,
+"estilo": "hiphop_boom_bap__h4_ky2",
+"base": "hiphop_boom_bap",
+"bpm": 95,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hip-hop boom bap + hi-hat en negras + bombo en el y del 2",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x-----x-x-x-----"
+},
+"nivel_estilo": 2
+},
+"dia061_pop_4_al_piso_v_hab_sy4_120bpm.mp4": {
+"dia": 61,
+"nivel": 2,
+"estilo": "pop_4_al_piso__hab_sy4",
+"base": "pop_4_al_piso",
+"bpm": 120,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Pop con bombo en negras + hi-hat abierto en el y del 4 + caja extra en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "----x-------x-x-",
+"kick": "x---x---x---x---",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 2
+},
+"dia034_hat_negras_v_sy4_100bpm.mp4": {
+"dia": 34,
+"nivel": 2,
+"estilo": "hat_negras__sy4",
+"base": "hat_negras",
+"bpm": 100,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hi-hat en negras + caja extra en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x-x-",
+"kick": "x-------x-------"
+},
+"nivel_estilo": 2
+},
+"dia051_rock_basico_v_h4_ky2_60bpm.mp4": {
+"dia": 51,
+"nivel": 1,
+"estilo": "rock_basico__h4_ky2",
+"base": "rock_basico",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock básico + hi-hat en negras + bombo en el y del 2",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x-----x-x-------"
+},
+"nivel_estilo": 1
+},
+"dia052_rock_bombo_extra_v_h4_ky4_60bpm.mp4": {
+"dia": 52,
+"nivel": 1,
+"estilo": "rock_bombo_extra__h4_ky4",
+"base": "rock_bombo_extra",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo extra + hi-hat en negras + bombo en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x-----x-x-----x-"
+},
+"nivel_estilo": 1
+},
+"dia062_ride_rock_v_ke3_110bpm.mp4": {
+"dia": 62,
+"nivel": 3,
+"estilo": "ride_rock__ke3",
+"base": "ride_rock",
+"bpm": 110,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con ride + bombo en la e del 3",
+"hits": {
+"ride": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x---",
+"kick": "x-------xxx-----"
+},
+"nivel_estilo": 3
+},
+"dia066_funk_16avos_v_ky2_sy4_70bpm.mp4": {
+"dia": 66,
+"nivel": 3,
+"estilo": "funk_16avos__ky2_sy4",
+"base": "funk_16avos",
+"bpm": 70,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk en semicorcheas + bombo en el y del 2 + caja extra en el y del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x-x-",
+"kick": "x--x--x-x-x-----"
+},
+"nivel_estilo": 3
+},
+"dia063_rock_basico_v_h4_ky3_110bpm.mp4": {
+"dia": 63,
+"nivel": 1,
+"estilo": "rock_basico__h4_ky3",
+"base": "rock_basico",
+"bpm": 110,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock básico + hi-hat en negras + bombo en el y del 3",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x-------x-x-----"
+},
+"nivel_estilo": 1
+},
+"dia068_punk_v_ky2_130bpm.mp4": {
+"dia": 68,
+"nivel": 3,
+"estilo": "punk__ky2",
+"base": "punk",
+"bpm": 130,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Punk rock rápido + bombo en el y del 2",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x---",
+"kick": "x-----x-x-------"
+},
+"nivel_estilo": 3
+},
+"dia025_hat_negras_v_ky4_60bpm.mp4": {
+"dia": 25,
+"nivel": 1,
+"estilo": "hat_negras__ky4",
+"base": "hat_negras",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hi-hat en negras + bombo en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x-------x-----x-"
+},
+"nivel_estilo": 1
+},
+"dia053_rock_sincopado_v_ride_60bpm.mp4": {
+"dia": 53,
+"nivel": 2,
+"estilo": "rock_sincopado__ride",
+"base": "rock_sincopado",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo sincopado en el ride",
+"hits": {
+"snare": "----x-------x---",
+"kick": "x---x-x---x-----",
+"ride": "x-x-x-x-x-x-x-x-"
+},
+"nivel_estilo": 2
+},
+"dia064_rock_bombo_extra_v_hab_110bpm.mp4": {
+"dia": 64,
+"nivel": 2,
+"estilo": "rock_bombo_extra__hab",
+"base": "rock_bombo_extra",
+"bpm": 110,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo extra + hi-hat abierto en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "----x-------x---",
+"kick": "x-----x-x-------",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 2
+},
+"dia072_hiphop_boom_bap_v_h4_ky4_70bpm.mp4": {
+"dia": 72,
+"nivel": 2,
+"estilo": "hiphop_boom_bap__h4_ky4",
+"base": "hiphop_boom_bap",
+"bpm": 70,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hip-hop boom bap + hi-hat en negras + bombo en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x-------x-x---x-"
+},
+"nivel_estilo": 2
+},
+"dia073_pop_4_al_piso_v_ride_sy4_90bpm.mp4": {
+"dia": 73,
+"nivel": 2,
+"estilo": "pop_4_al_piso__ride_sy4",
+"base": "pop_4_al_piso",
+"bpm": 90,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Pop con bombo en negras en el ride y caja extra en el y del 4",
+"hits": {
+"snare": "----x-------x-x-",
+"kick": "x---x---x---x---",
+"ride": "x-x-x-x-x-x-x-x-"
+},
+"nivel_estilo": 2
+},
+"dia067_medio_tiempo_v_ky2_70bpm.mp4": {
+"dia": 67,
+"nivel": 3,
+"estilo": "medio_tiempo__ky2",
+"base": "medio_tiempo",
+"bpm": 70,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock a medio tiempo + bombo en el y del 2",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "--------x-------",
+"kick": "x-----x-------x-"
+},
+"nivel_estilo": 3
+},
+"dia069_rock_16avos_v_ky2_sy4_60bpm.mp4": {
+"dia": 69,
+"nivel": 3,
+"estilo": "rock_16avos__ky2_sy4",
+"base": "rock_16avos",
+"bpm": 60,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con hi-hat en semicorcheas + bombo en el y del 2 + caja extra en el y del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x-x-",
+"kick": "x-----x-x-x-----"
+},
+"nivel_estilo": 3
+},
+"dia065_rock_sincopado_v_h4_sy4_100bpm.mp4": {
+"dia": 65,
+"nivel": 2,
+"estilo": "rock_sincopado__h4_sy4",
+"base": "rock_sincopado",
+"bpm": 100,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo sincopado + hi-hat en negras + caja extra en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x-x-",
+"kick": "x---x-x---x-----"
+},
+"nivel_estilo": 2
+},
+"dia046_bombo_y_caja_v_ky2_sy4_60bpm.mp4": {
+"dia": 46,
+"nivel": 2,
+"estilo": "bombo_y_caja__ky2_sy4",
+"base": "bombo_y_caja",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Bombo y caja (sin hi-hat) + bombo en el y del 2 + caja extra en el y del 4",
+"hits": {
+"snare": "----x-------x-x-",
+"kick": "x-----x-x-------"
+},
+"nivel_estilo": 2
+},
+"dia078_funk_16avos_v_ky3_sy4_100bpm.mp4": {
+"dia": 78,
+"nivel": 3,
+"estilo": "funk_16avos__ky3_sy4",
+"base": "funk_16avos",
+"bpm": 100,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk en semicorcheas + bombo en el y del 3 + caja extra en el y del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x-x-",
+"kick": "x--x----x-x-----"
+},
+"nivel_estilo": 3
+},
+"dia074_ride_rock_v_ke3_sy4_70bpm.mp4": {
+"dia": 74,
+"nivel": 3,
+"estilo": "ride_rock__ke3_sy4",
+"base": "ride_rock",
+"bpm": 70,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con ride + bombo en la e del 3 + caja extra en el y del 4",
+"hits": {
+"ride": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x-x-",
+"kick": "x-------xxx-----"
+},
+"nivel_estilo": 3
+},
+"dia080_punk_v_ky3_175bpm.mp4": {
+"dia": 80,
+"nivel": 3,
+"estilo": "punk__ky3",
+"base": "punk",
+"bpm": 175,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Punk rock rápido + bombo en el y del 3",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x---",
+"kick": "x-------x-x-----"
+},
+"nivel_estilo": 3
+},
+"dia058_bombo_y_caja_v_ky3_sy4_100bpm.mp4": {
+"dia": 58,
+"nivel": 2,
+"estilo": "bombo_y_caja__ky3_sy4",
+"base": "bombo_y_caja",
+"bpm": 100,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Bombo y caja (sin hi-hat) + bombo en el y del 3 + caja extra en el y del 4",
+"hits": {
+"snare": "----x-------x-x-",
+"kick": "x-------x-x-----"
+},
+"nivel_estilo": 2
+},
+"dia082_funk_sincopado_v_h4_75bpm.mp4": {
+"dia": 82,
+"nivel": 4,
+"estilo": "funk_sincopado__h4",
+"base": "funk_sincopado",
+"bpm": 75,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk sincopado + hi-hat en negras",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x--x--x-x--x--x-"
+},
+"nivel_estilo": 4
+},
+"dia083_metal_doble_bombo_v_sy4_80bpm.mp4": {
+"dia": 83,
+"nivel": 4,
+"estilo": "metal_doble_bombo__sy4",
+"base": "metal_doble_bombo",
+"bpm": 80,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Metal con doble bombo + caja extra en el y del 4",
+"hits": {
+"ride": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x-x-",
+"kick": "xxxxxxxxxxxxxxxx"
+},
+"nivel_estilo": 4
+},
+"dia084_disco_v_sa4_120bpm.mp4": {
+"dia": 84,
+"nivel": 4,
+"estilo": "disco__sa4",
+"base": "disco",
+"bpm": 120,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Disco + caja extra en el a del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"ohat": "--x---x---x---x-",
+"snare": "----x-------x--x",
+"kick": "x---x---x---x---"
+},
+"nivel_estilo": 4
+},
+"dia079_medio_tiempo_v_ky3_110bpm.mp4": {
+"dia": 79,
+"nivel": 3,
+"estilo": "medio_tiempo__ky3",
+"base": "medio_tiempo",
+"bpm": 110,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock a medio tiempo + bombo en el y del 3",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "--------x-------",
+"kick": "x---------x---x-"
+},
+"nivel_estilo": 3
+},
+"dia085_rock_16avos_v_ky3_sy4_95bpm.mp4": {
+"dia": 85,
+"nivel": 3,
+"estilo": "rock_16avos__ky3_sy4",
+"base": "rock_16avos",
+"bpm": 95,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con hi-hat en semicorcheas + bombo en el y del 3 + caja extra en el y del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x-x-",
+"kick": "x-------x-x-----"
+},
+"nivel_estilo": 3
+},
+"dia081_doble_bombo_corto_v_sy4_70bpm.mp4": {
+"dia": 81,
+"nivel": 4,
+"estilo": "doble_bombo_corto__sy4",
+"base": "doble_bombo_corto",
+"bpm": 70,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con dobles de bombo + caja extra en el y del 4",
+"hits": {
+"ride": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x-x-",
+"kick": "x-x---x-x-x-----"
+},
+"nivel_estilo": 4
+},
+"dia088_hiphop_boom_bap_v_h4_sy4_95bpm.mp4": {
+"dia": 88,
+"nivel": 2,
+"estilo": "hiphop_boom_bap__h4_sy4",
+"base": "hiphop_boom_bap",
+"bpm": 95,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hip-hop boom bap + hi-hat en negras + caja extra en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x-x-",
+"kick": "x-------x-x-----"
+},
+"nivel_estilo": 2
+},
+"dia089_pop_4_al_piso_v_h16_120bpm.mp4": {
+"dia": 89,
+"nivel": 3,
+"estilo": "pop_4_al_piso__h16",
+"base": "pop_4_al_piso",
+"bpm": 120,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Pop con bombo en negras + hi-hat en semicorcheas",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x---",
+"kick": "x---x---x---x---"
+},
+"nivel_estilo": 3
+},
+"dia059_hat_negras_v_ky3_sy4_100bpm.mp4": {
+"dia": 59,
+"nivel": 2,
+"estilo": "hat_negras__ky3_sy4",
+"base": "hat_negras",
+"bpm": 100,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hi-hat en negras + bombo en el y del 3 + caja extra en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x-x-",
+"kick": "x-------x-x-----"
+},
+"nivel_estilo": 2
+},
+"dia075_rock_basico_v_h4_ky4_60bpm.mp4": {
+"dia": 75,
+"nivel": 1,
+"estilo": "rock_basico__h4_ky4",
+"base": "rock_basico",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock básico + hi-hat en negras + bombo en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x-------x-----x-"
+},
+"nivel_estilo": 1
+},
+"dia076_rock_bombo_extra_v_ride_60bpm.mp4": {
+"dia": 76,
+"nivel": 2,
+"estilo": "rock_bombo_extra__ride",
+"base": "rock_bombo_extra",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo extra en el ride",
+"hits": {
+"snare": "----x-------x---",
+"kick": "x-----x-x-------",
+"ride": "x-x-x-x-x-x-x-x-"
+},
+"nivel_estilo": 2
+},
+"dia090_ride_rock_v_ka4_110bpm.mp4": {
+"dia": 90,
+"nivel": 4,
+"estilo": "ride_rock__ka4",
+"base": "ride_rock",
+"bpm": 110,
+"relleno": "paradiddle",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con ride + bombo en el a del 4",
+"hits": {
+"ride": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x---",
+"kick": "x-------x-x----x"
+},
+"nivel_estilo": 4
+},
+"dia094_funk_16avos_v_ky4_sy4_70bpm.mp4": {
+"dia": 94,
+"nivel": 3,
+"estilo": "funk_16avos__ky4_sy4",
+"base": "funk_16avos",
+"bpm": 70,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk en semicorcheas + bombo en el y del 4 + caja extra en el y del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x-x-",
+"kick": "x--x----x-x---x-"
+},
+"nivel_estilo": 3
+},
+"dia091_rock_basico_v_hab_110bpm.mp4": {
+"dia": 91,
+"nivel": 2,
+"estilo": "rock_basico__hab",
+"base": "rock_basico",
+"bpm": 110,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock básico + hi-hat abierto en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "----x-------x---",
+"kick": "x-------x-------",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 2
+},
+"dia096_punk_v_ky4_130bpm.mp4": {
+"dia": 96,
+"nivel": 3,
+"estilo": "punk__ky4",
+"base": "punk",
+"bpm": 130,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Punk rock rápido + bombo en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x---",
+"kick": "x-------x-----x-"
+},
+"nivel_estilo": 3
+},
+"dia097_funk_sincopado_v_hab_105bpm.mp4": {
+"dia": 97,
+"nivel": 4,
+"estilo": "funk_sincopado__hab",
+"base": "funk_sincopado",
+"bpm": 105,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk sincopado + hi-hat abierto en el y del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxx-x",
+"snare": "----x-------x---",
+"kick": "x--x--x-x--x--x-",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 4
+},
+"dia047_hat_negras_v_ky2_sy4_60bpm.mp4": {
+"dia": 47,
+"nivel": 2,
+"estilo": "hat_negras__ky2_sy4",
+"base": "hat_negras",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hi-hat en negras + bombo en el y del 2 + caja extra en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x-x-",
+"kick": "x-----x-x-------"
+},
+"nivel_estilo": 2
+},
+"dia077_rock_sincopado_v_hab_ky4_60bpm.mp4": {
+"dia": 77,
+"nivel": 2,
+"estilo": "rock_sincopado__hab_ky4",
+"base": "rock_sincopado",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo sincopado + hi-hat abierto en el y del 4 + bombo en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "----x-------x---",
+"kick": "x---x-x---x---x-",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 2
+},
+"dia092_rock_bombo_extra_v_h4_sy4_110bpm.mp4": {
+"dia": 92,
+"nivel": 2,
+"estilo": "rock_bombo_extra__h4_sy4",
+"base": "rock_bombo_extra",
+"bpm": 110,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo extra + hi-hat en negras + caja extra en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x-x-",
+"kick": "x-----x-x-------"
+},
+"nivel_estilo": 2
+},
+"dia101_hiphop_boom_bap_v_hab_ky2_70bpm.mp4": {
+"dia": 101,
+"nivel": 2,
+"estilo": "hiphop_boom_bap__hab_ky2",
+"base": "hiphop_boom_bap",
+"bpm": 70,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hip-hop boom bap + hi-hat abierto en el y del 4 + bombo en el y del 2",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "----x-------x---",
+"kick": "x-----x-x-x-----",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 2
+},
+"dia102_pop_4_al_piso_v_h16_sy4_90bpm.mp4": {
+"dia": 102,
+"nivel": 3,
+"estilo": "pop_4_al_piso__h16_sy4",
+"base": "pop_4_al_piso",
+"bpm": 90,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Pop con bombo en negras + hi-hat en semicorcheas + caja extra en el y del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x-x-",
+"kick": "x---x---x---x---"
+},
+"nivel_estilo": 3
+},
+"dia095_medio_tiempo_v_ride_70bpm.mp4": {
+"dia": 95,
+"nivel": 3,
+"estilo": "medio_tiempo__ride",
+"base": "medio_tiempo",
+"bpm": 70,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock a medio tiempo en el ride",
+"hits": {
+"snare": "--------x-------",
+"kick": "x-------------x-",
+"ride": "x-x-x-x-x-x-x-x-"
+},
+"nivel_estilo": 3
+},
+"dia098_rock_16avos_v_ky4_sy4_60bpm.mp4": {
+"dia": 98,
+"nivel": 3,
+"estilo": "rock_16avos__ky4_sy4",
+"base": "rock_16avos",
+"bpm": 60,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con hi-hat en semicorcheas + bombo en el y del 4 + caja extra en el y del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x-x-",
+"kick": "x-------x-x---x-"
+},
+"nivel_estilo": 3
+},
+"dia093_rock_sincopado_v_hab_sy4_100bpm.mp4": {
+"dia": 93,
+"nivel": 2,
+"estilo": "rock_sincopado__hab_sy4",
+"base": "rock_sincopado",
+"bpm": 100,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo sincopado + hi-hat abierto en el y del 4 + caja extra en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "----x-------x-x-",
+"kick": "x---x-x---x-----",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 2
+},
+"dia070_bombo_y_caja_v_ky4_sy4_60bpm.mp4": {
+"dia": 70,
+"nivel": 2,
+"estilo": "bombo_y_caja__ky4_sy4",
+"base": "bombo_y_caja",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Bombo y caja (sin hi-hat) + bombo en el y del 4 + caja extra en el y del 4",
+"hits": {
+"snare": "----x-------x-x-",
+"kick": "x-------x-----x-"
+},
+"nivel_estilo": 2
+},
+"dia107_funk_16avos_v_ka4_100bpm.mp4": {
+"dia": 107,
+"nivel": 4,
+"estilo": "funk_16avos__ka4",
+"base": "funk_16avos",
+"bpm": 100,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk en semicorcheas + bombo en el a del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x---",
+"kick": "x--x----x-x----x"
+},
+"nivel_estilo": 4
+},
+"dia103_ride_rock_v_ka4_sy4_70bpm.mp4": {
+"dia": 103,
+"nivel": 4,
+"estilo": "ride_rock__ka4_sy4",
+"base": "ride_rock",
+"bpm": 70,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con ride + bombo en el a del 4 + caja extra en el y del 4",
+"hits": {
+"ride": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x-x-",
+"kick": "x-------x-x----x"
+},
+"nivel_estilo": 4
+},
+"dia109_punk_v_ride_175bpm.mp4": {
+"dia": 109,
+"nivel": 3,
+"estilo": "punk__ride",
+"base": "punk",
+"bpm": 175,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Punk rock rápido en el ride",
+"hits": {
+"snare": "----x-------x---",
+"kick": "x-------x-------",
+"ride": "x-x-x-x-x-x-x-x-"
+},
+"nivel_estilo": 3
+},
+"dia108_medio_tiempo_v_h4_ky2_110bpm.mp4": {
+"dia": 108,
+"nivel": 3,
+"estilo": "medio_tiempo__h4_ky2",
+"base": "medio_tiempo",
+"bpm": 110,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock a medio tiempo + hi-hat en negras + bombo en el y del 2",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "--------x-------",
+"kick": "x-----x-------x-"
+},
+"nivel_estilo": 3
+},
+"dia110_funk_sincopado_v_ride_75bpm.mp4": {
+"dia": 110,
+"nivel": 4,
+"estilo": "funk_sincopado__ride",
+"base": "funk_sincopado",
+"bpm": 75,
+"relleno": "redoble_2",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk sincopado en el ride",
+"hits": {
+"snare": "----x-------x---",
+"kick": "x--x--x-x--x--x-",
+"ride": "xxxxxxxxxxxxxxxx"
+},
+"nivel_estilo": 4
+},
+"dia111_rock_16avos_v_ka4_95bpm.mp4": {
+"dia": 111,
+"nivel": 4,
+"estilo": "rock_16avos__ka4",
+"base": "rock_16avos",
+"bpm": 95,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con hi-hat en semicorcheas + bombo en el a del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x---",
+"kick": "x-------x-x----x"
+},
+"nivel_estilo": 4
+},
+"dia086_bombo_y_caja_v_ke3_100bpm.mp4": {
+"dia": 86,
+"nivel": 3,
+"estilo": "bombo_y_caja__ke3",
+"base": "bombo_y_caja",
+"bpm": 100,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Bombo y caja (sin hi-hat) + bombo en la e del 3",
+"hits": {
+"snare": "----x-------x---",
+"kick": "x-------xx------"
+},
+"nivel_estilo": 3
+},
+"dia114_hiphop_boom_bap_v_hab_ky4_95bpm.mp4": {
+"dia": 114,
+"nivel": 2,
+"estilo": "hiphop_boom_bap__hab_ky4",
+"base": "hiphop_boom_bap",
+"bpm": 95,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hip-hop boom bap + hi-hat abierto en el y del 4 + bombo en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "----x-------x---",
+"kick": "x-------x-x---x-",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 2
+},
+"dia115_pop_4_al_piso_v_sa4_120bpm.mp4": {
+"dia": 115,
+"nivel": 4,
+"estilo": "pop_4_al_piso__sa4",
+"base": "pop_4_al_piso",
+"bpm": 120,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Pop con bombo en negras + caja extra en el a del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x--x",
+"kick": "x---x---x---x---"
+},
+"nivel_estilo": 4
+},
+"dia087_hat_negras_v_ke3_100bpm.mp4": {
+"dia": 87,
+"nivel": 3,
+"estilo": "hat_negras__ke3",
+"base": "hat_negras",
+"bpm": 100,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hi-hat en negras + bombo en la e del 3",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x-------xx------"
+},
+"nivel_estilo": 3
+},
+"dia104_rock_basico_v_ride_60bpm.mp4": {
+"dia": 104,
+"nivel": 2,
+"estilo": "rock_basico__ride",
+"base": "rock_basico",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock básico en el ride",
+"hits": {
+"snare": "----x-------x---",
+"kick": "x-------x-------",
+"ride": "x-x-x-x-x-x-x-x-"
+},
+"nivel_estilo": 2
+},
+"dia105_rock_bombo_extra_v_hab_ky3_60bpm.mp4": {
+"dia": 105,
+"nivel": 2,
+"estilo": "rock_bombo_extra__hab_ky3",
+"base": "rock_bombo_extra",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo extra + hi-hat abierto en el y del 4 + bombo en el y del 3",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "----x-------x---",
+"kick": "x-----x-x-x-----",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 2
+},
+"dia116_ride_rock_v_ky2_sa4_110bpm.mp4": {
+"dia": 116,
+"nivel": 4,
+"estilo": "ride_rock__ky2_sa4",
+"base": "ride_rock",
+"bpm": 110,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con ride + bombo en el y del 2 + caja extra en el a del 4",
+"hits": {
+"ride": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x--x",
+"kick": "x-----x-x-x-----"
+},
+"nivel_estilo": 4
+},
+"dia120_funk_16avos_v_ke3_70bpm.mp4": {
+"dia": 120,
+"nivel": 4,
+"estilo": "funk_16avos__ke3",
+"base": "funk_16avos",
+"bpm": 70,
+"relleno": "redoble_2",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk en semicorcheas + bombo en la e del 3",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x---",
+"kick": "x--x----xxx-----"
+},
+"nivel_estilo": 4
+},
+"dia121_funk_abierto_v_ka4_75bpm.mp4": {
+"dia": 121,
+"nivel": 5,
+"estilo": "funk_abierto__ka4",
+"base": "funk_abierto",
+"bpm": 75,
+"relleno": "paradiddle",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk con hi-hat abierto + bombo en el a del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxx-x",
+"ohat": "--------------x-",
+"snare": "----x-------x---",
+"kick": "x--x--x-x--x-x-x"
+},
+"nivel_estilo": 5
+},
+"dia122_metal_galope_v_sa4_85bpm.mp4": {
+"dia": 122,
+"nivel": 5,
+"estilo": "metal_galope__sa4",
+"base": "metal_galope",
+"bpm": 85,
+"relleno": "paradiddle",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Metal al galope + caja extra en el a del 4",
+"hits": {
+"ride": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x--x",
+"kick": "x-xxx-xxx-xxx-xx"
+},
+"nivel_estilo": 5
+},
+"dia117_rock_basico_v_sy4_110bpm.mp4": {
+"dia": 117,
+"nivel": 2,
+"estilo": "rock_basico__sy4",
+"base": "rock_basico",
+"bpm": 110,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock básico + caja extra en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x-x-",
+"kick": "x-------x-------"
+},
+"nivel_estilo": 2
+},
+"dia124_metal_doble_bombo_v_sa4_125bpm.mp4": {
+"dia": 124,
+"nivel": 5,
+"estilo": "metal_doble_bombo__sa4",
+"base": "metal_doble_bombo",
+"bpm": 125,
+"relleno": "redoble_2",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Metal con doble bombo + caja extra en el a del 4",
+"hits": {
+"ride": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x--x",
+"kick": "xxxxxxxxxxxxxxxx"
+},
+"nivel_estilo": 5
+},
+"dia071_hat_negras_v_ky4_sy4_60bpm.mp4": {
+"dia": 71,
+"nivel": 2,
+"estilo": "hat_negras__ky4_sy4",
+"base": "hat_negras",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hi-hat en negras + bombo en el y del 4 + caja extra en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x-x-",
+"kick": "x-------x-----x-"
+},
+"nivel_estilo": 2
+},
+"dia126_punk_v_sy4_130bpm.mp4": {
+"dia": 126,
+"nivel": 3,
+"estilo": "punk__sy4",
+"base": "punk",
+"bpm": 130,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Punk rock rápido + caja extra en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x-x-",
+"kick": "x-------x-------"
+},
+"nivel_estilo": 3
+},
+"dia127_funk_sincopado_v_h4_ky3_105bpm.mp4": {
+"dia": 127,
+"nivel": 4,
+"estilo": "funk_sincopado__h4_ky3",
+"base": "funk_sincopado",
+"bpm": 105,
+"relleno": "paradiddle",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk sincopado + hi-hat en negras + bombo en el y del 3",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x--x--x-x-xx--x-"
+},
+"nivel_estilo": 4
+},
+"dia123_doble_bombo_corto_v_sa4_110bpm.mp4": {
+"dia": 123,
+"nivel": 5,
+"estilo": "doble_bombo_corto__sa4",
+"base": "doble_bombo_corto",
+"bpm": 110,
+"relleno": "redoble_2",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con dobles de bombo + caja extra en el a del 4",
+"hits": {
+"ride": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x--x",
+"kick": "x-x---x-x-x-----"
+},
+"nivel_estilo": 5
+},
+"dia106_rock_sincopado_v_ky2_sy4_60bpm.mp4": {
+"dia": 106,
+"nivel": 2,
+"estilo": "rock_sincopado__ky2_sy4",
+"base": "rock_sincopado",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo sincopado + bombo en el y del 2 + caja extra en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x-x-",
+"kick": "x---x-x---x-----"
+},
+"nivel_estilo": 2
+},
+"dia118_rock_bombo_extra_v_hab_ky4_110bpm.mp4": {
+"dia": 118,
+"nivel": 2,
+"estilo": "rock_bombo_extra__hab_ky4",
+"base": "rock_bombo_extra",
+"bpm": 110,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo extra + hi-hat abierto en el y del 4 + bombo en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "----x-------x---",
+"kick": "x-----x-x-----x-",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 2
+},
+"dia131_hiphop_boom_bap_v_hab_sy4_70bpm.mp4": {
+"dia": 131,
+"nivel": 2,
+"estilo": "hiphop_boom_bap__hab_sy4",
+"base": "hiphop_boom_bap",
+"bpm": 70,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hip-hop boom bap + hi-hat abierto en el y del 4 + caja extra en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "----x-------x-x-",
+"kick": "x-------x-x-----",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 2
+},
+"dia132_pop_4_al_piso_v_h4_sa4_90bpm.mp4": {
+"dia": 132,
+"nivel": 4,
+"estilo": "pop_4_al_piso__h4_sa4",
+"base": "pop_4_al_piso",
+"bpm": 90,
+"relleno": "redoble_2",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Pop con bombo en negras + hi-hat en negras + caja extra en el a del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x--x",
+"kick": "x---x---x---x---"
+},
+"nivel_estilo": 4
+},
+"dia125_medio_tiempo_v_h4_ky3_70bpm.mp4": {
+"dia": 125,
+"nivel": 3,
+"estilo": "medio_tiempo__h4_ky3",
+"base": "medio_tiempo",
+"bpm": 70,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock a medio tiempo + hi-hat en negras + bombo en el y del 3",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "--------x-------",
+"kick": "x---------x---x-"
+},
+"nivel_estilo": 3
+},
+"dia128_rock_16avos_v_ke3_60bpm.mp4": {
+"dia": 128,
+"nivel": 4,
+"estilo": "rock_16avos__ke3",
+"base": "rock_16avos",
+"bpm": 60,
+"relleno": "redoble_2",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con hi-hat en semicorcheas + bombo en la e del 3",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x---",
+"kick": "x-------xxx-----"
+},
+"nivel_estilo": 4
+},
+"dia119_rock_sincopado_v_ky4_sy4_100bpm.mp4": {
+"dia": 119,
+"nivel": 2,
+"estilo": "rock_sincopado__ky4_sy4",
+"base": "rock_sincopado",
+"bpm": 100,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo sincopado + bombo en el y del 4 + caja extra en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x-x-",
+"kick": "x---x-x---x---x-"
+},
+"nivel_estilo": 2
+},
+"dia099_bombo_y_caja_v_ke3_sy4_60bpm.mp4": {
+"dia": 99,
+"nivel": 3,
+"estilo": "bombo_y_caja__ke3_sy4",
+"base": "bombo_y_caja",
+"bpm": 60,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Bombo y caja (sin hi-hat) + bombo en la e del 3 + caja extra en el y del 4",
+"hits": {
+"snare": "----x-------x-x-",
+"kick": "x-------xx------"
+},
+"nivel_estilo": 3
+},
+"dia137_funk_16avos_v_ka4_sy4_100bpm.mp4": {
+"dia": 137,
+"nivel": 4,
+"estilo": "funk_16avos__ka4_sy4",
+"base": "funk_16avos",
+"bpm": 100,
+"relleno": "paradiddle",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk en semicorcheas + bombo en el a del 4 + caja extra en el y del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x-x-",
+"kick": "x--x----x-x----x"
+},
+"nivel_estilo": 4
+},
+"dia138_funk_abierto_v_ke3_100bpm.mp4": {
+"dia": 138,
+"nivel": 5,
+"estilo": "funk_abierto__ke3",
+"base": "funk_abierto",
+"bpm": 100,
+"relleno": "redoble_2",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk con hi-hat abierto + bombo en la e del 3",
+"hits": {
+"hat": "xxxxxxxxxxxxxx-x",
+"ohat": "--------------x-",
+"snare": "----x-------x---",
+"kick": "x--x--x-xx-x-x--"
+},
+"nivel_estilo": 5
+},
+"dia139_metal_galope_v_sy4_130bpm.mp4": {
+"dia": 139,
+"nivel": 5,
+"estilo": "metal_galope__sy4",
+"base": "metal_galope",
+"bpm": 130,
+"relleno": "redoble_2",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Metal al galope + caja extra en el y del 4",
+"hits": {
+"ride": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x-x-",
+"kick": "x-xxx-xxx-xxx-xx"
+},
+"nivel_estilo": 5
+},
+"dia133_ride_rock_v_ky3_sa4_70bpm.mp4": {
+"dia": 133,
+"nivel": 4,
+"estilo": "ride_rock__ky3_sa4",
+"base": "ride_rock",
+"bpm": 70,
+"relleno": "redoble_2",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con ride + bombo en el y del 3 + caja extra en el a del 4",
+"hits": {
+"ride": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x--x",
+"kick": "x-------x-x-----"
+},
+"nivel_estilo": 4
+},
+"dia141_punk_v_h4_ky2_175bpm.mp4": {
+"dia": 141,
+"nivel": 3,
+"estilo": "punk__h4_ky2",
+"base": "punk",
+"bpm": 175,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Punk rock rápido + hi-hat en negras + bombo en el y del 2",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x-----x-x-------"
+},
+"nivel_estilo": 3
+},
+"dia142_funk_sincopado_v_h4_sy4_75bpm.mp4": {
+"dia": 142,
+"nivel": 4,
+"estilo": "funk_sincopado__h4_sy4",
+"base": "funk_sincopado",
+"bpm": 75,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk sincopado + hi-hat en negras + caja extra en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x-x-",
+"kick": "x--x--x-x--x--x-"
+},
+"nivel_estilo": 4
+},
+"dia112_bombo_y_caja_v_ka4_100bpm.mp4": {
+"dia": 112,
+"nivel": 4,
+"estilo": "bombo_y_caja__ka4",
+"base": "bombo_y_caja",
+"bpm": 100,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Bombo y caja (sin hi-hat) + bombo en el a del 4",
+"hits": {
+"snare": "----x-------x---",
+"kick": "x-------x------x"
+},
+"nivel_estilo": 4
+},
+"dia140_medio_tiempo_v_h4_sy4_110bpm.mp4": {
+"dia": 140,
+"nivel": 3,
+"estilo": "medio_tiempo__h4_sy4",
+"base": "medio_tiempo",
+"bpm": 110,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock a medio tiempo + hi-hat en negras + caja extra en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "--------x-----x-",
+"kick": "x-------------x-"
+},
+"nivel_estilo": 3
+},
+"dia143_rock_16avos_v_ka4_sy4_95bpm.mp4": {
+"dia": 143,
+"nivel": 4,
+"estilo": "rock_16avos__ka4_sy4",
+"base": "rock_16avos",
+"bpm": 95,
+"relleno": "paradiddle",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con hi-hat en semicorcheas + bombo en el a del 4 + caja extra en el y del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x-x-",
+"kick": "x-------x-x----x"
+},
+"nivel_estilo": 4
+},
+"dia146_hiphop_boom_bap_v_ky2_sy4_95bpm.mp4": {
+"dia": 146,
+"nivel": 2,
+"estilo": "hiphop_boom_bap__ky2_sy4",
+"base": "hiphop_boom_bap",
+"bpm": 95,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hip-hop boom bap + bombo en el y del 2 + caja extra en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x-x-",
+"kick": "x-----x-x-x-----"
+},
+"nivel_estilo": 2
+},
+"dia147_pop_4_al_piso_v_hab_sa4_120bpm.mp4": {
+"dia": 147,
+"nivel": 4,
+"estilo": "pop_4_al_piso__hab_sa4",
+"base": "pop_4_al_piso",
+"bpm": 120,
+"relleno": "paradiddle",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Pop con bombo en negras + hi-hat abierto en el y del 4 + caja extra en el a del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "----x-------x--x",
+"kick": "x---x---x---x---",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 4
+},
+"dia113_hat_negras_v_ka4_100bpm.mp4": {
+"dia": 113,
+"nivel": 4,
+"estilo": "hat_negras__ka4",
+"base": "hat_negras",
+"bpm": 100,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hi-hat en negras + bombo en el a del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x-------x------x"
+},
+"nivel_estilo": 4
+},
+"dia134_rock_basico_v_h4_sy4_60bpm.mp4": {
+"dia": 134,
+"nivel": 2,
+"estilo": "rock_basico__h4_sy4",
+"base": "rock_basico",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock básico + hi-hat en negras + caja extra en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x-x-",
+"kick": "x-------x-------"
+},
+"nivel_estilo": 2
+},
+"dia135_rock_bombo_extra_v_hab_sy4_60bpm.mp4": {
+"dia": 135,
+"nivel": 2,
+"estilo": "rock_bombo_extra__hab_sy4",
+"base": "rock_bombo_extra",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo extra + hi-hat abierto en el y del 4 + caja extra en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "----x-------x-x-",
+"kick": "x-----x-x-------",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 2
+},
+"dia148_ride_rock_v_ky4_sa4_110bpm.mp4": {
+"dia": 148,
+"nivel": 4,
+"estilo": "ride_rock__ky4_sa4",
+"base": "ride_rock",
+"bpm": 110,
+"relleno": "paradiddle",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con ride + bombo en el y del 4 + caja extra en el a del 4",
+"hits": {
+"ride": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x--x",
+"kick": "x-------x-x---x-"
+},
+"nivel_estilo": 4
+},
+"dia152_funk_16avos_v_ke3_sy4_70bpm.mp4": {
+"dia": 152,
+"nivel": 4,
+"estilo": "funk_16avos__ke3_sy4",
+"base": "funk_16avos",
+"bpm": 70,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk en semicorcheas + bombo en la e del 3 + caja extra en el y del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x-x-",
+"kick": "x--x----xxx-----"
+},
+"nivel_estilo": 4
+},
+"dia153_funk_abierto_v_ky3_75bpm.mp4": {
+"dia": 153,
+"nivel": 5,
+"estilo": "funk_abierto__ky3",
+"base": "funk_abierto",
+"bpm": 75,
+"relleno": "paradiddle_toms",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk con hi-hat abierto + bombo en el y del 3",
+"hits": {
+"hat": "xxxxxxxxxxxxxx-x",
+"ohat": "--------------x-",
+"snare": "----x-------x---",
+"kick": "x--x--x-x-xx-x--"
+},
+"nivel_estilo": 5
+},
+"dia149_rock_basico_v_hab_ky2_110bpm.mp4": {
+"dia": 149,
+"nivel": 2,
+"estilo": "rock_basico__hab_ky2",
+"base": "rock_basico",
+"bpm": 110,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock básico + hi-hat abierto en el y del 4 + bombo en el y del 2",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "----x-------x---",
+"kick": "x-----x-x-------",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 2
+},
+"dia155_punk_v_h4_ky3_130bpm.mp4": {
+"dia": 155,
+"nivel": 3,
+"estilo": "punk__h4_ky3",
+"base": "punk",
+"bpm": 130,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Punk rock rápido + hi-hat en negras + bombo en el y del 3",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x-------x-x-----"
+},
+"nivel_estilo": 3
+},
+"dia156_funk_sincopado_v_hab_ky3_105bpm.mp4": {
+"dia": 156,
+"nivel": 4,
+"estilo": "funk_sincopado__hab_ky3",
+"base": "funk_sincopado",
+"bpm": 105,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk sincopado + hi-hat abierto en el y del 4 + bombo en el y del 3",
+"hits": {
+"hat": "xxxxxxxxxxxxxx-x",
+"snare": "----x-------x---",
+"kick": "x--x--x-x-xx--x-",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 4
+},
+"dia100_hat_negras_v_ke3_sy4_60bpm.mp4": {
+"dia": 100,
+"nivel": 3,
+"estilo": "hat_negras__ke3_sy4",
+"base": "hat_negras",
+"bpm": 60,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hi-hat en negras + bombo en la e del 3 + caja extra en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x-x-",
+"kick": "x-------xx------"
+},
+"nivel_estilo": 3
+},
+"dia136_rock_sincopado_v_ride_ky4_60bpm.mp4": {
+"dia": 136,
+"nivel": 2,
+"estilo": "rock_sincopado__ride_ky4",
+"base": "rock_sincopado",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo sincopado en el ride y bombo en el y del 4",
+"hits": {
+"snare": "----x-------x---",
+"kick": "x---x-x---x---x-",
+"ride": "x-x-x-x-x-x-x-x-"
+},
+"nivel_estilo": 2
+},
+"dia150_rock_bombo_extra_v_ky2_sy4_110bpm.mp4": {
+"dia": 150,
+"nivel": 2,
+"estilo": "rock_bombo_extra__ky2_sy4",
+"base": "rock_bombo_extra",
+"bpm": 110,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo extra + bombo en el y del 2 + caja extra en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x-x-",
+"kick": "x-----x-x-------"
+},
+"nivel_estilo": 2
+},
+"dia160_hiphop_boom_bap_v_ky3_sy4_70bpm.mp4": {
+"dia": 160,
+"nivel": 2,
+"estilo": "hiphop_boom_bap__ky3_sy4",
+"base": "hiphop_boom_bap",
+"bpm": 70,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hip-hop boom bap + bombo en el y del 3 + caja extra en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x-x-",
+"kick": "x-------x-x-----"
+},
+"nivel_estilo": 2
+},
+"dia161_pop_4_al_piso_v_ride_sa4_90bpm.mp4": {
+"dia": 161,
+"nivel": 4,
+"estilo": "pop_4_al_piso__ride_sa4",
+"base": "pop_4_al_piso",
+"bpm": 90,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Pop con bombo en negras en el ride y caja extra en el a del 4",
+"hits": {
+"snare": "----x-------x--x",
+"kick": "x---x---x---x---",
+"ride": "x-x-x-x-x-x-x-x-"
+},
+"nivel_estilo": 4
+},
+"dia154_medio_tiempo_v_hab_ky2_70bpm.mp4": {
+"dia": 154,
+"nivel": 3,
+"estilo": "medio_tiempo__hab_ky2",
+"base": "medio_tiempo",
+"bpm": 70,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock a medio tiempo + hi-hat abierto en el y del 4 + bombo en el y del 2",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "--------x-------",
+"kick": "x-----x-------x-",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 3
+},
+"dia157_rock_16avos_v_ke3_sy4_60bpm.mp4": {
+"dia": 157,
+"nivel": 4,
+"estilo": "rock_16avos__ke3_sy4",
+"base": "rock_16avos",
+"bpm": 60,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con hi-hat en semicorcheas + bombo en la e del 3 + caja extra en el y del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x-x-",
+"kick": "x-------xxx-----"
+},
+"nivel_estilo": 4
+},
+"dia151_rock_sincopado_v_ride_sy4_100bpm.mp4": {
+"dia": 151,
+"nivel": 2,
+"estilo": "rock_sincopado__ride_sy4",
+"base": "rock_sincopado",
+"bpm": 100,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo sincopado en el ride y caja extra en el y del 4",
+"hits": {
+"snare": "----x-------x-x-",
+"kick": "x---x-x---x-----",
+"ride": "x-x-x-x-x-x-x-x-"
+},
+"nivel_estilo": 2
+},
+"dia129_bombo_y_caja_v_sa4_60bpm.mp4": {
+"dia": 129,
+"nivel": 4,
+"estilo": "bombo_y_caja__sa4",
+"base": "bombo_y_caja",
+"bpm": 60,
+"relleno": "redoble_2",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Bombo y caja (sin hi-hat) + caja extra en el a del 4",
+"hits": {
+"snare": "----x-------x--x",
+"kick": "x-------x-------"
+},
+"nivel_estilo": 4
+},
+"dia166_funk_16avos_v_ky2_sa4_100bpm.mp4": {
+"dia": 166,
+"nivel": 4,
+"estilo": "funk_16avos__ky2_sa4",
+"base": "funk_16avos",
+"bpm": 100,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk en semicorcheas + bombo en el y del 2 + caja extra en el a del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x--x",
+"kick": "x--x--x-x-x-----"
+},
+"nivel_estilo": 4
+},
+"dia167_funk_abierto_v_ky4_100bpm.mp4": {
+"dia": 167,
+"nivel": 5,
+"estilo": "funk_abierto__ky4",
+"base": "funk_abierto",
+"bpm": 100,
+"relleno": "redoble_toms",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk con hi-hat abierto + bombo en el y del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxx-x",
+"ohat": "--------------x-",
+"snare": "----x-------x---",
+"kick": "x--x--x-x--x-xx-"
+},
+"nivel_estilo": 5
+},
+"dia162_ride_rock_v_ka4_sa4_70bpm.mp4": {
+"dia": 162,
+"nivel": 5,
+"estilo": "ride_rock__ka4_sa4",
+"base": "ride_rock",
+"bpm": 70,
+"relleno": "paradiddle",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con ride + bombo en el a del 4 + caja extra en el a del 4",
+"hits": {
+"ride": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x--x",
+"kick": "x-------x-x----x"
+},
+"nivel_estilo": 5
+},
+"dia169_punk_v_h4_ky4_175bpm.mp4": {
+"dia": 169,
+"nivel": 3,
+"estilo": "punk__h4_ky4",
+"base": "punk",
+"bpm": 175,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Punk rock rápido + hi-hat en negras + bombo en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x---",
+"kick": "x-------x-----x-"
+},
+"nivel_estilo": 3
+},
+"dia170_funk_sincopado_v_hab_sy4_75bpm.mp4": {
+"dia": 170,
+"nivel": 4,
+"estilo": "funk_sincopado__hab_sy4",
+"base": "funk_sincopado",
+"bpm": 75,
+"relleno": "redoble_2",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk sincopado + hi-hat abierto en el y del 4 + caja extra en el y del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxx-x",
+"snare": "----x-------x-x-",
+"kick": "x--x--x-x--x--x-",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 4
+},
+"dia168_medio_tiempo_v_hab_ky3_110bpm.mp4": {
+"dia": 168,
+"nivel": 3,
+"estilo": "medio_tiempo__hab_ky3",
+"base": "medio_tiempo",
+"bpm": 110,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock a medio tiempo + hi-hat abierto en el y del 4 + bombo en el y del 3",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "--------x-------",
+"kick": "x---------x---x-",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 3
+},
+"dia171_rock_16avos_v_ky2_sa4_95bpm.mp4": {
+"dia": 171,
+"nivel": 4,
+"estilo": "rock_16avos__ky2_sa4",
+"base": "rock_16avos",
+"bpm": 95,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con hi-hat en semicorcheas + bombo en el y del 2 + caja extra en el a del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x--x",
+"kick": "x-----x-x-x-----"
+},
+"nivel_estilo": 4
+},
+"dia144_bombo_y_caja_v_ka4_sy4_100bpm.mp4": {
+"dia": 144,
+"nivel": 4,
+"estilo": "bombo_y_caja__ka4_sy4",
+"base": "bombo_y_caja",
+"bpm": 100,
+"relleno": "paradiddle",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Bombo y caja (sin hi-hat) + bombo en el a del 4 + caja extra en el y del 4",
+"hits": {
+"snare": "----x-------x-x-",
+"kick": "x-------x------x"
+},
+"nivel_estilo": 4
+},
+"dia174_hiphop_boom_bap_v_ky4_sy4_95bpm.mp4": {
+"dia": 174,
+"nivel": 2,
+"estilo": "hiphop_boom_bap__ky4_sy4",
+"base": "hiphop_boom_bap",
+"bpm": 95,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hip-hop boom bap + bombo en el y del 4 + caja extra en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x-x-",
+"kick": "x-------x-x---x-"
+},
+"nivel_estilo": 2
+},
+"dia175_pop_4_al_piso_v_h16_sa4_120bpm.mp4": {
+"dia": 175,
+"nivel": 5,
+"estilo": "pop_4_al_piso__h16_sa4",
+"base": "pop_4_al_piso",
+"bpm": 120,
+"relleno": "redoble_2",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Pop con bombo en negras + hi-hat en semicorcheas + caja extra en el a del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x--x",
+"kick": "x---x---x---x---"
+},
+"nivel_estilo": 5
+},
+"dia145_hat_negras_v_ka4_sy4_100bpm.mp4": {
+"dia": 145,
+"nivel": 4,
+"estilo": "hat_negras__ka4_sy4",
+"base": "hat_negras",
+"bpm": 100,
+"relleno": "paradiddle",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hi-hat en negras + bombo en el a del 4 + caja extra en el y del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x-x-",
+"kick": "x-------x------x"
+},
+"nivel_estilo": 4
+},
+"dia163_rock_basico_v_hab_ky3_60bpm.mp4": {
+"dia": 163,
+"nivel": 2,
+"estilo": "rock_basico__hab_ky3",
+"base": "rock_basico",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock básico + hi-hat abierto en el y del 4 + bombo en el y del 3",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "----x-------x---",
+"kick": "x-------x-x-----",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 2
+},
+"dia164_rock_bombo_extra_v_ky3_sy4_60bpm.mp4": {
+"dia": 164,
+"nivel": 2,
+"estilo": "rock_bombo_extra__ky3_sy4",
+"base": "rock_bombo_extra",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo extra + bombo en el y del 3 + caja extra en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x-x-",
+"kick": "x-----x-x-x-----"
+},
+"nivel_estilo": 2
+},
+"dia176_ride_rock_v_ke3_sa4_110bpm.mp4": {
+"dia": 176,
+"nivel": 5,
+"estilo": "ride_rock__ke3_sa4",
+"base": "ride_rock",
+"bpm": 110,
+"relleno": "redoble_2",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con ride + bombo en la e del 3 + caja extra en el a del 4",
+"hits": {
+"ride": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x--x",
+"kick": "x-------xxx-----"
+},
+"nivel_estilo": 5
+},
+"dia180_funk_16avos_v_ky3_sa4_70bpm.mp4": {
+"dia": 180,
+"nivel": 4,
+"estilo": "funk_16avos__ky3_sa4",
+"base": "funk_16avos",
+"bpm": 70,
+"relleno": "redoble_2",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Funk en semicorcheas + bombo en el y del 3 + caja extra en el a del 4",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x--x",
+"kick": "x--x----x-x-----"
+},
+"nivel_estilo": 4
+},
+"dia177_rock_basico_v_hab_ky4_110bpm.mp4": {
+"dia": 177,
+"nivel": 2,
+"estilo": "rock_basico__hab_ky4",
+"base": "rock_basico",
+"bpm": 110,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock básico + hi-hat abierto en el y del 4 + bombo en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x---",
+"snare": "----x-------x---",
+"kick": "x-------x-----x-",
+"ohat": "--------------x-"
+},
+"nivel_estilo": 2
+},
+"dia130_hat_negras_v_sa4_60bpm.mp4": {
+"dia": 130,
+"nivel": 4,
+"estilo": "hat_negras__sa4",
+"base": "hat_negras",
+"bpm": 60,
+"relleno": "redoble_2",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hi-hat en negras + caja extra en el a del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x--x",
+"kick": "x-------x-------"
+},
+"nivel_estilo": 4
+},
+"dia165_rock_sincopado_v_h16_60bpm.mp4": {
+"dia": 165,
+"nivel": 3,
+"estilo": "rock_sincopado__h16",
+"base": "rock_sincopado",
+"bpm": 60,
+"relleno": "ninguno",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo sincopado + hi-hat en semicorcheas",
+"hits": {
+"hat": "xxxxxxxxxxxxxxxx",
+"snare": "----x-------x---",
+"kick": "x---x-x---x-----"
+},
+"nivel_estilo": 3
+},
+"dia178_rock_bombo_extra_v_ky4_sy4_110bpm.mp4": {
+"dia": 178,
+"nivel": 2,
+"estilo": "rock_bombo_extra__ky4_sy4",
+"base": "rock_bombo_extra",
+"bpm": 110,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo extra + bombo en el y del 4 + caja extra en el y del 4",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x-x-",
+"kick": "x-----x-x-----x-"
+},
+"nivel_estilo": 2
+},
+"dia158_bombo_y_caja_v_ky2_sa4_60bpm.mp4": {
+"dia": 158,
+"nivel": 4,
+"estilo": "bombo_y_caja__ky2_sa4",
+"base": "bombo_y_caja",
+"bpm": 60,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Bombo y caja (sin hi-hat) + bombo en el y del 2 + caja extra en el a del 4",
+"hits": {
+"snare": "----x-------x--x",
+"kick": "x-----x-x-------"
+},
+"nivel_estilo": 4
+},
+"dia179_rock_sincopado_v_ke3_100bpm.mp4": {
+"dia": 179,
+"nivel": 3,
+"estilo": "rock_sincopado__ke3",
+"base": "rock_sincopado",
+"bpm": 100,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Rock con bombo sincopado + bombo en la e del 3",
+"hits": {
+"hat": "x-x-x-x-x-x-x-x-",
+"snare": "----x-------x---",
+"kick": "x---x-x--xx-----"
+},
+"nivel_estilo": 3
+},
+"dia159_hat_negras_v_ky2_sa4_60bpm.mp4": {
+"dia": 159,
+"nivel": 4,
+"estilo": "hat_negras__ky2_sa4",
+"base": "hat_negras",
+"bpm": 60,
+"relleno": "redoble_1",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hi-hat en negras + bombo en el y del 2 + caja extra en el a del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x--x",
+"kick": "x-----x-x-------"
+},
+"nivel_estilo": 4
+},
+"dia172_bombo_y_caja_v_ky3_sa4_100bpm.mp4": {
+"dia": 172,
+"nivel": 4,
+"estilo": "bombo_y_caja__ky3_sa4",
+"base": "bombo_y_caja",
+"bpm": 100,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Bombo y caja (sin hi-hat) + bombo en el y del 3 + caja extra en el a del 4",
+"hits": {
+"snare": "----x-------x--x",
+"kick": "x-------x-x-----"
+},
+"nivel_estilo": 4
+},
+"dia173_hat_negras_v_ky3_sa4_100bpm.mp4": {
+"dia": 173,
+"nivel": 4,
+"estilo": "hat_negras__ky3_sa4",
+"base": "hat_negras",
+"bpm": 100,
+"relleno": "toms_bajada",
+"tema": "papel",
+"diseno": "tablatura",
+"nombre": "Hi-hat en negras + bombo en el y del 3 + caja extra en el a del 4",
+"hits": {
+"hat": "x---x---x---x---",
+"snare": "----x-------x--x",
+"kick": "x-------x-x-----"
+},
+"nivel_estilo": 4
+}
+}
