@@ -357,12 +357,19 @@ def render(cfg, salida):
     f_kit = ImageFont.truetype(BOLD, 24)
     f_lbl = ImageFont.truetype(BOLD, 28)
     # tablatura con aire: usa el espacio libre hasta antes de la zona que tapa YouTube (~y 1480)
-    _gapk = 124
-    _fin_max = 1262 if usa_manos else 1308
-    _extra = 44 if usa_manos else 0  # espacio dentro del recuadro para las letras R / L
-    _bhk = max(40, min(68, (_fin_max - 865 - _gapk - 20 - 2 * _extra) / (2 * max(1, nrows))))
-    _esc = min(1.4, _bhk / 44)  # escala de puntos y letras según el alto de fila
-    fin_tab = 865 + 2 * _bhk * nrows + _gapk + 20 + 2 * _extra  # borde inferior de la tablatura (modo batería dibujada)
+    _n = max(1, nrows)
+    _gapk = 124 if _n <= 3 else 104
+    _extra = (44 if _n <= 2 else 30) if usa_manos else 0  # espacio en el recuadro para las letras R / L
+    _sep = 78 if usa_manos else 34  # de la tablatura al texto (con leyenda de manos si hay)
+    sin_ingles = False
+    una_caja = False  # muchas filas: se muestra solo el compás que suena, con filas grandes
+    _bhk = (1480 - 142 - _sep - 865 - _gapk - 20 - 2 * _extra) / (2 * _n)
+    if _bhk < 40:
+        una_caja = True
+        _bhk = (1480 - 142 - _sep - 865 - 20 - _extra) / _n
+    _bhk = max(30, min(68, _bhk))
+    _esc = min(1.4, _bhk / 44)  # escala de puntos según el alto de fila
+    fin_tab = (865 + _bhk * nrows + 20 + _extra) if una_caja else (865 + 2 * _bhk * nrows + _gapk + 20 + 2 * _extra)  # borde inferior de la tablatura (modo batería dibujada)
     y_txt = fin_tab + (78 if usa_manos else 34)
     for k in range(nfr):
         t = k / FPS
@@ -389,7 +396,7 @@ def render(cfg, salida):
             if relleno != "ninguno":
                 proximo = (b % 4 == 3)
                 txt = ("Relleno: " + rl["nombre"]) if proximo else ("Siguiente relleno: " + rl["nombre"])
-                d.text((40, 752), txt, font=f_xs, fill=tema["acc"] if proximo else tema["mut"])
+                d.text((40, 742), txt, font=f_xs, fill=tema["acc"] if proximo else tema["mut"])
         else:
             d.text((60, 90), f"BATERÍA  ·  NIVEL {cfg['nivel']}", font=f_sm, fill=tema["acc"])
             d.text((60, 160), titulo, font=f_big, fill=tema["txt"])
@@ -432,11 +439,11 @@ def render(cfg, salida):
             tx0, tx1 = 230, 1030; tc = (tx1 - tx0) / 16
             if con_kit:
                 tx0, tx1 = 215, 925; tc = (tx1 - tx0) / 16
-            par = (b // 2) * 2
+            par = b if (con_kit and una_caja) else (b // 2) * 2
             ty = 560; bh = min(120, 360 / nrows); gap = 150
             if con_kit:
                 ty = 865; bh = _bhk; gap = _gapk
-            for k2 in range(2):
+            for k2 in range(1 if (con_kit and una_caja) else 2):
                 bb = par + k2
                 if bb >= bars:
                     continue
@@ -456,8 +463,8 @@ def render(cfg, salida):
                            fill=tema["txt"] if big else tema["mut"])
                 for r, v in enumerate(usadas):
                     y = y0 + r * bh + bh / 2
-                    if con_kit and "ohat" in usadas:
-                        etiqueta(d, 40, y - 14, v, f_lbl, col[v])
+                    if con_kit and ("ohat" in usadas or bh < 40):
+                        etiqueta(d, 40, y - 14, v, f_lbl, col[v], simple="ohat" not in usadas)
                     else:
                         etiqueta(d, 50, y - 18, v, f_xs, col[v], simple=con_kit and "ohat" not in usadas)
                     d.line([tx0, y, tx1, y], fill=tema["bot"], width=3)
@@ -510,13 +517,15 @@ def render(cfg, salida):
         if con_kit:  # español grande + inglés chico debajo (la tablatura se entiende en cualquier idioma)
             if cfg.get("cta", True) and t >= total * 0.65:
                 d.text((40, y_txt), "Sígueme: mañana otro ritmo", font=f_md, fill=tema["acc"])
-                d.text((40, y_txt + 62), "Follow for a new groove tomorrow", font=f_xs, fill=tema["mut"])
-                d.text((40, y_txt + 102), ("Como en: " + cfg["cancion"]) if cfg.get("cancion") else "Guárdalo para practicar en loop",
+                if not sin_ingles:
+                    d.text((40, y_txt + 62), "Follow for a new groove tomorrow", font=f_xs, fill=tema["mut"])
+                d.text((40, y_txt + (62 if sin_ingles else 102)), ("Como en: " + cfg["cancion"]) if cfg.get("cancion") else "Guárdalo para practicar en loop",
                        font=f_xs, fill=tema["acc"] if cfg.get("cancion") else tema["txt"])
             else:
                 d.text((40, y_txt), "Toca junto con el video", font=f_md, fill=tema["txt"])
-                d.text((40, y_txt + 62), "Play along with the video", font=f_xs, fill=tema["mut"])
-                d.text((40, y_txt + 102), ("Como en: " + cfg["cancion"]) if cfg.get("cancion") else "Míralo en loop hasta que salga limpio",
+                if not sin_ingles:
+                    d.text((40, y_txt + 62), "Play along with the video", font=f_xs, fill=tema["mut"])
+                d.text((40, y_txt + (62 if sin_ingles else 102)), ("Como en: " + cfg["cancion"]) if cfg.get("cancion") else "Míralo en loop hasta que salga limpio",
                        font=f_xs, fill=tema["acc"] if cfg.get("cancion") else tema["mut"])
         elif cfg.get("cta", True) and t >= total * 0.65:
             d.text((40 if con_kit else 60, ya), "Sígueme: mañana otro ritmo", font=f_md, fill=tema["acc"])
