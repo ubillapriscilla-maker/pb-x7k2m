@@ -356,8 +356,13 @@ def render(cfg, salida):
     f_big_k = ImageFont.truetype(BOLD, 66 if len(titulo) < 22 else 54 if len(titulo) < 30 else 46)
     f_kit = ImageFont.truetype(BOLD, 24)
     f_lbl = ImageFont.truetype(BOLD, 28)
-    _bhk = min(44, 216 / max(1, nrows))
-    fin_tab = 865 + 2 * _bhk * nrows + 104 + 20  # borde inferior de la tablatura (modo batería dibujada)
+    # tablatura con aire: usa el espacio libre hasta antes de la zona que tapa YouTube (~y 1480)
+    _gapk = 124
+    _fin_max = 1262 if usa_manos else 1308
+    _extra = 44 if usa_manos else 0  # espacio dentro del recuadro para las letras R / L
+    _bhk = max(40, min(68, (_fin_max - 865 - _gapk - 20 - 2 * _extra) / (2 * max(1, nrows))))
+    _esc = min(1.4, _bhk / 44)  # escala de puntos y letras según el alto de fila
+    fin_tab = 865 + 2 * _bhk * nrows + _gapk + 20 + 2 * _extra  # borde inferior de la tablatura (modo batería dibujada)
     y_txt = fin_tab + (78 if usa_manos else 34)
     for k in range(nfr):
         t = k / FPS
@@ -430,14 +435,15 @@ def render(cfg, salida):
             par = (b // 2) * 2
             ty = 560; bh = min(120, 360 / nrows); gap = 150
             if con_kit:
-                ty = 865; bh = min(44, 216 / nrows); gap = 104
+                ty = 865; bh = _bhk; gap = _gapk
             for k2 in range(2):
                 bb = par + k2
                 if bb >= bars:
                     continue
-                y0 = ty + k2 * (bh * nrows + gap)
+                ex = _extra if con_kit else 0
+                y0 = ty + k2 * (bh * nrows + gap + ex)
                 y1 = y0 + bh * nrows
-                d.rounded_rectangle([30, y0 - 80, (945 if con_kit else W - 30), y1 + 20], radius=20, fill=tema["lane"])
+                d.rounded_rectangle([30, y0 - 80, (945 if con_kit else W - 30), y1 + 20 + ex], radius=20, fill=tema["lane"])
                 d.text((50, y0 - 66), f"Comp. {bb + 1}", font=f_xs, fill=tema["mut"])
                 for s_ in range(17):
                     x = tx0 + tc * s_
@@ -461,9 +467,12 @@ def render(cfg, salida):
                     y = y0 + usadas.index(v) * bh + bh / 2
                     cx = tx0 + tc * i + tc / 2
                     rad = 11 if v in ("hat", "ride") else 15
+                    if con_kit:
+                        rad = 12 if usa_manos else int(round(rad * _esc))  # rudimentos: puntos chicos, con aire entre notas
+                    rad0 = rad
                     ab = bb * 16 + i
                     if ab == gs:
-                        rad += int(14 * (1 - fase))
+                        rad += int((9 if (con_kit and usa_manos) else 14) * (1 - fase))
                         d.ellipse([cx - rad, y - rad, cx + rad, y + rad], fill=tema["txt"])
                         rad -= 5
                         d.ellipse([cx - rad, y - rad, cx + rad, y + rad], fill=col[v])
@@ -473,7 +482,7 @@ def render(cfg, salida):
                         d.ellipse([cx - rad, y - rad, cx + rad, y + rad], outline=col[v], width=3)
                     if mano:
                         mw = d.textlength(mano, font=f_xs)
-                        d.text((cx - mw / 2, y + 16), mano, font=f_xs, fill=tema["txt"])
+                        d.text((cx - mw / 2, (y1 + 2) if con_kit else (y + 16)), mano, font=f_xs, fill=tema["txt"])
         else:
             d.rounded_rectangle([40, top_y - 10, W - 40, line_y + 60], radius=24, fill=tema["lane"])
             for r, v in enumerate(usadas):
