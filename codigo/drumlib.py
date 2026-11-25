@@ -369,6 +369,10 @@ def render(cfg, salida):
         _bhk = (1480 - 142 - _sep - 865 - 20 - _extra) / _n
     _bhk = max(30, min(68, _bhk))
     _esc = min(1.4, _bhk / 44)  # escala de puntos según el alto de fila
+    rudi = str(cfg.get("estilo", "")).startswith("rud_")
+    if not rudi:  # ritmos: diseño original (Priscilla, 25 nov 2026: el espaciado nuevo es solo para rudimentos)
+        _gapk, _extra, una_caja, sin_ingles, _esc = 104, 0, False, False, 1.0
+        _bhk = min(44, 216 / _n)
     fin_tab = (865 + _bhk * nrows + 20 + _extra) if una_caja else (865 + 2 * _bhk * nrows + _gapk + 20 + 2 * _extra)  # borde inferior de la tablatura (modo batería dibujada)
     y_txt = fin_tab + (78 if usa_manos else 34)
     for k in range(nfr):
@@ -396,7 +400,7 @@ def render(cfg, salida):
             if relleno != "ninguno":
                 proximo = (b % 4 == 3)
                 txt = ("Relleno: " + rl["nombre"]) if proximo else ("Siguiente relleno: " + rl["nombre"])
-                d.text((40, 742), txt, font=f_xs, fill=tema["acc"] if proximo else tema["mut"])
+                d.text((40, 742 if rudi else 752), txt, font=f_xs, fill=tema["acc"] if proximo else tema["mut"])
         else:
             d.text((60, 90), f"BATERÍA  ·  NIVEL {cfg['nivel']}", font=f_sm, fill=tema["acc"])
             d.text((60, 160), titulo, font=f_big, fill=tema["txt"])
@@ -463,7 +467,7 @@ def render(cfg, salida):
                            fill=tema["txt"] if big else tema["mut"])
                 for r, v in enumerate(usadas):
                     y = y0 + r * bh + bh / 2
-                    if con_kit and ("ohat" in usadas or bh < 40):
+                    if con_kit and ("ohat" in usadas or (rudi and bh < 40)):
                         etiqueta(d, 40, y - 14, v, f_lbl, col[v], simple="ohat" not in usadas)
                     else:
                         etiqueta(d, 50, y - 18, v, f_xs, col[v], simple=con_kit and "ohat" not in usadas)
@@ -475,11 +479,11 @@ def render(cfg, salida):
                     cx = tx0 + tc * i + tc / 2
                     rad = 11 if v in ("hat", "ride") else 15
                     if con_kit:
-                        rad = 12 if usa_manos else int(round(rad * _esc))  # rudimentos: puntos chicos, con aire entre notas
+                        rad = 12 if (rudi and usa_manos) else int(round(rad * _esc))  # rudimentos: puntos chicos, con aire entre notas
                     rad0 = rad
                     ab = bb * 16 + i
                     if ab == gs:
-                        rad += int((9 if (con_kit and usa_manos) else 14) * (1 - fase))
+                        rad += int((9 if (con_kit and rudi) else 14) * (1 - fase))
                         d.ellipse([cx - rad, y - rad, cx + rad, y + rad], fill=tema["txt"])
                         rad -= 5
                         d.ellipse([cx - rad, y - rad, cx + rad, y + rad], fill=col[v])
@@ -489,7 +493,7 @@ def render(cfg, salida):
                         d.ellipse([cx - rad, y - rad, cx + rad, y + rad], outline=col[v], width=3)
                     if mano:
                         mw = d.textlength(mano, font=f_xs)
-                        d.text((cx - mw / 2, (y1 + 2) if con_kit else (y + 16)), mano, font=f_xs, fill=tema["txt"])
+                        d.text((cx - mw / 2, (y1 + 2) if (con_kit and rudi) else (y + 16)), mano, font=f_xs, fill=tema["txt"])
         else:
             d.rounded_rectangle([40, top_y - 10, W - 40, line_y + 60], radius=24, fill=tema["lane"])
             for r, v in enumerate(usadas):
