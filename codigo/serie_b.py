@@ -25,6 +25,10 @@ GANCHOS_GEN = ["Este ritmo de {g} suena pro: tócalo a {b} BPM{r} #shorts",
                "Así se toca {g} en batería a {b} BPM{r} #shorts"]
 
 
+# canción de ejemplo que lleva el ritmo (verificada), para que se entienda de dónde sale (pedido de Priscilla)
+CANCION_GEN = {"motown": "I Can't Help Myself (Four Tops, 1965)"}
+
+
 def plan_b(total=200):
     usados = {(x["estilo"], x["bpm"], x["relleno"]) for x in D.plan(180)}
     out, k = [], {"rud": 0, "gen": 0, "tec": 0}
@@ -44,7 +48,11 @@ def plan_b(total=200):
         while (est, bpm, rel) in usados:
             bpm += 5
         usados.add((est, bpm, rel))
-        out.append(dict(n=n, tipo=tipo, nivel=niv, estilo=est, bpm=bpm, relleno=rel, tema=TEMA_FIJO, diseno="tablatura",
+        if tipo == "gen" and est in CANCION_GEN:
+            extra_c = {"cancion": CANCION_GEN[est]}
+        else:
+            extra_c = {}
+        out.append(dict(n=n, tipo=tipo, nivel=niv, estilo=est, bpm=bpm, relleno=rel, tema=TEMA_FIJO, diseno="tablatura", **extra_c,
                         hook=HOOK[tipo]))
     return out
 

@@ -502,11 +502,13 @@ def render(cfg, salida):
             if cfg.get("cta", True) and t >= total * 0.65:
                 d.text((40, y_txt), "Sígueme: mañana otro ritmo", font=f_md, fill=tema["acc"])
                 d.text((40, y_txt + 62), "Follow for a new groove tomorrow", font=f_xs, fill=tema["mut"])
-                d.text((40, y_txt + 102), "Guárdalo para practicar en loop", font=f_xs, fill=tema["txt"])
+                d.text((40, y_txt + 102), ("Como en: " + cfg["cancion"]) if cfg.get("cancion") else "Guárdalo para practicar en loop",
+                       font=f_xs, fill=tema["acc"] if cfg.get("cancion") else tema["txt"])
             else:
                 d.text((40, y_txt), "Toca junto con el video", font=f_md, fill=tema["txt"])
                 d.text((40, y_txt + 62), "Play along with the video", font=f_xs, fill=tema["mut"])
-                d.text((40, y_txt + 102), "Míralo en loop hasta que salga limpio", font=f_xs, fill=tema["mut"])
+                d.text((40, y_txt + 102), ("Como en: " + cfg["cancion"]) if cfg.get("cancion") else "Míralo en loop hasta que salga limpio",
+                       font=f_xs, fill=tema["acc"] if cfg.get("cancion") else tema["mut"])
         elif cfg.get("cta", True) and t >= total * 0.65:
             d.text((40 if con_kit else 60, ya), "Sígueme: mañana otro ritmo", font=f_md, fill=tema["acc"])
             d.text((40 if con_kit else 60, yb), "Guárdalo para practicar en loop", font=f_sm, fill=tema["txt"])
