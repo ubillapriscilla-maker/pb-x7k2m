@@ -89,7 +89,8 @@ GENEROS_B = {
         # ska tradicional: bombo junto con la caja (o aro) en 2 y 4; hi-hat en los contratiempos
         hat="--x---x---x---x-", snare="----x-------x---", kick="----x-------x---")),
     "motown": dict(nombre="Motown", nivel=2, bpm=(80, 120), hits=pat(
-        hat="x-x-x-x-x-x-x-x-", snare="x---x---x---x---", kick="x--x--x-x--x--x-")),
+        # bombo como en "I Can't Help Myself" (Four Tops), corregido por Priscilla: 1, y del 1, y del 2, y del 3 y 4
+        hat="x-x-x-x-x-x-x-x-", snare="x---x---x---x---", kick="x-x---x---x-x---")),
     "reggaeton": dict(nombre="Reggaetón (dembow)", nivel=3, bpm=(80, 100), hits=pat(
         hat="x-x-x-x-x-x-x-x-", snare="---x--x----x--x-", kick="x---x---x---x---")),
     "bossa_nova": dict(nombre="Bossa nova", nivel=4, bpm=(70, 110), hits=pat(
