@@ -41,7 +41,8 @@ def filas(serie):
         out = []
         for r in csv.DictReader(io.StringIO(txt)):
             out.append(dict(n=int(r[clave]), archivo=r['archivo'], titulo=r['titulo'], descripcion=r['descripcion'],
-                            tags=[x for x in r['etiquetas'].split(',') if x.strip()], carpeta=carpeta))
+                            tags=[x for x in r['etiquetas'].split(',') if x.strip()], carpeta=carpeta,
+                            titulo_en=r.get('titulo_en', '') or '', descripcion_en=r.get('descripcion_en', '') or ''))
     else:
         out = [dict(e, carpeta=carpeta) for e in json.loads(txt)]
     return sorted(out, key=lambda e: e['n'])
