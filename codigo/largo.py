@@ -23,13 +23,24 @@ def seg(estilo, bpm, relleno, tema_n, nivel, bars, salida, fotograma=None, music
     bg = D.fondo(tema).resize((W, H))
     labels16 = ["1","e","y","a","2","e","y","a","3","e","y","a","4","e","y","a"]
     nrows = len(usadas); evs = sorted(ev); usa_manos = any(e[5] for e in ev)
-    tx0, tx1 = 260, 1860; tc = (tx1 - tx0) / 16
+    tx0, tx1 = 1080, 1865; tc = (tx1 - tx0) / 16  # tablatura a la derecha; batería dibujada a la izquierda
+    import bisect
+    from PIL import Image
+    import kit as KIT
+    tiempos_voz = {}
+    for e in evs:
+        tiempos_voz.setdefault(e[1], []).append(e[0])
+    hh = [(e[0], e[1]) for e in evs if e[1] in ('hat', 'ohat')]
+    hh_t = [x[0] for x in hh]; hh_v = [x[1] for x in hh]
+    f_kit = ImageFont.truetype(BOLD, 24)
+    from PIL import Image as _I
+    kit_bg = _I.new('RGB', (1080, 620), tuple(tema['lane']))
     nfr = int(round(total * FPS))
     p = subprocess.Popen(['ffmpeg','-y','-loglevel','error','-f','rawvideo','-pix_fmt','rgb24','-s',f'{W}x{H}','-r',str(FPS),
         '-i','-','-c:v','libx264','-preset','veryfast','-crf','26','-pix_fmt','yuv420p','-r',str(FPS),'-g','30','-t',f'{total:.3f}',
         '-an',salida], stdin=subprocess.PIPE)
     rl = D.RELLENOS[relleno]
-    bh = min(90, 280 / nrows)
+    bh = min(54, 272 / nrows)
     frames = [fotograma] if fotograma is not None else range(nfr)
     for k in frames:
         t = k / FPS; gs = int(t / step); b = gs // 16; fase = (t % step) / step
@@ -39,14 +50,25 @@ def seg(estilo, bpm, relleno, tema_n, nivel, bars, salida, fotograma=None, music
         bw = d.textlength(f"{bpm} BPM", font=f_b)
         d.text((W - 60 - bw, 40), f"{bpm} BPM", font=f_b, fill=tema['acc'])
         d.text((60, 175), sub, font=f_sm, fill=tema['mut'])
+        br = {}
+        for v_, ts_ in tiempos_voz.items():
+            j = bisect.bisect_right(ts_, t + 0.01) - 1
+            if j >= 0:
+                br[v_] = max(0.0, 1 - (t - ts_[j]) / 0.22)
+        j = bisect.bisect_right(hh_t, t + 0.01) - 1
+        kimg = kit_bg.copy()
+        KIT.dibujar(kimg, 20, tema, col, br, j >= 0 and hh_v[j] == 'ohat', br.get('kick', 0) > 0.45, f_kit)
+        d.rounded_rectangle([30, 260, 830, 860], radius=24, fill=tema['lane'])
+        fr.paste(kimg.resize((780, 448)), (40, 330))
+        d = ImageDraw.Draw(fr)
         par = (b // 2) * 2
         for k2 in range(2):
             bb = par + k2
             if bb >= bars: continue
-            y0 = 300 + k2 * (bh * nrows + 150)
+            y0 = 330 + k2 * (bh * nrows + 130)
             y1 = y0 + bh * nrows
-            d.rounded_rectangle([30, y0 - 70, W - 30, y1 + 16], radius=20, fill=tema['lane'])
-            d.text((50, y0 - 56), f"Comp. {bb + 1}", font=f_xs, fill=tema['mut'])
+            d.rounded_rectangle([860, y0 - 70, W - 30, y1 + 16], radius=20, fill=tema['lane'])
+            d.text((880, y0 - 56), f"Comp. {bb + 1}", font=f_xs, fill=tema['mut'])
             for s_ in range(17):
                 x = tx0 + tc * s_
                 d.line([x, y0 - 6, x, y1], fill=tema['mut'] if s_ % 4 == 0 else tema['bot'], width=4 if s_ % 4 == 0 else 2)
@@ -57,7 +79,7 @@ def seg(estilo, bpm, relleno, tema_n, nivel, bars, salida, fotograma=None, music
                 d.text((cx - lw / 2, y0 - 56 + (0 if big else 5)), labels16[s_], font=fo, fill=tema['txt'] if big else tema['mut'])
             for r, v in enumerate(usadas):
                 y = y0 + r * bh + bh / 2
-                D.etiqueta(d, 50, y - 16, v, f_xs, col[v])
+                D.etiqueta(d, 880, y - 16, v, f_xs, col[v], simple='ohat' not in usadas)
                 d.line([tx0, y, tx1, y], fill=tema['bot'], width=3)
             for (te, v, g, i, b2, mano) in evs:
                 if b2 != bb: continue

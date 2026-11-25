@@ -4,6 +4,7 @@ Audio sintetizado (sin derechos de autor) + partitura animada. Dos disenos (gril
 """
 import json, math, subprocess, wave
 import numpy as np
+import kit as KIT
 from PIL import Image, ImageDraw, ImageFont
 
 W, H, FPS, SR = 1080, 1920, 30, 44100
@@ -14,9 +15,12 @@ ORDER_VIS = ["crash", "ride", "hat", "ohat", "t1", "t2", "t3", "aro", "snare", "
 ETIQ2 = {"hat": ("Hi-hat", "cerrado"), "ohat": ("Hi-hat", "abierto"), "t3": ("Tom", "de piso")}
 
 
-def etiqueta(d, x, y, v, font, fill, centro=False):
-    """Nombre del instrumento; hi-hat cerrado/abierto en dos líneas para que se entienda cuál es cuál."""
+def etiqueta(d, x, y, v, font, fill, centro=False, simple=False):
+    """Nombre del instrumento; hi-hat cerrado/abierto en dos líneas para que se entienda cuál es cuál.
+    simple=True: si el ritmo no usa hi-hat abierto, el cerrado se nombra solo "Hi-hat" en una línea."""
     lineas = ETIQ2.get(v, (NOMBRE[v],))
+    if simple and v == "hat":
+        lineas = ("Hi-hat",)
     if len(lineas) > 1:
         font = ImageFont.truetype(font.path, int(font.size * 0.8))
     h = font.size + 1
@@ -42,7 +46,7 @@ ESTILOS = {
         hat="x-x-x-x-x-x-x-x-", snare="----x-------x---", kick="x-----x-x-------")),
     "ride_rock": dict(nombre="Rock con ride", nivel=2, bpm=(70, 110), hits=pat(
         ride="x-x-x-x-x-x-x-x-", snare="----x-------x---", kick="x-------x-x-----")),
-    "pop_4_al_piso": dict(nombre="Pop 4 al piso", nivel=2, bpm=(90, 120), hits=pat(
+    "pop_4_al_piso": dict(nombre="Pop con bombo en negras", nivel=2, bpm=(90, 120), hits=pat(
         hat="x-x-x-x-x-x-x-x-", snare="----x-------x---", kick="x---x---x---x---")),
     "disco": dict(nombre="Disco", nivel=2, bpm=(100, 124), hits=pat(
         hat="x---x---x---x---", ohat="--x---x---x---x-", snare="----x-------x---", kick="x---x---x---x---")),
@@ -52,9 +56,9 @@ ESTILOS = {
         hat="x-x-x-x-x-x-x-x-", snare="--------x-------", kick="--------x-------")),
     "medio_tiempo": dict(nombre="Rock a medio tiempo", nivel=3, bpm=(70, 110), hits=pat(
         hat="x-x-x-x-x-x-x-x-", snare="--------x-------", kick="x-------------x-")),
-    "rock_16avos": dict(nombre="Rock con hi-hat en 16avos", nivel=3, bpm=(60, 95), hits=pat(
+    "rock_16avos": dict(nombre="Rock con hi-hat en semicorcheas", nivel=3, bpm=(60, 95), hits=pat(
         hat="xxxxxxxxxxxxxxxx", snare="----x-------x---", kick="x-------x-x-----")),
-    "funk_16avos": dict(nombre="Funk en 16avos", nivel=3, bpm=(70, 100), hits=pat(
+    "funk_16avos": dict(nombre="Funk en semicorcheas", nivel=3, bpm=(70, 100), hits=pat(
         hat="xxxxxxxxxxxxxxxx", snare="----x-------x---", kick="x--x----x-x-----")),
     "punk": dict(nombre="Punk rock rápido", nivel=3, bpm=(130, 175), hits=pat(
         hat="x-x-x-x-x-x-x-x-", snare="----x-------x---", kick="x-------x-------")),
@@ -258,10 +262,17 @@ HOOKS = {1: ("TU PRIMER RITMO", "Fácil: toca conmigo"), 2: ("SUENA A CANCIÓN",
          5: ("NIVEL EXPERTO", "¿Lo logras limpio?")}
 
 
-def _hook(d, fr, cfg, tema, titulo, bpm, t, f_big, f_sm, f_xs):
+def _hook(d, fr, cfg, tema, titulo, bpm, t, f_big, f_sm, f_xs, compacto=False):
     """Portada animada de los primeros segundos: promesa clara. No toca audio ni duracion."""
     a, b = cfg.get("hook") or HOOKS[cfg["nivel"]]
     off = int(max(0, 1 - t / 0.25) ** 2 * 120)  # entra desde arriba en 0.25 s
+    if compacto:  # solo la franja de arriba: la batería dibujada queda visible desde el primer segundo
+        f_h = ImageFont.truetype(BOLD, 80 if len(a) < 16 else 68)
+        d.rectangle([0, 0, W, 225], fill=tema["top"])
+        d.text((40, 20 - off), a, font=f_h, fill=tema["acc"])
+        d.text((40, 120 - off), b, font=f_sm, fill=tema["txt"])
+        d.text((40, 175 - off), f"{titulo}  ·  {bpm} BPM", font=f_xs, fill=tema["mut"])
+        return
     f_h = ImageFont.truetype(BOLD, 96 if len(a) < 16 else 84)
     d.rectangle([0, 0, W, 470], fill=tema["bg"] if "bg" in tema else tema["top"])
     d.text((60, 70 - off), a, font=f_h, fill=tema["acc"])
@@ -326,23 +337,53 @@ def render(cfg, salida):
     usa_manos = any(e[5] for e in ev)
     line_y = 1380; top_y = 560; horizonte = 4 * 60.0 / bpm
     lane_w = (gx1 - 60) / nrows
+    con_kit = cfg.get("kit", True) and cfg["diseno"] == "tablatura"
+    tiempos_voz = {}
+    for e in sorted(ev):
+        tiempos_voz.setdefault(e[1], []).append(e[0])
+    hh = sorted((e[0], e[1]) for e in ev if e[1] in ("hat", "ohat"))
+    hh_t = [x[0] for x in hh]; hh_v = [x[1] for x in hh]
+    f_big_k = ImageFont.truetype(BOLD, 66 if len(titulo) < 22 else 54 if len(titulo) < 30 else 46)
+    f_kit = ImageFont.truetype(BOLD, 24)
+    f_lbl = ImageFont.truetype(BOLD, 28)
     for k in range(nfr):
         t = k / FPS
         gs = int(t / step); b = gs // 16; cur = gs % 16
         fase = (t % step) / step
         fr = bg.copy(); d = ImageDraw.Draw(fr)
-        d.text((60, 90), f"BATERÍA  ·  NIVEL {cfg['nivel']}", font=f_sm, fill=tema["acc"])
-        d.text((60, 160), titulo, font=f_big, fill=tema["txt"])
-        if variacion:
-            d.text((60, 245), variacion, font=f_var, fill=tema["acc"])
-        d.text((60, 300 if variacion else 280), f"{bpm} BPM   |   Compás {b + 1} de {bars}", font=f_sm, fill=tema["mut"])
         es_rel = relleno != "ninguno" and b % 4 == 3
-        if relleno != "ninguno":
-            proximo = (b % 4 == 3)
-            txt = ("Relleno: " + rl["nombre"]) if proximo else ("Siguiente relleno: " + rl["nombre"])
-            d.text((60, 375 if variacion else 360), txt, font=f_xs, fill=tema["acc"] if proximo else tema["mut"])
+        if con_kit:
+            d.text((40, 28), f"BATERÍA · NIVEL {cfg['nivel']}  ·  {bpm} BPM  ·  Compás {b + 1} de {bars}", font=f_xs, fill=tema["acc"])
+            d.text((40, 70), titulo, font=f_big_k, fill=tema["txt"])
+            if variacion:
+                d.text((40, 70 + f_big_k.size + 8), variacion, font=f_var, fill=tema["acc"])
+            # batería dibujada: se ilumina lo que suena
+            import bisect
+            br = {}
+            for v_, ts_ in tiempos_voz.items():
+                j = bisect.bisect_right(ts_, t + 0.01) - 1
+                if j >= 0:
+                    br[v_] = max(0.0, 1 - (t - ts_[j]) / 0.22) if t >= ts_[j] - 0.01 else 0.0
+            j = bisect.bisect_right(hh_t, t + 0.01) - 1
+            abierto = j >= 0 and hh_v[j] == "ohat"
+            KIT.dibujar(fr, 195, tema, col, br, abierto, br.get("kick", 0) > 0.45, f_kit)
+            d = ImageDraw.Draw(fr)
+            if relleno != "ninguno":
+                proximo = (b % 4 == 3)
+                txt = ("Relleno: " + rl["nombre"]) if proximo else ("Siguiente relleno: " + rl["nombre"])
+                d.text((40, 768), txt, font=f_xs, fill=tema["acc"] if proximo else tema["mut"])
         else:
-            d.text((60, 375 if variacion else 360), "Ritmo constante: repítelo sin parar", font=f_xs, fill=tema["mut"])
+            d.text((60, 90), f"BATERÍA  ·  NIVEL {cfg['nivel']}", font=f_sm, fill=tema["acc"])
+            d.text((60, 160), titulo, font=f_big, fill=tema["txt"])
+            if variacion:
+                d.text((60, 245), variacion, font=f_var, fill=tema["acc"])
+            d.text((60, 300 if variacion else 280), f"{bpm} BPM   |   Compás {b + 1} de {bars}", font=f_sm, fill=tema["mut"])
+            if relleno != "ninguno":
+                proximo = (b % 4 == 3)
+                txt = ("Relleno: " + rl["nombre"]) if proximo else ("Siguiente relleno: " + rl["nombre"])
+                d.text((60, 375 if variacion else 360), txt, font=f_xs, fill=tema["acc"] if proximo else tema["mut"])
+            else:
+                d.text((60, 375 if variacion else 360), "Ritmo constante: repítelo sin parar", font=f_xs, fill=tema["mut"])
         if cfg["diseno"] == "grilla":
             for s in range(16):
                 cx = gx0 + cell * s + cell / 2
@@ -371,15 +412,19 @@ def render(cfg, salida):
         elif cfg["diseno"] == "tablatura":
             # dos compases completos, quietos, de izquierda a derecha; solo se marca la nota que suena
             tx0, tx1 = 230, 1030; tc = (tx1 - tx0) / 16
+            if con_kit:
+                tx0, tx1 = 215, 925; tc = (tx1 - tx0) / 16
             par = (b // 2) * 2
             ty = 560; bh = min(120, 360 / nrows); gap = 150
+            if con_kit:
+                ty = 885; bh = min(46, 230 / nrows); gap = 108
             for k2 in range(2):
                 bb = par + k2
                 if bb >= bars:
                     continue
                 y0 = ty + k2 * (bh * nrows + gap)
                 y1 = y0 + bh * nrows
-                d.rounded_rectangle([30, y0 - 80, W - 30, y1 + 20], radius=20, fill=tema["lane"])
+                d.rounded_rectangle([30, y0 - 80, (945 if con_kit else W - 30), y1 + 20], radius=20, fill=tema["lane"])
                 d.text((50, y0 - 66), f"Comp. {bb + 1}", font=f_xs, fill=tema["mut"])
                 for s_ in range(17):
                     x = tx0 + tc * s_
@@ -392,7 +437,10 @@ def render(cfg, salida):
                            fill=tema["txt"] if big else tema["mut"])
                 for r, v in enumerate(usadas):
                     y = y0 + r * bh + bh / 2
-                    etiqueta(d, 50, y - 18, v, f_xs, col[v])
+                    if con_kit and "ohat" in usadas:
+                        etiqueta(d, 40, y - 14, v, f_lbl, col[v])
+                    else:
+                        etiqueta(d, 50, y - 18, v, f_xs, col[v], simple=con_kit and "ohat" not in usadas)
                     d.line([tx0, y, tx1, y], fill=tema["bot"], width=3)
                 for (te, v, g, i, b2, mano) in evs:
                     if b2 != bb:
@@ -435,16 +483,27 @@ def render(cfg, salida):
                             mw = d.textlength(mano, font=f_xs)
                             d.text((cx - mw / 2, y - 19), mano, font=f_xs, fill=tema["bot"])
         if t < HOOK_T:
-            _hook(d, fr, cfg, tema, titulo, bpm, t, f_big, f_sm, f_xs)
-        if cfg.get("cta", True) and t >= total * 0.65:
-            d.text((60, 1640), "Sígueme: mañana otro ritmo", font=f_md, fill=tema["acc"])
-            d.text((60, 1720), "Guárdalo para practicar en loop", font=f_sm, fill=tema["txt"])
+            _hook(d, fr, cfg, tema, titulo, bpm, t, f_big, f_sm, f_xs, compacto=con_kit)
+        ya, yb = (1565, 1630) if con_kit else (1640, 1720)
+        if con_kit:  # español grande + inglés chico debajo (la tablatura se entiende en cualquier idioma)
+            if cfg.get("cta", True) and t >= total * 0.65:
+                d.text((40, 1535), "Sígueme: mañana otro ritmo", font=f_md, fill=tema["acc"])
+                d.text((40, 1597), "Follow for a new groove tomorrow", font=f_xs, fill=tema["mut"])
+                d.text((40, 1640), "Guárdalo para practicar en loop", font=f_xs, fill=tema["txt"])
+            else:
+                d.text((40, 1535), "Toca junto con el video", font=f_md, fill=tema["txt"])
+                d.text((40, 1597), "Play along with the video", font=f_xs, fill=tema["mut"])
+                d.text((40, 1640), "Míralo en loop hasta que salga limpio", font=f_xs, fill=tema["mut"])
+        elif cfg.get("cta", True) and t >= total * 0.65:
+            d.text((40 if con_kit else 60, ya), "Sígueme: mañana otro ritmo", font=f_md, fill=tema["acc"])
+            d.text((40 if con_kit else 60, yb), "Guárdalo para practicar en loop", font=f_sm, fill=tema["txt"])
         else:
-            d.text((60, 1640), "Toca junto con el video", font=f_md, fill=tema["txt"])
-            d.text((60, 1720), "Míralo en loop hasta que salga limpio", font=f_sm, fill=tema["mut"])
-        d.text((60, 1810), WATERMARK, font=f_xs, fill=tema["mut"])
+            d.text((40 if con_kit else 60, ya), "Toca junto con el video", font=f_md, fill=tema["txt"])
+            d.text((40 if con_kit else 60, yb), "Míralo en loop hasta que salga limpio", font=f_sm, fill=tema["mut"])
+        if not con_kit:
+            d.text((60, 1810), WATERMARK, font=f_xs, fill=tema["mut"])
         if usa_manos:
-            leyenda_manos(d, W - 40, 1490, tema, f_xs)
+            leyenda_manos(d, 940 if con_kit else W - 40, 1486 if con_kit else 1490, tema, f_xs)
         p.stdin.write(fr.tobytes())
     p.stdin.close(); p.wait()
     import os
