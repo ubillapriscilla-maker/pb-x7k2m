@@ -346,6 +346,9 @@ def render(cfg, salida):
     f_big_k = ImageFont.truetype(BOLD, 66 if len(titulo) < 22 else 54 if len(titulo) < 30 else 46)
     f_kit = ImageFont.truetype(BOLD, 24)
     f_lbl = ImageFont.truetype(BOLD, 28)
+    _bhk = min(44, 216 / max(1, nrows))
+    fin_tab = 865 + 2 * _bhk * nrows + 104 + 20  # borde inferior de la tablatura (modo batería dibujada)
+    y_txt = fin_tab + (78 if usa_manos else 34)
     for k in range(nfr):
         t = k / FPS
         gs = int(t / step); b = gs // 16; cur = gs % 16
@@ -366,12 +369,12 @@ def render(cfg, salida):
                     br[v_] = max(0.0, 1 - (t - ts_[j]) / 0.22) if t >= ts_[j] - 0.01 else 0.0
             j = bisect.bisect_right(hh_t, t + 0.01) - 1
             abierto = j >= 0 and hh_v[j] == "ohat"
-            KIT.dibujar(fr, 195, tema, col, br, abierto, br.get("kick", 0) > 0.45, f_kit)
+            KIT.dibujar(fr, 180, tema, col, br, abierto, br.get("kick", 0) > 0.45, f_kit)
             d = ImageDraw.Draw(fr)
             if relleno != "ninguno":
                 proximo = (b % 4 == 3)
                 txt = ("Relleno: " + rl["nombre"]) if proximo else ("Siguiente relleno: " + rl["nombre"])
-                d.text((40, 768), txt, font=f_xs, fill=tema["acc"] if proximo else tema["mut"])
+                d.text((40, 752), txt, font=f_xs, fill=tema["acc"] if proximo else tema["mut"])
         else:
             d.text((60, 90), f"BATERÍA  ·  NIVEL {cfg['nivel']}", font=f_sm, fill=tema["acc"])
             d.text((60, 160), titulo, font=f_big, fill=tema["txt"])
@@ -417,7 +420,7 @@ def render(cfg, salida):
             par = (b // 2) * 2
             ty = 560; bh = min(120, 360 / nrows); gap = 150
             if con_kit:
-                ty = 885; bh = min(46, 230 / nrows); gap = 108
+                ty = 865; bh = min(44, 216 / nrows); gap = 104
             for k2 in range(2):
                 bb = par + k2
                 if bb >= bars:
@@ -487,13 +490,13 @@ def render(cfg, salida):
         ya, yb = (1565, 1630) if con_kit else (1640, 1720)
         if con_kit:  # español grande + inglés chico debajo (la tablatura se entiende en cualquier idioma)
             if cfg.get("cta", True) and t >= total * 0.65:
-                d.text((40, 1535), "Sígueme: mañana otro ritmo", font=f_md, fill=tema["acc"])
-                d.text((40, 1597), "Follow for a new groove tomorrow", font=f_xs, fill=tema["mut"])
-                d.text((40, 1640), "Guárdalo para practicar en loop", font=f_xs, fill=tema["txt"])
+                d.text((40, y_txt), "Sígueme: mañana otro ritmo", font=f_md, fill=tema["acc"])
+                d.text((40, y_txt + 62), "Follow for a new groove tomorrow", font=f_xs, fill=tema["mut"])
+                d.text((40, y_txt + 102), "Guárdalo para practicar en loop", font=f_xs, fill=tema["txt"])
             else:
-                d.text((40, 1535), "Toca junto con el video", font=f_md, fill=tema["txt"])
-                d.text((40, 1597), "Play along with the video", font=f_xs, fill=tema["mut"])
-                d.text((40, 1640), "Míralo en loop hasta que salga limpio", font=f_xs, fill=tema["mut"])
+                d.text((40, y_txt), "Toca junto con el video", font=f_md, fill=tema["txt"])
+                d.text((40, y_txt + 62), "Play along with the video", font=f_xs, fill=tema["mut"])
+                d.text((40, y_txt + 102), "Míralo en loop hasta que salga limpio", font=f_xs, fill=tema["mut"])
         elif cfg.get("cta", True) and t >= total * 0.65:
             d.text((40 if con_kit else 60, ya), "Sígueme: mañana otro ritmo", font=f_md, fill=tema["acc"])
             d.text((40 if con_kit else 60, yb), "Guárdalo para practicar en loop", font=f_sm, fill=tema["txt"])
@@ -503,7 +506,7 @@ def render(cfg, salida):
         if not con_kit:
             d.text((60, 1810), WATERMARK, font=f_xs, fill=tema["mut"])
         if usa_manos:
-            leyenda_manos(d, 940 if con_kit else W - 40, 1486 if con_kit else 1490, tema, f_xs)
+            leyenda_manos(d, 940 if con_kit else W - 40, fin_tab + 14 if con_kit else 1490, tema, f_xs)
         p.stdin.write(fr.tobytes())
     p.stdin.close(); p.wait()
     import os
