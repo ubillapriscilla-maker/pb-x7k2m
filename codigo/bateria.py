@@ -24,7 +24,10 @@ KIT = {'rock': 16, 'punk': 16, 'metal': 16, 'funk': 8, 'motown': 8, 'disco': 8, 
 # Ajuste por voz y estilo: (semitonos más agudo, dB, corte de graves Hz, brillo dB).
 # Reggae: aro claro, agudo y presente (pedido de Priscilla); caja afinada aguda y seca, como en los discos de Jamaica;
 # rimshot = palo en el parche y el aro a la vez (caja + aro juntos, más fuerte).
-AJUSTE = {'reggae': {'aro': (4, 5.0, 350, 5.0), 'snare': (4, 1.0, 180, 3.0), 'rim': (4, 4.0, 180, 4.0)}}
+AJUSTE = {'reggae': {'aro': (4, 5.0, 350, 5.0), 'snare': (4, 1.0, 180, 3.0), 'rim': (4, 4.0, 180, 4.0),
+                     'timb_a': (2, 3.0, 300, 4.0)}}
+# Efecto propio de la timbaleta (Priscilla, 26 nov 2026): reverb tipo placa, brillante y larga, como en los discos de reggae.
+CON_PLACA = {'timb_a'}
 
 
 def familia(estilo):
@@ -32,7 +35,7 @@ def familia(estilo):
     return B.ESTILO_DE.get(e, 'rud' if e.startswith('rud_') else 'pop')
 
 
-def render(ev, total, estilo, semilla=5, loop=True):
+def render(ev, total, estilo, semilla=5, loop=True, eco_s=None):
     """ev: eventos de drumlib.build_events (t, voz, ganancia, ...). Devuelve audio estéreo de 'total' segundos.
     loop=True: la cola del final (platillos que siguen sonando) se suma al inicio para que el loop no se corte."""
     fam = familia(estilo)
@@ -62,6 +65,8 @@ def render(ev, total, estilo, semilla=5, loop=True):
         xa = resample(xa, int(len(xa) / fac), axis=0)  # afinar más agudo (y más corto, más seco)
         xa = B._hp(xa, hp)
         xa = B._peak(xa, 2800, brillo, 0.9) * 10 ** (db / 20)
+        if voz in CON_PLACA:
+            xa = placa(xa, eco_s)
         m = max(len(x), len(xa)); y = np.zeros((m, 2)); y[:len(x)] += x; y[:len(xa)] += xa; x = y
     n = int(total * SR)
     out = np.zeros((n, 2))
@@ -69,6 +74,35 @@ def render(ev, total, estilo, semilla=5, loop=True):
     if loop and len(x) > n:
         cola = x[n:]; m = min(n, len(cola)); out[:m] += cola[:m]
     return procesar(out, fam, semilla)
+
+
+def placa(x, eco_s=None):
+    """Reverb de placa (brillante, ~2 s) y, si se pide, eco tipo dub (repeticiones que se van apagando)."""
+    from scipy.signal import fftconvolve
+    r = np.random.default_rng(21)
+    t = np.arange(int(2.2 * SR)) / SR
+    ir = []
+    for c in range(2):
+        z = r.normal(size=len(t)) * np.exp(-t * 3.0)
+        z = B._hp(B._lp(z, 9000), 400)
+        z[:int(0.012 * SR)] = 0
+        ir.append(z / np.sqrt(np.sum(z ** 2)))
+    n = len(x) + len(t)
+    xx = np.zeros((n, 2)); xx[:len(x)] = x
+    wet = np.stack([fftconvolve(xx[:, c], ir[c])[:n] for c in range(2)], 1)
+    y = xx + 0.55 * wet
+    if eco_s:
+        d = int(eco_s * SR)
+        eco = np.zeros((n + 4 * d, 2)); eco[:n] = y
+        for k in range(1, 4):
+            g = 0.45 ** k
+            eco[k * d:k * d + n, k % 2] += _lpf(y[:, k % 2], 3500 - 700 * k) * g
+        y = eco
+    return y
+
+
+def _lpf(x, fc):
+    return B._lp(x, max(800, fc))
 
 
 def _fluid(notas, kit):
