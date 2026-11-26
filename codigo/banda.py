@@ -62,152 +62,70 @@ def _bp(x, lo, hi):
 # ----------------------------------------------------------------------------- instrumentos
 
 
-def ks(f, dur, brillo=0.5, decay=0.996, pos=0.18, rng=_RNG):
-    """Cuerda pulsada (Karplus-Strong) calculada al doble de frecuencia de muestreo para afinar mejor."""
-    sr2 = SR * 2
-    N = max(2, int(round(sr2 / f - 0.5)))
-    n = int(dur * sr2) + 1
-    exc = rng.uniform(-1, 1, N)
-    a = 1 - brillo  # excitación más suave = cuerda más opaca
-    if a > 0:
-        exc = lfilter([1 - a], [1, -a], exc)
-    k = max(1, int(N * pos)); exc = exc - np.roll(exc, k)  # posición del ataque (cerca del puente = más brillo)
-    x = np.zeros(n); x[:N] = exc
-    den = np.zeros(N + 2); den[0] = 1; den[N] = -decay * 0.5; den[N + 1] = -decay * 0.5
-    y = lfilter([1.0], den, x)
-    y = resample_poly(y, 1, 2)
-    m = np.abs(y[:N]).max() + 1e-9
-    return _rel(y / m, 0.012)
+def _m(f):
+    return int(round(69 + 12 * np.log2(f / 440.0)))
 
 
-def guitarra(notas, dur, vel=1.0, abajo=True, brillo=0.55, decay=0.996, apagada=False, rng=_RNG):
-    """Rasgueo: las cuerdas suenan escalonadas (abajo = grave a agudo)."""
+def _n(kind, f, dur, vel):
+    return [(0.0, _m(f), dur, vel, kind)]
+
+
+def guitarra(notas, dur, vel=1.0, abajo=True, brillo=0.55, decay=0.996, apagada=False, rng=_RNG, kind='gtr'):
+    """Rasgueo: las cuerdas suenan escalonadas (abajo = grave a agudo). apagada = palm mute / cuerdas apagadas."""
     orden = notas if abajo else notas[::-1]
-    sep = 0.007 if not apagada else 0.004
-    largo = dur + sep * len(notas) + 0.02
-    out = np.zeros(int(largo * SR) + 10)
-    for i, m in enumerate(orden):
-        d = dur if not apagada else min(dur, 0.09)
-        s = ks(hz(m), d, brillo * (0.8 if apagada else 1.0), 0.985 if apagada else decay, rng=rng)
-        g = vel * (0.85 + 0.15 * rng.random()) * (1.0 if not apagada else 0.8)
-        i0 = int(i * sep * SR)
-        out[i0:i0 + len(s)] += s * g
-    return out
+    sep = 0.008 if not apagada else 0.004
+    d = dur if not apagada else min(dur, 0.12)
+    k = kind + ('_m' if apagada else '')
+    return [(i * sep, m, d, vel * (0.85 + 0.15 * rng.random()) * (1.0 if abajo or i else 0.9), k) for i, m in enumerate(orden)]
 
 
-def rasguido_muerto(dur=0.05, vel=0.6, rng=_RNG):
-    """El "chick" de funk: cuerdas apagadas con la mano izquierda (sin nota)."""
-    t = _t(dur)
-    s = _bp(rng.normal(size=len(t)), 900, 4200) * np.exp(-t * 70)
-    return s / (np.abs(s).max() + 1e-9) * vel * 0.5
+def rasguido_muerto(notas, vel=0.6):
+    """El "chick" de funk: cuerdas apagadas con la mano izquierda."""
+    return [(i * 0.003, m, 0.03, vel * 0.55, 'gtr_m') for i, m in enumerate(notas)]
 
 
 def bajo_dedo(f, dur, vel=1.0, brillo=0.3, rng=_RNG):
-    t = _t(dur)
-    s = ks(f, dur, brillo, 0.9975, pos=0.3, rng=rng)[:len(t)]
-    if len(s) < len(t):
-        s = np.pad(s, (0, len(t) - len(s)))
-    fund = np.sin(2 * np.pi * f * t) * np.exp(-t * 1.6)
-    y = _lp(0.6 * s + 0.7 * fund, 1500)
-    return _rel(y * vel, 0.03)
+    return _n('bajo', f, dur, vel)
 
 
 def bajo_sinte(f, dur, vel=1.0):
-    """Bajo sintetizado redondo (hip-hop, reggaetón): seno con un poco de saturación."""
-    t = _t(dur)
-    caida = 1 + 0.06 * np.exp(-t * 40)
-    ph = 2 * np.pi * np.cumsum(f * caida) / SR
-    y = np.tanh(1.6 * (np.sin(ph) + 0.25 * np.sin(2 * ph))) * np.minimum(1, t * 300)
-    return _rel(y * vel * 0.45, 0.04)
+    return _n('bajo', f, dur, vel)
 
 
 def rhodes(f, dur, vel=1.0):
-    t = _t(dur + 0.25)
-    env = np.exp(-t * (1.1 + f / 700)) * np.minimum(1, t * 400)
-    idx = 1.6 * vel * np.exp(-t * 3.5) + 0.25
-    car = np.sin(2 * np.pi * f * t + idx * np.sin(2 * np.pi * f * t))
-    tine = np.sin(2 * np.pi * f * 7.0 * t) * np.exp(-t * 28) * 0.18 * vel
-    y = (car + tine) * env * vel
-    n_off = int(dur * SR)
-    if n_off < len(y):
-        y[n_off:] *= np.exp(-np.arange(len(y) - n_off) / SR * 14)
-    return y
+    return _n('rhodes', f, dur, vel)
 
 
 def organo(f, dur, vel=1.0, registro='rock'):
-    """Órgano tipo Hammond: registros por armónicos, leslie (vibrato) y clic de tecla."""
-    t = _t(dur)
-    pesos = {'rock': [(0.5, 0.3), (1, 1.0), (1.5, 0.5), (2, 0.6), (3, 0.3), (4, 0.25)],
-             'jazz': [(0.5, 0.3), (1, 1.0), (1.5, 0.5)],
-             'reggae': [(1, 1.0), (2, 0.5), (3, 0.3), (4, 0.3), (8, 0.1)]}[registro]
-    vib = 0.0025 * np.sin(2 * np.pi * 6.2 * t)
-    y = sum(w * np.sin(2 * np.pi * f * h * (t + vib)) for h, w in pesos)
-    y *= (1 + 0.12 * np.sin(2 * np.pi * 6.2 * t + 1)) * np.minimum(1, t * 250)
-    nc = min(len(t), int(0.006 * SR))
-    y[:nc] += np.random.default_rng(int(f)).normal(size=nc) * 0.3
-    return _rel(y * vel * 0.35, 0.02)
+    return _n('organo', f, dur, vel)
 
 
 def piano(f, dur, vel=1.0):
-    t = _t(dur + 0.3)
-    B = 0.0004
-    y = np.zeros(len(t))
-    for k in range(1, 9):
-        fk = f * k * np.sqrt(1 + B * k * k)
-        if fk > SR * 0.45:
-            break
-        y += (1 / k ** 1.1) * np.sin(2 * np.pi * fk * t) * np.exp(-t * (0.8 + 0.5 * k + f / 900))
-    y *= np.minimum(1, t * 600) * vel
-    n_off = int(dur * SR)
-    if n_off < len(y):
-        y[n_off:] *= np.exp(-np.arange(len(y) - n_off) / SR * 10)
-    return y * 0.6
+    return _n('piano', f, dur, vel)
 
 
 def clavinet(f, dur, vel=1.0, rng=_RNG):
-    s = ks(f, max(dur, 0.06), 0.95, 0.99, pos=0.08, rng=rng)
-    return _hp(s, 300) * vel * 0.8
+    return _n('clav', f, dur, vel)
 
 
 def cuerdas(f, dur, vel=1.0):
-    t = _t(dur + 0.4)
-    y = np.zeros(len(t))
-    for det in (-0.006, 0.0, 0.007):
-        ff = f * (1 + det)
-        for k in range(1, 12):
-            if ff * k > 7000:
-                break
-            y += np.sin(2 * np.pi * ff * k * t + det * 100 * k) / k
-    env = np.minimum(1, t / 0.18)
-    n_off = int(dur * SR)
-    if n_off < len(y):
-        env[n_off:] *= np.exp(-np.arange(len(y) - n_off) / SR * 5)
-    return _lp(y * env * vel * 0.12, 3500)
+    return _n('cuerdas', f, dur, vel)
 
 
 def bronces(f, dur, vel=1.0):
-    t = _t(dur)
-    env = np.minimum(1, t / 0.015) * np.exp(-t * 2.0)
-    br = np.minimum(1, t / 0.03) * np.exp(-t * 6) * 0.8 + 0.3
-    y = np.zeros(len(t))
-    for k in range(1, 16):
-        if f * k > 9000:
-            break
-        y += np.sin(2 * np.pi * f * k * t) / k * np.exp(-k / (1.5 + 9 * br))
-    return _rel(y * env * vel * 0.5, 0.03)
+    return _n('bronces', f, dur, vel)
 
 
 def pluck(f, dur, vel=1.0):
-    t = _t(dur)
-    y = np.zeros(len(t))
-    br = np.exp(-t * 12)
-    for k in range(1, 10):
-        y += np.sin(2 * np.pi * f * k * t) / k * np.exp(-k / (1 + 8 * br))
-    return _rel(y * np.exp(-t * 5) * np.minimum(1, t * 500) * vel * 0.5, 0.02)
+    return _n('pluck', f, dur, vel)
 
 
 def nylon(f, dur, vel=1.0, rng=_RNG):
-    return _lp(ks(f, dur, 0.35, 0.995, pos=0.25, rng=rng), 3000) * vel
+    return _n('nylon', f, dur, vel)
+
+
+def ks(f, dur, brillo=0.5, decay=0.996, pos=0.18, rng=_RNG):
+    return _n('dist', f, dur, 1.0)
 
 
 def reverb(x, mezcla=1.0):
@@ -354,7 +272,8 @@ def componer(bpm, nbars, kicks_loop, loop_bars, tonica=62, semilla=1, clic=False
     step = 60.0 / bpm / 4; bar = 16 * step
     n = int(nbars * bar * SR) + SR * 3
     pistas = ['gtr', 'gtr_dist', 'bajo', 'teclas', 'pad', 'lead', 'extra', 'clic']
-    L = {k: np.zeros(n) for k in pistas}
+    L = {k: [] for k in pistas}
+    clic_buf = np.zeros(n)
     menor = fam in MENOR
     # tónica cómoda para la guitarra (E, A, D, G) y el bajo
     ton = tonica % 12
@@ -362,10 +281,15 @@ def componer(bpm, nbars, kicks_loop, loop_bars, tonica=62, semilla=1, clic=False
         ton = 4 if fam == 'metal' else (9 if ton not in (4, 9, 2, 7) else ton)
 
     def add(k, s, t0, g=1.0):
-        t0 += rng.normal(0, 0.003)  # humanizar: músicos reales no caen exacto en la grilla
-        i0 = max(0, int(t0 * SR)); e = min(n, i0 + len(s))
-        if i0 < n:
-            L[k][i0:e] += s[:e - i0] * g
+        if isinstance(s, np.ndarray):  # clic de metrónomo (audio)
+            i0 = int(t0 * SR); e = min(n, i0 + len(s)); clic_buf[i0:e] += s[:e - i0] * g
+            return
+        t0 += rng.normal(0, 0.004)  # humanizar: músicos reales no caen exacto en la grilla
+        for (off, m, d, v, kind) in s:
+            if k == 'gtr_dist' and kind.startswith('gtr'):
+                kind = 'dist' + kind[3:]
+            vel = v * (0.75 + 0.25 * min(1.0, g)) * (0.92 + 0.12 * rng.random())
+            L[k].append((t0 + off, m, d, min(1.0, vel), kind))
 
     # bombo por compás (pasos de semicorchea)
     pasos_loop = 16 * loop_bars
@@ -413,7 +337,7 @@ def componer(bpm, nbars, kicks_loop, loop_bars, tonica=62, semilla=1, clic=False
                 for q in range(4):
                     add('clic', c * (1.3 if q == 0 else 0.8), tb + q * 4 * step)
         b0 += nb
-    return _mezcla(L, fam, nbars * bar)
+    return _mezcla(L, fam, nbars * bar, clic_buf, semilla)
 
 
 def _a_acorde(m, pcs):
@@ -423,15 +347,15 @@ def _a_acorde(m, pcs):
 def _lead(add, fam, m, dur, t0):
     f = hz(m)
     if fam in ('rock', 'metal'):
-        add('gtr_dist', ks(f, dur, 0.75, 0.998, pos=0.12), t0, 0.55)
+        add('lead', [(0.0, m, dur, 0.9, 'dist_lead')], t0, 0.9)
     elif fam in ('funk', 'ska'):
         add('lead', bronces(f, dur, 0.9), t0, 0.55)
     elif fam == 'disco':
-        add('lead', cuerdas(f, dur, 1.0) * 1.6, t0, 0.6)
+        add('lead', cuerdas(f, dur, 1.0) + cuerdas(f * 2, dur, 0.8), t0, 0.8)
     elif fam in ('hiphop', 'bossa'):
         add('lead', rhodes(f, dur, 0.7), t0, 0.35)
     elif fam == 'motown':
-        add('lead', piano(f, dur, 0.9) + piano(f * 2, dur, 0.5), t0, 0.35)
+        add('lead', piano(f, dur, 0.9) + piano(f * 2, dur, 0.7), t0, 0.8)
     else:
         add('lead', pluck(f, dur, 1.0), t0, 0.45)
 
@@ -506,7 +430,7 @@ def _compas(add, fam, sec, k, pcs, tipo, raiz, sig, tb, step, ks_b, lleno, rng, 
             if s in acentos:
                 add('gtr', guitarra(g, step * 0.8, 0.9, abajo=s % 2 == 0, brillo=0.7), T(s), 0.6)
             else:
-                add('gtr', rasguido_muerto(0.04, 0.5 + 0.2 * (s % 2 == 0)), T(s), 0.6)
+                add('gtr', rasguido_muerto(g, 0.5 + 0.2 * (s % 2 == 0)), T(s), 0.6)
         if not intro:
             linea = [(0, 0, 2), (3, 0, 1), (6, 12, 1), (7, 0, 1), (10, 10, 1), (12, 12, 1), (14, 7, 1)]
             for s, iv, d in linea:
@@ -617,42 +541,146 @@ def _compas(add, fam, sec, k, pcs, tipo, raiz, sig, tb, step, ks_b, lleno, rng, 
 
 
 def sum_pad(lst):
-    n = max(len(x) for x in lst)
-    out = np.zeros(n)
-    for j, x in enumerate(lst):
-        i0 = int(j * 0.008 * SR)
-        e = min(n, i0 + len(x)); out[i0:e] += x[:e - i0]
+    out = []
+    for j, notas in enumerate(lst):
+        out += [(off + j * 0.009, m, d, v, k) for (off, m, d, v, k) in notas]
     return out
 
 
-def _mezcla(L, fam, largo_s):
-    # guitarra distorsionada: saturación + caja de amplificador (paso bajo) + quitar barro
-    if np.abs(L['gtr_dist']).max() > 0:
-        x = L['gtr_dist']
-        x = np.tanh(x * (6.0 if fam in ('metal', 'punk') else 4.0))
-        x = _lp(_hp(x, 110), 4200, 4) * 0.55
-        L['gtr_dist'] = x
-    L['bajo'] = _hp(L['bajo'], 38)
-    if fam == 'hiphop':  # lo-fi: Rhodes más oscuro
-        L['teclas'] = _lp(L['teclas'], 3200)
-    vol = {'gtr': 0.90, 'gtr_dist': 0.50, 'bajo': 0.36, 'teclas': 0.80, 'pad': 0.60, 'lead': 1.20, 'extra': 1.60, 'clic': 0.5}
-    pan = {'gtr': -0.35, 'gtr_dist': -0.25, 'bajo': 0.0, 'teclas': 0.30, 'pad': 0.0, 'lead': 0.12, 'extra': 0.4, 'clic': 0.0}
-    n = len(L['bajo'])
-    st = np.zeros((n, 2)); wet = np.zeros(n)
-    for k, buf in L.items():
-        if not buf.any():
+import os, subprocess, tempfile, wave as _wave
+
+SF2 = [p for p in ('/home/claude/mrbumpy409/generaluser-gs/GeneralUser-GS.sf2', os.path.expanduser('~/sf/GeneralUser-GS.sf2'),
+                   '/usr/share/sounds/sf2/FluidR3_GM.sf2') if os.path.exists(p)]
+
+# programa General MIDI por tipo de sonido (0 = piano). Algunos cambian según el estilo.
+PROGRAMA = {'piano': 0, 'rhodes': 4, 'organo': 16, 'clav': 7, 'cuerdas': 48, 'bronces': 61, 'pluck': 5, 'nylon': 24,
+            'gtr': 27, 'gtr_m': 28, 'dist': 29, 'dist_m': 29, 'dist_lead': 29, 'bajo': 33}
+POR_ESTILO = {
+    'rock': {'bajo': 34, 'organo': 18}, 'punk': {'bajo': 34, 'dist': 30, 'dist_m': 30},
+    'metal': {'bajo': 34, 'dist': 30, 'dist_m': 30, 'dist_lead': 30}, 'funk': {'bajo': 33},
+    'hiphop': {'bajo': 32}, 'bossa': {'bajo': 32, 'pluck': 11}, 'reggaeton': {'bajo': 38, 'pluck': 25},
+    'ska': {'organo': 16}, 'pop': {'pluck': 5},
+}
+
+
+def _render(notas, programa, semilla):
+    """Toca las notas con un instrumento grabado (SoundFont) usando FluidSynth. Devuelve audio estéreo."""
+    import pretty_midi
+    pm = pretty_midi.PrettyMIDI()
+    ins = pretty_midi.Instrument(program=programa)
+    for (t, m, d, v, _k) in notas:
+        if t < 0:
+            d += t; t = 0.0
+        if d <= 0.01 or not 0 < m < 128:
             continue
-        g = vol[k]; p = pan[k]
-        if k == 'gtr_dist':  # doble toma abierta a los lados, como en las grabaciones de rock
-            st[:, 0] += buf * g * 0.75
-            st[:, 1] += np.roll(buf, int(0.012 * SR)) * g * 0.75
+        vel = int(np.clip(28 + 99 * v ** 0.8, 1, 127))
+        ins.notes.append(pretty_midi.Note(velocity=vel, pitch=int(m), start=float(t), end=float(t + d)))
+    if not ins.notes:
+        return None
+    pm.instruments.append(ins)
+    with tempfile.TemporaryDirectory() as td:
+        mid = os.path.join(td, 'a.mid'); wav = os.path.join(td, 'a.wav')
+        pm.write(mid)
+        subprocess.run(['fluidsynth', '-ni', '-q', '-g', '0.5', '-R', '0', '-C', '0', '-r', str(SR), '-F', wav, SF2[0], mid],
+                       check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        w = _wave.open(wav); x = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).reshape(-1, 2) / 32767.0; w.close()
+    return x
+
+
+def _peak(x, f0, db, q=1.0):
+    """Ecualizador de campana (fórmula RBJ): db negativo quita, positivo agrega."""
+    A = 10 ** (db / 40); w = 2 * np.pi * f0 / SR; al = np.sin(w) / (2 * q)
+    b = [1 + al * A, -2 * np.cos(w), 1 - al * A]; a = [1 + al / A, -2 * np.cos(w), 1 - al / A]
+    return lfilter(np.array(b) / a[0], np.array(a) / a[0], x, axis=0)
+
+
+def _ir(seg=1.8, semilla=3):
+    """Respuesta de una sala (reverb por convolución): ruido que decae, más oscuro con el tiempo, distinto en cada lado."""
+    r = np.random.default_rng(semilla)
+    t = np.arange(int(seg * SR)) / SR
+    out = []
+    for c in range(2):
+        x = r.normal(size=len(t)) * np.exp(-t * 3.6)
+        x = 0.6 * _lp(x, 6500) + 0.4 * _lp(x, 1800)
+        x[:int(0.018 * SR)] = 0  # pre-delay
+        out.append(x / np.sqrt(np.sum(x ** 2)))
+    return np.stack(out, 1)
+
+
+def _comp(x, umbral=-18.0, ratio=3.0, ataque=0.01, relajo=0.15):
+    """Compresor simple (nivela los golpes para que la banda suene pareja y "pegada")."""
+    m = np.abs(x).max(1) if x.ndim == 2 else np.abs(x)
+    a = np.exp(-1 / (ataque * SR)); r = np.exp(-1 / (relajo * SR))
+    env = lfilter([1 - r], [1, -r], m)  # aproximación rápida del seguidor de envolvente
+    env = np.maximum(env, lfilter([1 - a], [1, -a], m) * 0.7)
+    db = 20 * np.log10(env + 1e-9)
+    red = np.minimum(0, (umbral - db) * (1 - 1 / ratio))
+    g = 10 ** (red / 20)
+    return x * (g[:, None] if x.ndim == 2 else g)
+
+
+def _mezcla(L, fam, largo_s, clic_buf, semilla):
+    from scipy.signal import fftconvolve
+    progs = dict(PROGRAMA); progs.update(POR_ESTILO.get(fam, {}))
+    n = int(largo_s * SR) + SR * 3
+    vol = {'gtr': 0.80, 'gtr_dist': 0.70, 'bajo': 0.85, 'teclas': 0.70, 'pad': 0.45, 'lead': 0.65, 'extra': 0.55}
+    pan = {'gtr': -0.45, 'gtr_dist': 0.0, 'bajo': 0.0, 'teclas': 0.35, 'pad': 0.0, 'lead': 0.15, 'extra': 0.45}
+    envio = {'gtr': 0.18, 'gtr_dist': 0.10, 'bajo': 0.0, 'teclas': 0.22, 'pad': 0.35, 'lead': 0.28, 'extra': 0.25}
+    st = np.zeros((n, 2)); wet = np.zeros((n, 2))
+
+    def poner(dst, x, g=1.0):
+        e = min(n, len(x)); dst[:e] += x[:e] * g
+
+    for k, notas in L.items():
+        if not notas or k == 'clic':
+            continue
+        porkind = {}
+        for nt in notas:
+            porkind.setdefault(nt[4], []).append(nt)
+        pista = np.zeros((n, 2))
+        for kind, ns in porkind.items():
+            x = _render(ns, progs.get(kind, 0), semilla)
+            if x is None:
+                continue
+            if k == 'gtr_dist' and kind.startswith('dist') and kind != 'dist_lead':
+                # doble toma: la misma parte tocada dos veces (con otra humanización), una a cada lado
+                r2 = np.random.default_rng(semilla + 99)
+                ns2 = [(t + r2.normal(0, 0.006), m, d, min(1, v * (0.95 + 0.1 * r2.random())), kk) for (t, m, d, v, kk) in ns]
+                x2 = _render(ns2, progs.get(kind, 0), semilla + 1)
+                mono1 = x.mean(1); mono2 = x2.mean(1) if x2 is not None else mono1
+                e = min(len(mono1), len(mono2))
+                x = np.stack([mono1[:e], mono2[:e]], 1) * 1.2
+            poner(pista, x)
+        if not pista.any():
+            continue
+        if k == 'bajo':
+            mono = _hp(pista.mean(1), 35)
+            mono = _comp(mono, -22, 4, 0.005, 0.12)
+            pista = np.stack([mono, mono], 1) * 1.4
         else:
-            st[:, 0] += buf * g * np.sqrt((1 - p) / 2) * 1.414
-            st[:, 1] += buf * g * np.sqrt((1 + p) / 2) * 1.414
-        if k in ('teclas', 'pad', 'lead', 'gtr', 'extra'):
-            wet += buf * g
-    rv = reverb(wet, 1.0)
-    st[:, 0] += rv; st[:, 1] += np.roll(rv, 331)
+            pista = np.stack([_hp(pista[:, 0], 120 if k != 'pad' else 90), _hp(pista[:, 1], 120 if k != 'pad' else 90)], 1)
+            if k != 'gtr_dist':
+                p = pan[k]
+                mono = pista.mean(1)
+                ancho = pista[:, 0] - pista[:, 1]
+                pista = np.stack([mono * np.sqrt((1 - p) / 2) * 1.414 + 0.5 * ancho,
+                                  mono * np.sqrt((1 + p) / 2) * 1.414 - 0.5 * ancho], 1)
+        if k != 'bajo':  # quitar "barro" (250-400 Hz) y dar presencia, como en una mezcla de estudio
+            pista = _peak(pista, 320, -4.0, 0.9)
+            if k in ('gtr', 'gtr_dist', 'lead'):
+                pista = _peak(pista, 3000, 2.5, 0.8)
+        else:
+            pista = _peak(pista, 800, 2.0, 1.0)  # que el bajo se escuche también en parlantes chicos (celular)
+        if fam == 'hiphop' and k in ('teclas', 'lead'):  # lo-fi: Rhodes más oscuro
+            pista = np.stack([_lp(pista[:, 0], 5500), _lp(pista[:, 1], 5500)], 1)
+        g = vol[k] * (0.7 if (k == 'bajo' and fam in ('metal', 'reggaeton')) else 1.0)
+        st += pista * g
+        wet += pista * vol[k] * envio[k]
+    ir = _ir(1.6 if fam not in ('punk', 'metal') else 1.0, semilla)
+    rev = np.stack([fftconvolve(wet[:, c], ir[:, c])[:n] for c in range(2)], 1)
+    st += rev * 0.9
+    st[:, 0] += clic_buf * 0.5; st[:, 1] += clic_buf * 0.5
+    st = _comp(st, -16, 2.0, 0.015, 0.25)  # pegamento de la banda
     pico = np.abs(st).max() + 1e-9
-    st = np.tanh(st / pico * 1.4) * 0.8  # pegamento: compresión suave de toda la banda
+    st = np.tanh(st / pico * 1.2) / np.tanh(1.2) * 0.85
     return st[:int(largo_s * SR)]
