@@ -40,7 +40,8 @@ D. Bombo "tumbao" (siguiendo al bajo) en algunos momentos (Batacas; Reverb.com).
 - Cumbia chilena: PENDIENTE confirmar con la grabación de Priscilla (drumcam aPbfaVYHGzo) antes de publicar.
 
 ### Muestra hecha (codigo/demo_cumbia.py, versión 2)
-Versión 2 (26 nov): una sola cumbia de 16 compases a 96 BPM en La menor (Lam-Lam-Mi7-Mi7-Lam-Rem-Mi7-Lam) con cada instrumento según lo de arriba y melodía escrita a mano en acordeón. La versión 1 (tres cumbias) sonaba mal: melodía al azar y partes sin el rol correcto.
+Versión 3 (26 nov, pedido de Priscilla): solo batería, bajo, guitarra y teclado — nada de percusión ni otros instrumentos, porque el curso es de batería. El hi-hat imita al güiro; la guitarra lleva la melodía; el piano la base en contratiempo.
+Versión 2: una sola cumbia de 16 compases a 96 BPM en La menor (Lam-Lam-Mi7-Mi7-Lam-Rem-Mi7-Lam) con cada instrumento según lo de arriba y melodía escrita a mano en acordeón. La versión 1 (tres cumbias) sonaba mal: melodía al azar y partes sin el rol correcto.
 
 Versión 1 (descartada):
 1. Colombiana adaptada a batería (patrón A + guacharaca/güiro + llamador en conga), bajo tónica-quinta, acordeón.

@@ -4,7 +4,7 @@ sys.path.insert(0, '/home/claude/pb-x7k2m/codigo')
 import banda as B, bateria as BT
 SR = 44100
 bpm = 96; step = 60 / bpm / 4; N = 16
-P = {'bombo': 36, 'aro': 37, 'hh': 42, 'guiro_c': 73, 'guiro_l': 74, 'conga_mute': 62, 'conga_ab': 63,
+P = {'caja': 38, 'tom1': 48, 'tom_piso': 43, 'bombo': 36, 'aro': 37, 'hh': 42, 'guiro_c': 73, 'guiro_l': 74, 'conga_mute': 62, 'conga_ab': 63,
      'tumba': 64, 'timb_a': 65, 'timb_b': 66, 'crash': 49}
 # progresión típica de dos o tres acordes: i y V7 (con iv), en La menor
 PROG = [(57, 'm'), (57, 'm'), (52, '7'), (52, '7'), (57, 'm'), (50, 'm'), (52, '7'), (57, 'm')]
@@ -23,14 +23,9 @@ def g(s): return [i for i, c in enumerate(s.replace(' ', '')) if c != '-']
 
 # ---------------- percusión y batería
 capas = {
-    'guiro_l': ('x--- x--- x--- x---', 85),   # güiro: raspado largo en el tiempo...
-    'guiro_c': ('--xx --xx --xx --xx', 72),   # ...y dos cortos ("chaaa-chi-ki")
-    'conga_mute': ('x--- ---- x--- ----', 80),  # conga: palma, abierto, palma, abierto
-    'conga_ab': ('---- x--- ---- x---', 95),
-    'tumba': ('---- --x- ---- --x-', 90),     # conga grave en el contratiempo (el "llamador")
-    'bombo': ('x--- ---- x--- ----', 100),    # bombo en 1 y 3
-    'aro': ('---- x--- ---- x---', 92),       # aro en 2 y 4
-    'hh': ('--x- --x- --x- --x-', 60),        # hi-hat suave en el contratiempo
+    'hh': ('x-xx x-xx x-xx x-xx', 80),        # hi-hat: imita al güiro ("chaaa-chi-ki")
+    'bombo': ('x--- ---- x--- ----', 105),    # bombo en 1 y 3
+    'aro': ('---- x--- ---- x---', 95),       # aro de caja en 2 y 4
 }
 notas = []
 for b in range(N):
@@ -39,7 +34,7 @@ for b in range(N):
             t = (b * 16 + s) * step + rng.normal(0, 0.004)
             notas.append((max(0, t), P[voz], int(np.clip(vel + rng.normal(0, 6), 30, 127)), voz))
     if b % 4 == 3:  # remate de timbal al cerrar cada frase de 4 compases
-        for s, v in ((12, 'timb_a'), (13, 'timb_a'), (14, 'timb_b'), (15, 'timb_b')):
+        for s, v in ((12, 'caja'), (13, 'caja'), (14, 'tom1'), (15, 'tom_piso')):
             notas.append(((b * 16 + s) * step, P[v], 100, v))
     if b % 4 == 0 and b > 0:
         notas.append((b * 16 * step, P['crash'], 95, 'crash'))
@@ -62,20 +57,12 @@ for b in range(N):
     for s in (2, 6, 10, 14):
         for m in v:
             nota('teclas', 'piano', b, s, m, 1.2, 0.8)
-    # guitarra eléctrica limpia: también en el contratiempo, dos cuerdas agudas
-    for s in (2, 6, 10, 14):
-        for m in v[-2:]:
-            nota('gtr', 'gtr', b, s, m + 12, 0.9, 0.7)
-    # colchón: cuerdas sostenidas solo en la segunda vuelta (Fa#4-Fa#5)
-    if b >= 8:
-        for m in B.voicear(ac, None, 66, 78):
-            nota('pad', 'cuerdas', b, 0, m, 15.5, 0.6)
-    # figura: melodía en acordeón
+    # guitarra eléctrica limpia: lleva la melodía (como en la cumbia del sur y la peruana)
     for s, m, d in MEL[b % 8]:
-        nota('lead', 'acordeon', b, s, m, d * 0.92, 0.85)
-B.PROGRAMA.update({'acordeon': 21})
+        nota('lead', 'gtr', b, s, m, d * 0.92, 0.9)
+
 mu = B._mezcla(L, 'cumbia', (N * 16 + 8) * step, np.zeros(int(((N * 16 + 8) * step + 3) * SR)), 9)
 x = BT.mezclar(dr, mu, -16.5, -19.0)
-o = wave.open('/tmp/lat/cumbia_v2.wav', 'wb'); o.setnchannels(2); o.setsampwidth(2); o.setframerate(SR)
+o = wave.open('/tmp/lat/cumbia_v3.wav', 'wb'); o.setnchannels(2); o.setsampwidth(2); o.setframerate(SR)
 o.writeframes((x * 32767).astype(np.int16).tobytes()); o.close()
 print(round(len(x) / SR, 1))
