@@ -16,13 +16,15 @@ import numpy as np
 import banda as B
 
 SR = 44100
-NOTA = {'kick': 36, 'snare': 38, 'aro': 37, 'hat': 42, 'ohat': 46, 'crash': 49, 'ride': 51, 't1': 50, 't2': 47, 't3': 43}
+NOTA = {'rim': 38, 'kick': 36, 'snare': 38, 'aro': 37, 'hat': 42, 'ohat': 46, 'crash': 49, 'ride': 51, 't1': 50, 't2': 47, 't3': 43}
 KIT = {'rock': 16, 'punk': 16, 'metal': 16, 'funk': 8, 'motown': 8, 'disco': 8, 'ska': 8, 'reggae': 8, 'hiphop': 8,
        'pop': 1, 'bossa': 32, 'reggaeton': 25}
 
 
-# aro (side stick) por estilo: (semitonos más agudo, dB más fuerte). Reggae: aro claro, agudo y presente (pedido de Priscilla).
-ARO = {'reggae': (4, 5.0)}
+# Ajuste por voz y estilo: (semitonos más agudo, dB, corte de graves Hz, brillo dB).
+# Reggae: aro claro, agudo y presente (pedido de Priscilla); caja afinada aguda y seca, como en los discos de Jamaica;
+# rimshot = palo en el parche y el aro a la vez (caja + aro juntos, más fuerte).
+AJUSTE = {'reggae': {'aro': (4, 5.0, 350, 5.0), 'snare': (4, 1.0, 180, 3.0), 'rim': (4, 4.0, 180, 4.0)}}
 
 
 def familia(estilo):
@@ -43,20 +45,23 @@ def render(ev, total, estilo, semilla=5, loop=True):
         paso = resto[0] if resto else 0
         acento = 1.0 if paso % 4 == 0 else (0.9 if paso % 2 == 0 else 0.8)
         v = g * (acento if voz in ('hat', 'ride') else 1.0)
-        base = {'kick': 112, 'snare': 108, 'aro': 100, 'hat': 92, 'ohat': 96, 'crash': 108, 'ride': 92}.get(voz, 105)
+        base = {'rim': 118, 'kick': 112, 'snare': 108, 'aro': 100, 'hat': 92, 'ohat': 96, 'crash': 108, 'ride': 92}.get(voz, 105)
         vel = int(np.clip(base * v + rng.normal(0, 5), 30, 127))
         notas.append((max(0.0, t + rng.normal(0, 0.003)), NOTA[voz], vel, voz))
-    aro_aparte = fam in ARO
-    x = _fluid([nt for nt in notas if not (aro_aparte and nt[3] == 'aro')], kit)
-    if aro_aparte and any(nt[3] == 'aro' for nt in notas):
-        semis, db = ARO[fam]
+    aj = AJUSTE.get(fam, {})
+    x = _fluid([nt for nt in notas if nt[3] not in aj], kit)
+    from scipy.signal import resample
+    for voz, (semis, db, hp, brillo) in aj.items():
+        sel = [nt for nt in notas if nt[3] == voz]
+        if not sel:
+            continue
+        if voz == 'rim':  # rimshot: caja y aro al mismo tiempo
+            sel = sel + [(t, 37, v, vz) for (t, m, v, vz) in sel]
         fac = 2 ** (semis / 12)
-        # el aro se toca más agudo (se acelera la muestra) y se le da brillo y volumen
-        xa = _fluid([(t * fac, m, min(127, v + 10), vz) for (t, m, v, vz) in notas if vz == 'aro'], kit)
-        from scipy.signal import resample
-        xa = resample(xa, int(len(xa) / fac), axis=0)
-        xa = B._hp(xa, 350)
-        xa = B._peak(xa, 2800, 5.0, 0.9) * 10 ** (db / 20)
+        xa = _fluid([(t * fac, m, min(127, v + 8), vz) for (t, m, v, vz) in sel], kit)
+        xa = resample(xa, int(len(xa) / fac), axis=0)  # afinar más agudo (y más corto, más seco)
+        xa = B._hp(xa, hp)
+        xa = B._peak(xa, 2800, brillo, 0.9) * 10 ** (db / 20)
         m = max(len(x), len(xa)); y = np.zeros((m, 2)); y[:len(x)] += x; y[:len(xa)] += xa; x = y
     n = int(total * SR)
     out = np.zeros((n, 2))
