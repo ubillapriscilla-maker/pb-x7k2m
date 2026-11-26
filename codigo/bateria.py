@@ -21,6 +21,10 @@ KIT = {'rock': 16, 'punk': 16, 'metal': 16, 'funk': 8, 'motown': 8, 'disco': 8, 
        'pop': 1, 'bossa': 32, 'reggaeton': 25}
 
 
+# aro (side stick) por estilo: (semitonos más agudo, dB más fuerte). Reggae: aro claro, agudo y presente (pedido de Priscilla).
+ARO = {'reggae': (4, 5.0)}
+
+
 def familia(estilo):
     e = str(estilo).split('__')[0]
     return B.ESTILO_DE.get(e, 'rud' if e.startswith('rud_') else 'pop')
@@ -29,12 +33,10 @@ def familia(estilo):
 def render(ev, total, estilo, semilla=5, loop=True):
     """ev: eventos de drumlib.build_events (t, voz, ganancia, ...). Devuelve audio estéreo de 'total' segundos.
     loop=True: la cola del final (platillos que siguen sonando) se suma al inicio para que el loop no se corte."""
-    import pretty_midi
     fam = familia(estilo)
     kit = KIT.get(fam, 0)
     rng = np.random.default_rng(semilla)
-    pm = pretty_midi.PrettyMIDI()
-    ins = pretty_midi.Instrument(program=kit, is_drum=True)
+    notas = []
     for (t, voz, g, *resto) in ev:
         if voz not in NOTA:
             continue
@@ -43,8 +45,35 @@ def render(ev, total, estilo, semilla=5, loop=True):
         v = g * (acento if voz in ('hat', 'ride') else 1.0)
         base = {'kick': 112, 'snare': 108, 'aro': 100, 'hat': 92, 'ohat': 96, 'crash': 108, 'ride': 92}.get(voz, 105)
         vel = int(np.clip(base * v + rng.normal(0, 5), 30, 127))
-        t0 = max(0.0, t + rng.normal(0, 0.003))
-        ins.notes.append(pretty_midi.Note(velocity=vel, pitch=NOTA[voz], start=t0, end=t0 + 0.2))
+        notas.append((max(0.0, t + rng.normal(0, 0.003)), NOTA[voz], vel, voz))
+    aro_aparte = fam in ARO
+    x = _fluid([nt for nt in notas if not (aro_aparte and nt[3] == 'aro')], kit)
+    if aro_aparte and any(nt[3] == 'aro' for nt in notas):
+        semis, db = ARO[fam]
+        fac = 2 ** (semis / 12)
+        # el aro se toca más agudo (se acelera la muestra) y se le da brillo y volumen
+        xa = _fluid([(t * fac, m, min(127, v + 10), vz) for (t, m, v, vz) in notas if vz == 'aro'], kit)
+        from scipy.signal import resample
+        xa = resample(xa, int(len(xa) / fac), axis=0)
+        xa = B._hp(xa, 350)
+        xa = B._peak(xa, 2800, 5.0, 0.9) * 10 ** (db / 20)
+        m = max(len(x), len(xa)); y = np.zeros((m, 2)); y[:len(x)] += x; y[:len(xa)] += xa; x = y
+    n = int(total * SR)
+    out = np.zeros((n, 2))
+    e = min(n, len(x)); out[:e] = x[:e]
+    if loop and len(x) > n:
+        cola = x[n:]; m = min(n, len(cola)); out[:m] += cola[:m]
+    return procesar(out, fam, semilla)
+
+
+def _fluid(notas, kit):
+    import pretty_midi
+    pm = pretty_midi.PrettyMIDI()
+    ins = pretty_midi.Instrument(program=kit, is_drum=True)
+    for (t, m, vel, _v) in notas:
+        ins.notes.append(pretty_midi.Note(velocity=int(vel), pitch=m, start=t, end=t + 0.2))
+    if not ins.notes:
+        return np.zeros((SR, 2))
     pm.instruments.append(ins)
     with tempfile.TemporaryDirectory() as td:
         mid = os.path.join(td, 'd.mid'); wav = os.path.join(td, 'd.wav')
@@ -52,12 +81,7 @@ def render(ev, total, estilo, semilla=5, loop=True):
         subprocess.run(['fluidsynth', '-ni', '-q', '-g', '0.6', '-R', '0', '-C', '0', '-r', str(SR), '-F', wav, B.SF2[0], mid],
                        check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         w = wave.open(wav); x = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16).reshape(-1, 2) / 32767.0; w.close()
-    n = int(total * SR)
-    out = np.zeros((n, 2))
-    e = min(n, len(x)); out[:e] = x[:e]
-    if loop and len(x) > n:
-        cola = x[n:]; m = min(n, len(cola)); out[:m] += cola[:m]
-    return procesar(out, fam, semilla)
+    return x
 
 
 def procesar(x, fam, semilla=5):
