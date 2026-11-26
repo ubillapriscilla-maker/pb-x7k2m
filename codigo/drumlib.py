@@ -322,9 +322,9 @@ def render(cfg, salida):
         dr = bateria.render(ev, total, estilo, loop=True)
         kicks = [e[0] for e in ev if e[1] == "kick"]
         mitad = bars // 2
-        mu = banda.componer(bpm, bars, kicks, bars, tonica=62, semilla=sum(map(ord, estilo)) + bpm, estilo=estilo,
+        mu = None if cfg.get("sin_musica") else banda.componer(bpm, bars, kicks, bars, tonica=62, semilla=sum(map(ord, estilo)) + bpm, estilo=estilo,
                             plan=[("estrofa", mitad), ("coro", bars - mitad)])
-        mix = bateria.mezclar(dr, mu)
+        mix = bateria.mezclar(dr, mu) if not cfg.get("sin_musica") else dr / (np.abs(dr).max() + 1e-9) * 0.9
         with wave.open(wav, "wb") as w:
             w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR)
             w.writeframes((np.clip(mix, -1, 1) * 32767).astype(np.int16).tobytes())
