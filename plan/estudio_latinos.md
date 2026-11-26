@@ -26,12 +26,23 @@ C. Variante con cencerro (Batacas): bombo en negras, cáscara (corchea + 2 semis
 D. Bombo "tumbao" (siguiendo al bajo) en algunos momentos (Batacas; Reverb.com).
 - Bajo: tumbao de tónica y quinta con anticipaciones; güiro en los contratiempos junto a las congas (Melodigging, cumbia argentina).
 
+### Cómo toca cada instrumento (fuentes por instrumento, 26 nov 2026)
+- Güiro / güira: el gesto central es un raspado largo seguido de dos cortos en cada tiempo, "chaaa-chi-ki" (Veena Studio, guía de música latina). Grilla: largo en x--- x--- x--- x---, cortos en --xx --xx --xx --xx.
+- Bajo: tónica y quinta (y octava), notas cortas (staccato); patrón "negra y dos corcheas" dos veces por compás con tónica, quinta y octava (De Bajo Eléctrico, 10 ritmos de cumbia, patrón 3). Grilla: T--- 5-8- T--- 5-8-.
+- Teclado (tesis UNLP "El teclado en la cumbia"): la BASE (mano izquierda, casi siempre piano) marca el contratiempo, la segunda corchea de cada pulso, con tríadas o tétradas entre Do4 y Fa5 (en villera una octava más grave); es el único rol constante de toda la canción. El COLCHÓN (mano derecha) son sonidos sostenidos tipo cuerdas, órgano o coro entre Fa#4 y Fa#5, eventual. La FIGURA es la melodía o contramelodía (acordeón, trompeta, saxo, flauta de pan o sintes lead), de Sol3 a Do6. La marcación del contratiempo del piano junto con la guitarra eléctrica y la conga grave es esencial en el ritmo.
+- Congas: en 4 tiempos, palma (golpe sordo), abierto, palma, abierto (Entrebongos, cumbia colombiana en congas); el llamador va siempre a contratiempo y es lo más importante, porque la cumbia "va cruzada" (Batacas).
+- Armonía: dos o tres acordes, I-V o i-V7; tempo 85-105 BPM (Veena Studio).
+- Batería moderna: bombo suave en 1 y 3, aro/caja en 2 y 4, hi-hat liviano (Melodigging).
+
 ### Variantes regionales
 - Cumbia peruana / chicha: guitarra eléctrica protagonista (punteos y arpegios), órgano/teclado, timbales, bongó, güiro, congas; sin acordeón ni vientos de madera (Wikipedia; El Peruano, J. Cosamalón).
 - Cumbia argentina: santafesina (acordeón y guitarra), villera (teclados/sintes, influencias de reggae y electrónica), sonidera, norteña (Wikipedia; Rolling Stone vía Wikipedia).
 - Cumbia chilena: PENDIENTE confirmar con la grabación de Priscilla (drumcam aPbfaVYHGzo) antes de publicar.
 
-### Muestra hecha (codigo/demo_cumbia.py)
+### Muestra hecha (codigo/demo_cumbia.py, versión 2)
+Versión 2 (26 nov): una sola cumbia de 16 compases a 96 BPM en La menor (Lam-Lam-Mi7-Mi7-Lam-Rem-Mi7-Lam) con cada instrumento según lo de arriba y melodía escrita a mano en acordeón. La versión 1 (tres cumbias) sonaba mal: melodía al azar y partes sin el rol correcto.
+
+Versión 1 (descartada):
 1. Colombiana adaptada a batería (patrón A + guacharaca/güiro + llamador en conga), bajo tónica-quinta, acordeón.
 2. Del sur (patrón B con hi-hat abierto en contratiempos + güiro + remate de timbal), órgano en contratiempos y acordeón.
 3. Peruana/chicha (timbales, bongó, güiro, conga; guitarra eléctrica limpia arpegiada).
