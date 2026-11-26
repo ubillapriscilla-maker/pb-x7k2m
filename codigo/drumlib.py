@@ -317,7 +317,19 @@ def render(cfg, salida):
     ev, step = build_events(estilo, bpm, relleno, bars)
     total = bars * bar_dur
     wav = salida + ".wav"
-    audio(ev, total, wav)
+    if cfg.get("banda"):  # batería grabada + banda por estilo, compuestas juntas para este video (desde 26 nov 2026)
+        import bateria, banda
+        dr = bateria.render(ev, total, estilo, loop=True)
+        kicks = [e[0] for e in ev if e[1] == "kick"]
+        mitad = bars // 2
+        mu = banda.componer(bpm, bars, kicks, bars, tonica=62, semilla=sum(map(ord, estilo)) + bpm, estilo=estilo,
+                            plan=[("estrofa", mitad), ("coro", bars - mitad)])
+        mix = bateria.mezclar(dr, mu)
+        with wave.open(wav, "wb") as w:
+            w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR)
+            w.writeframes((np.clip(mix, -1, 1) * 32767).astype(np.int16).tobytes())
+    else:
+        audio(ev, total, wav)
     usadas = [v for v in ORDER_VIS if any(e[1] == v for e in ev)]
     col = {v: tema["cols"][ORDER.index("snare" if v == "aro" else v)] for v in ORDER}
     f_xs = ImageFont.truetype(BOLD, 34); f_sm = ImageFont.truetype(BOLD, 42); f_md = ImageFont.truetype(BOLD, 54)

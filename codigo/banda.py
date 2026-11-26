@@ -316,7 +316,7 @@ def componer(bpm, nbars, kicks_loop, loop_bars, tonica=62, semilla=1, clic=False
             raiz = ton + rel
             pcs = notas_acorde(raiz, tipo)
             ks_b = sorted(kick_steps.get(b % loop_bars, {0}))
-            ultimo = (sec == 'final' and k == nb - 1) or b == nbars - 1
+            ultimo = sec == 'final' and k == nb - 1
             lleno = sec in ('coro', 'final', 'puente')
             if ultimo:  # golpe final: todos juntos en el 1 y que suene
                 _final(add, fam, pcs, raiz, tb, bar, previo)
