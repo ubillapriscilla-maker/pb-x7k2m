@@ -16,7 +16,7 @@ import numpy as np
 import banda as B
 
 SR = 44100
-NOTA = {'rim': 38, 'kick': 36, 'snare': 38, 'aro': 37, 'hat': 42, 'ohat': 46, 'crash': 49, 'ride': 51, 't1': 50, 't2': 47, 't3': 43}
+NOTA = {'timb_a': 65, 'timb_b': 66, 'rim': 38, 'kick': 36, 'snare': 38, 'aro': 37, 'hat': 42, 'ohat': 46, 'crash': 49, 'ride': 51, 't1': 50, 't2': 47, 't3': 43}
 KIT = {'rock': 16, 'punk': 16, 'metal': 16, 'funk': 8, 'motown': 8, 'disco': 8, 'ska': 8, 'reggae': 8, 'hiphop': 8,
        'pop': 1, 'bossa': 32, 'reggaeton': 25}
 
@@ -45,7 +45,7 @@ def render(ev, total, estilo, semilla=5, loop=True):
         paso = resto[0] if resto else 0
         acento = 1.0 if paso % 4 == 0 else (0.9 if paso % 2 == 0 else 0.8)
         v = g * (acento if voz in ('hat', 'ride') else 1.0)
-        base = {'rim': 118, 'kick': 112, 'snare': 108, 'aro': 100, 'hat': 92, 'ohat': 96, 'crash': 108, 'ride': 92}.get(voz, 105)
+        base = {'timb_a': 110, 'timb_b': 108, 'rim': 118, 'kick': 112, 'snare': 108, 'aro': 100, 'hat': 92, 'ohat': 96, 'crash': 108, 'ride': 92}.get(voz, 105)
         vel = int(np.clip(base * v + rng.normal(0, 5), 30, 127))
         notas.append((max(0.0, t + rng.normal(0, 0.003)), NOTA[voz], vel, voz))
     aj = AJUSTE.get(fam, {})
