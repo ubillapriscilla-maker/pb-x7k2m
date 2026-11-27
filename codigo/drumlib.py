@@ -266,29 +266,57 @@ def audio(ev, total, path):
         w.writeframes((mix * 32767).astype(np.int16).tobytes())
 
 
-HOOK_T = 2.4
-HOOKS = {1: ("TU PRIMER RITMO", "Fácil: toca conmigo"), 2: ("SUENA A CANCIÓN", "y es más fácil de lo que crees"),
-         3: ("¿PUEDES TOCARLO?", "Un nivel más arriba"), 4: ("DESAFÍO DE BATERÍA", "Hazlo lento y sube el BPM"),
-         5: ("NIVEL EXPERTO", "¿Lo logras limpio?")}
+HOOK_T = 2.2
+FADE_T = 0.12
+# Gancho de los primeros segundos (27 nov 2026): PANTALLA COMPLETA, mismo crema del curso (sin rojo ni naranja),
+# con la promesa ESPECÍFICA del video. El audio ya suena desde el segundo 0; al terminar se funde con la tablatura.
+HOOKS = {1: ("¿TE SALE ESTE RITMO?", "{n}"), 2: ("ESTE RITMO SUENA PRO", "{n}"),
+         3: ("¿PUEDES TOCARLO?", "{n}"), 4: ("DESAFÍO DE BATERÍA", "{n}"),
+         5: ("¿LO LOGRAS LIMPIO?", "{n}")}
+
+
+def _envuelve(d, texto, tam, max_w, max_lineas, minimo=36):
+    """Mayor fuente (hasta tam) con la que el texto cabe en max_lineas líneas de ancho max_w. Devuelve (fuente, líneas)."""
+    while True:
+        f = ImageFont.truetype(BOLD, tam)
+        lineas, act = [], ""
+        for w in texto.split():
+            prueba = (act + " " + w).strip()
+            if d.textlength(prueba, font=f) <= max_w or not act:
+                act = prueba
+            else:
+                lineas.append(act); act = w
+        if act:
+            lineas.append(act)
+        if (len(lineas) <= max_lineas and all(d.textlength(l, font=f) <= max_w for l in lineas)) or tam <= minimo:
+            return f, lineas
+        tam -= 4
 
 
 def _hook(d, fr, cfg, tema, titulo, bpm, t, f_big, f_sm, f_xs, compacto=False):
-    """Portada animada de los primeros segundos: promesa clara. No toca audio ni duracion."""
+    """Portada de pantalla completa de los primeros segundos. No toca audio ni duración."""
+    nombre = ESTILOS_TODOS[cfg["estilo"]]["nombre"]
     a, b = cfg.get("hook") or HOOKS[cfg["nivel"]]
-    off = int(max(0, 1 - t / 0.25) ** 2 * 120)  # entra desde arriba en 0.25 s
-    if compacto:  # solo la franja de arriba: la batería dibujada queda visible desde el primer segundo
-        f_h = ImageFont.truetype(BOLD, 80 if len(a) < 16 else 68)
-        d.rectangle([0, 0, W, 225], fill=tema["top"])
-        d.text((40, 20 - off), a, font=f_h, fill=tema["acc"])
-        d.text((40, 120 - off), b, font=f_sm, fill=tema["txt"])
-        d.text((40, 175 - off), f"{titulo}  ·  {bpm} BPM", font=f_xs, fill=tema["mut"])
-        return
-    f_h = ImageFont.truetype(BOLD, 96 if len(a) < 16 else 84)
-    d.rectangle([0, 0, W, 470], fill=tema["bg"] if "bg" in tema else tema["top"])
-    d.text((60, 70 - off), a, font=f_h, fill=tema["acc"])
-    d.text((60, 215 - off), b, font=f_sm, fill=tema["txt"])
-    d.text((60, 290 - off), f"{titulo}  ·  {bpm} BPM", font=f_sm, fill=tema["mut"])
-    d.text((60, 380 - off), "Quédate 20 segundos y tócalo", font=f_xs, fill=tema["txt"])
+    b = b.replace("{n}", nombre)
+    ov = fondo(tema)
+    od = ImageDraw.Draw(ov)
+    x0, x1 = 70, W - 170                     # evita el borde derecho que tapa YouTube
+    f1, l1 = _envuelve(od, a, 150, x1 - x0, 3)
+    f2, l2 = _envuelve(od, b, 60, x1 - x0, 3, 40)
+    f3 = ImageFont.truetype(BOLD, 48)
+    h1, h2 = int(f1.size * 1.12), int(f2.size * 1.25)
+    alto = len(l1) * h1 + 50 + len(l2) * h2 + 60 + 60
+    y = 800 - alto // 2                      # centrado, lejos de la zona baja que tapa YouTube
+    for l in l1:
+        od.text((x0, y), l, font=f1, fill=tema["txt"]); y += h1
+    y += 20
+    od.rectangle([x0, y, x0 + 180, y + 10], fill=tema["txt"]); y += 40
+    for l in l2:
+        od.text((x0, y), l, font=f2, fill=tema["mut"]); y += h2
+    y += 30
+    od.text((x0, y), f"{bpm} BPM  ·  tócalo conmigo", font=f3, fill=tema["txt"])
+    alfa = 1.0 if t < HOOK_T - FADE_T else max(0.0, (HOOK_T - t) / FADE_T)
+    fr.paste(Image.blend(fr, ov, alfa) if alfa < 1.0 else ov)
 
 
 
@@ -527,8 +555,6 @@ def render(cfg, salida):
                         if mano and dt > -0.05:
                             mw = d.textlength(mano, font=f_xs)
                             d.text((cx - mw / 2, y - 19), mano, font=f_xs, fill=tema["bot"])
-        if t < HOOK_T:
-            _hook(d, fr, cfg, tema, titulo, bpm, t, f_big, f_sm, f_xs, compacto=con_kit)
         ya, yb = (1565, 1630) if con_kit else (1640, 1720)
         if con_kit:  # español grande + inglés chico debajo (la tablatura se entiende en cualquier idioma)
             if cfg.get("cta", True) and t >= total * 0.65:
@@ -553,6 +579,8 @@ def render(cfg, salida):
             d.text((60, 1810), WATERMARK, font=f_xs, fill=tema["mut"])
         if usa_manos:
             leyenda_manos(d, 940 if con_kit else W - 40, fin_tab + 14 if con_kit else 1490, tema, f_xs)
+        if t < HOOK_T:  # el gancho va al final para tapar TODO (textos de abajo y leyenda incluidos)
+            _hook(d, fr, cfg, tema, titulo, bpm, t, f_big, f_sm, f_xs, compacto=con_kit)
         p.stdin.write(fr.tobytes())
     p.stdin.close(); p.wait()
     import os
